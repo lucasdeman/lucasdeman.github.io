@@ -46,6 +46,7 @@
 </script>
 
 <script>
+var myVar;
 var ikwin = 0;
 var beurt = 0;
 var a;
@@ -199,12 +200,14 @@ a = 6;
 
 														/*randum ongekozen vakje*/
 if (a == "ongekozen"){
-if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
-a = 1;
-}else if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
+
+
+if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
 a = 3;
 }else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
 a = 2;
+}else if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
+a = 1;
 }else if (zet1 != 6 && zet2 != 6 && zet3 != 6 && zet4 != 6 && zet1a != 6 && zet2a != 6 && zet3a != 6 && zet4a != 6) {
 a = 6;
 }else if (zet1 != 14 && zet2 != 14 && zet3 != 14 && zet4 != 14 && zet1a != 14 && zet2a != 14 && zet3a != 14 && zet4a != 14) {
@@ -582,9 +585,12 @@ zet4a = a;
 
 
 document.getElementById(a).innerHTML = "o";
+
 if (ikwin == 1){
 window.alert("IK WIN");
+
 location.reload();
+
 }
 document.getElementById(a).onClick = "";
 document.getElementById(a).id = "nope" + a;
