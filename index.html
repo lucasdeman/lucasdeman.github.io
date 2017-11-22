@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <body>
-<button id="1" onclick="myFunction(1)">-</button>
-<button id="2" onclick="myFunction(2)">-</button>
-<button id="3" onclick="myFunction(3)">-</button><br>
-<button id="6" onclick="myFunction(6)">-</button>
-<button id="14" onclick="myFunction(14)">-</button>
-<button id="20" onclick="myFunction(20)">-</button><br>
-<button id="7" onclick="myFunction(7)">-</button>
-<button id="16" onclick="myFunction(16)">-</button>
-<button id="23" onclick="myFunction(23)">-</button><br>
+<button class="button" id="1" onclick="myFunction(1)">-</button>
+<button class="button" id="2" onclick="myFunction(2)">-</button>
+<button class="button" id="3" onclick="myFunction(3)">-</button><br>
+<button class="button" id="6" onclick="myFunction(6)">-</button>
+<button class="button" id="14" onclick="myFunction(14)">-</button>
+<button class="button" id="20" onclick="myFunction(20)">-</button><br>
+<button class="button" id="7" onclick="myFunction(7)">-</button>
+<button class="button" id="16" onclick="myFunction(16)">-</button>
+<button class="button" id="23" onclick="myFunction(23)">-</button><br>
 
 <script>
 var beurt = 0;
@@ -125,6 +125,7 @@ if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a !=
 a = "ongekozen";
 }}
 
+
 if (a == "ongekozen") {
 if (zet1 > zet2) {
 a = zet1 - zet2;
@@ -157,10 +158,10 @@ a = 6;
 if (a == "ongekozen"){
 if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
 a = 1;
-}else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
-a = 2;
 }else if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
 a = 3;
+}else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
+a = 2;
 }else if (zet1 != 6 && zet2 != 6 && zet3 != 6 && zet4 != 6 && zet1a != 6 && zet2a != 6 && zet3a != 6 && zet4a != 6) {
 a = 6;
 }else if (zet1 != 14 && zet2 != 14 && zet3 != 14 && zet4 != 14 && zet1a != 14 && zet2a != 14 && zet3a != 14 && zet4a != 14) {
@@ -208,6 +209,7 @@ nr8 = 0;
 if (zet1 == 23 || zet2 == 23 || zet3 == 23 || zet4 == 23 || zet1a == 23 || zet2a == 23 || zet3a == 23 || zet4a == 23) {
 nr9 = 0;
 }
+
 
 if (zet1a > zet2a) {
 a = zet1a - zet2a;
@@ -364,6 +366,7 @@ if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 }
 
+
 if (zet3a > zet4a) {
 a = zet3a - zet4a;
 }
@@ -377,6 +380,7 @@ a = zet3a + zet4a;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 }
+
 
 if (a == "ongekozen") {
 if (zet1 > zet4) {
@@ -462,6 +466,7 @@ zet3a = a;
 if (beurt == 4) {
 zet4a = a;
 }
+
 
 
 document.getElementById(a).innerHTML = "o";
