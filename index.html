@@ -5,7 +5,7 @@
 .button{
     background-color: #4CAF50;
     border: none;
-    padding: 10px 13px;
+    padding: 20px 26px;
     margin: 4px 2px;
 }
 
@@ -22,6 +22,7 @@
 <button class="button" id="23" onclick="myFunction(23)">-</button><br>
 
 <script>
+var ikwin = 0;
 var beurt = 0;
 var a;
 var zet1;
@@ -77,7 +78,7 @@ beurt = 0;
 														/*beurt 1*/
 if (beurt == 1) {
 if (zet1 == 14) {
-a = 1;
+a = 3;
 }else{
 a = 14;
 }
@@ -223,16 +224,21 @@ nr9 = 0;
 
 if (zet1a > zet2a) {
 a = zet1a - zet2a;
+ikwin = 1;
 }
 if (zet1a < zet2a) {
 a = zet2a - zet1a;
+ikwin = 1;
 }
 if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
 a = "ongekozen";
+ikwin = 0;
 }
 a = zet1a + zet2a;
+ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
+ikwin = 0;
 }
 
 
@@ -349,48 +355,75 @@ a = 3;
 
 if (zet1a > zet3a) {
 a = zet1a - zet3a;
+ikwin = 1;
 }
 if (zet1a < zet3a) {
 a = zet3a - zet1a;
+ikwin = 1;
 }
 if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
 a = "ongekozen";
+ikwin = 0;
 }
 a = zet1a + zet3a;
+ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
+ikwin = 0;
 }
 
 
 if (zet2a > zet3a) {
 a = zet2a - zet3a;
+ikwin = 1;
 }
 if (zet2a < zet3a) {
 a = zet3a - zet2a;
+ikwin = 1;
 }
 if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
 a = "ongekozen";
+ikwin = 0;
 }
 a = zet2a + zet3a;
+ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
+ikwin = 0;
 }
 
 
 if (zet3a > zet4a) {
 a = zet3a - zet4a;
+ikwin = 1;
 }
 if (zet3a < zet4a) {
 a = zet4a - zet3a;
+ikwin = 1;
 }
 if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
 a = "ongekozen";
+ikwin = 0;
 }
 a = zet3a + zet4a;
+ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
+ikwin = 0;
 }
 
+if (a == "ongekozen"){
+if (zet1 == 14){
+if (zet4 == 1){
+a = 23;
+}else if (zet4 == 3){
+a = 7;
+}else if (zet4 == 23){
+a = 1;
+}else if (zet4 == 7){
+a = 3;
+}
+}}
 
 if (a == "ongekozen") {
 if (zet1 > zet4) {
@@ -480,6 +513,9 @@ zet4a = a;
 
 
 document.getElementById(a).innerHTML = "o";
+if (ikwin == 1){
+window.alert("IK WIN");
+}
 document.getElementById(a).id = "";
 document.getElementById(a).onclick = "";
 
@@ -488,3 +524,5 @@ document.getElementById(a).onclick = "";
 </script>
 </body>
 </html>
+
+
