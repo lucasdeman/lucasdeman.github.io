@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="test">-<p>
+<button id="1" onclick="myFunction(1)">-</button>
+<button id="2" onclick="myFunction(2)">-</button>
+<button id="3" onclick="myFunction(3)">-</button><br>
+<button id="6" onclick="myFunction(6)">-</button>
+<button id="14" onclick="myFunction(14)">-</button>
+<button id="20" onclick="myFunction(20)">-</button><br>
+<button id="7" onclick="myFunction(7)">-</button>
+<button id="16" onclick="myFunction(16)">-</button>
+<button id="23" onclick="myFunction(23)">-</button><br>
+
+<script>
+var beurt = 0;
+var a;
+var zet1;
+var zet2;
+var zet3;
+var zet4;
+var zet1a;
+var zet2a;
+var zet3a;
+var zet4a;
+var nr1 = 1;
+var nr2 = 2;
+var nr3 = 3;
+var nr4 = 6;
+var nr5 = 14;
+var nr6 = 20;
+var nr7 = 7;
+var nr8 = 16;
+var nr9 = 23;
+
+
+function myFunction(b) {
+beurt++;
+nr1 = 1;
+nr2 = 2;
+nr3 = 3;
+nr4 = 6;
+nr5 = 14;
+nr6 = 20;
+nr7 = 7;
+nr8 = 16;
+nr9 = 23;
+a = "ongekozen";
+var knop = b;
+document.getElementById(knop).innerHTML = "x";
+document.getElementById(knop).onclick = "";
+document.getElementById(knop).id = "";
+if (beurt == 1) {
+zet1 = b;
+}
+if (beurt == 2) {
+zet2 = b;
+}
+if (beurt == 3) {
+zet3 = b;
+}
+if (beurt == 4) {
+zet4 = b;
+}
+if (beurt == 5) {
+beurt = 0;
+}else{
+														/*beurt 1*/
+if (beurt == 1) {
+if (zet1 == 14) {
+a = 1;
+}else{
+a = 14;
+}
+}
+														/*beurt 2*/
+
+if (beurt == 2) {
+
+if (zet1 == 1 || zet2 == 1 || zet3 == 1 || zet4 == 1 || zet1a == 1 || zet2a == 1 || zet3a == 1 || zet4a == 1) {
+nr1 = 0;
+}
+if (zet1 == 2 || zet2 == 2 || zet3 == 2 || zet4 == 2 || zet1a == 2 || zet2a == 2 || zet3a == 2 || zet4a == 2) {
+nr2 = 0;
+}
+if (zet1 == 3 || zet2 == 3 || zet3 == 3 || zet4 == 3 || zet1a == 3 || zet2a == 3 || zet3a == 3 || zet4a == 3) {
+nr3 = 0;
+}
+if (zet1 == 6 || zet2 == 6 || zet3 == 6 || zet4 == 6 || zet1a == 6 || zet2a == 6 || zet3a == 6 || zet4a == 6) {
+nr4 = 0;
+}
+if (zet1 == 14 || zet2 == 14 || zet3 == 14 || zet4 == 14 || zet1a == 14 || zet2a == 14 || zet3a == 14 || zet4a == 14) {
+nr5 = 0;
+}
+if (zet1 == 20 || zet2 == 20 || zet3 == 20 || zet4 == 20 || zet1a == 20 || zet2a == 20 || zet3a == 20 || zet4a == 20) {
+nr6 = 0;
+}
+if (zet1 == 7 || zet2 == 7 || zet3 == 7 || zet4 == 7 || zet1a == 7 || zet2a == 7 || zet3a == 7 || zet4a == 7) {
+nr7 = 0;
+}
+if (zet1 == 16 || zet2 == 16 || zet3 == 16 || zet4 == 16 || zet1a == 16 || zet2a == 16 || zet3a == 16 || zet4a == 16) {
+nr8 = 0;
+}
+if (zet1 == 23 || zet2 == 23 || zet3 == 23 || zet4 == 23 || zet1a == 23 || zet2a == 23 || zet3a == 23 || zet4a == 23) {
+nr9 = 0;
+}
+
+if (zet1 + zet2 == 24) {
+a = 2;
+}
+if (zet1 + zet2 == 10) {
+a = 2;
+}														/*standart*/
+
+if (zet1 == 14) {
+if (zet2 == 3) {
+a = 7;
+}else if (zet2 == 1) {
+a = 23;
+}else if (zet2 == 7) {
+a = 3;
+}else if (zet2 == 23) {
+a = 1;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}}
+
+if (a == "ongekozen") {
+if (zet1 > zet2) {
+a = zet1 - zet2;
+}
+if (zet1 < zet2) {
+a = zet2 - zet1;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+if (a == "ongekozen") {
+a = zet1 + zet2;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}
+}}
+														/*stoptstandart*/
+if (zet1 == 2) {
+if (zet2 == 16) {
+a = 6;
+}
+}
+if (zet1 == 16) {
+if (zet2 == 2) {
+a = 6;
+}
+}
+
+														/*randum ongekozen vakje*/
+if (a == "ongekozen"){
+if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
+a = 1;
+}else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
+a = 2;
+}else if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
+a = 3;
+}else if (zet1 != 6 && zet2 != 6 && zet3 != 6 && zet4 != 6 && zet1a != 6 && zet2a != 6 && zet3a != 6 && zet4a != 6) {
+a = 6;
+}else if (zet1 != 14 && zet2 != 14 && zet3 != 14 && zet4 != 14 && zet1a != 14 && zet2a != 14 && zet3a != 14 && zet4a != 14) {
+a = 14;
+}else if (zet1 != 20 && zet2 != 20 && zet3 != 20 && zet4 != 20 && zet1a != 20 && zet2a != 20 && zet3a != 20 && zet4a != 20) {
+a = 20;
+}else if (zet1 != 7 && zet2 != 7 && zet3 != 7 && zet4 != 7 && zet1a != 7 && zet2a != 7 && zet3a != 7 && zet4a != 7) {
+a = 7;
+}else if (zet1 != 16 && zet2 != 16 && zet3 != 16 && zet4 != 16 && zet1a != 16 && zet2a != 16 && zet3a != 16 && zet4a != 16) {
+a = 16;
+}else if (zet1 != 23 && zet2 != 23 && zet3 != 23 && zet4 != 23 && zet1a != 23 && zet2a != 23 && zet3a != 23 && zet4a != 23) {
+a = 23;
+}}
+														/*stoptrandum ongekozen vakje*/
+}
+
+														/*beurt 3*/
+
+if (beurt == 3) {
+
+if (zet1 == 1 || zet2 == 1 || zet3 == 1 || zet4 == 1 || zet1a == 1 || zet2a == 1 || zet3a == 1 || zet4a == 1) {
+nr1 = 0;
+}
+if (zet1 == 2 || zet2 == 2 || zet3 == 2 || zet4 == 2 || zet1a == 2 || zet2a == 2 || zet3a == 2 || zet4a == 2) {
+nr2 = 0;
+}
+if (zet1 == 3 || zet2 == 3 || zet3 == 3 || zet4 == 3 || zet1a == 3 || zet2a == 3 || zet3a == 3 || zet4a == 3) {
+nr3 = 0;
+}
+if (zet1 == 6 || zet2 == 6 || zet3 == 6 || zet4 == 6 || zet1a == 6 || zet2a == 6 || zet3a == 6 || zet4a == 6) {
+nr4 = 0;
+}
+if (zet1 == 14 || zet2 == 14 || zet3 == 14 || zet4 == 14 || zet1a == 14 || zet2a == 14 || zet3a == 14 || zet4a == 14) {
+nr5 = 0;
+}
+if (zet1 == 20 || zet2 == 20 || zet3 == 20 || zet4 == 20 || zet1a == 20 || zet2a == 20 || zet3a == 20 || zet4a == 20) {
+nr6 = 0;
+}
+if (zet1 == 7 || zet2 == 7 || zet3 == 7 || zet4 == 7 || zet1a == 7 || zet2a == 7 || zet3a == 7 || zet4a == 7) {
+nr7 = 0;
+}
+if (zet1 == 16 || zet2 == 16 || zet3 == 16 || zet4 == 16 || zet1a == 16 || zet2a == 16 || zet3a == 16 || zet4a == 16) {
+nr8 = 0;
+}
+if (zet1 == 23 || zet2 == 23 || zet3 == 23 || zet4 == 23 || zet1a == 23 || zet2a == 23 || zet3a == 23 || zet4a == 23) {
+nr9 = 0;
+}
+
+if (zet1a > zet2a) {
+a = zet1a - zet2a;
+}
+if (zet1a < zet2a) {
+a = zet2a - zet1a;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+a = zet1a + zet2a;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}
+
+
+if (a == "ongekozen") {
+if (zet1 > zet3){
+a = zet1 - zet3;
+}
+if (zet1 < zet3){
+a = zet3 - zet1;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}}
+if (a == "ongekozen") {
+a = zet1 + zet3;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}
+
+if (a == "ongekozen"){
+if (zet1 == 14){
+if (zet3 == 7){
+a = 3;
+}else if (zet3 == 3){
+a = 7;
+}}}
+
+if (a == "ongekozen") {
+if (zet2 > zet3) {
+a = zet2 - zet3;
+}
+if (zet2 < zet3) {
+a = zet3 - zet2;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}}
+if (a == "ongekozen") {
+a = zet2 + zet3;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}
+
+if (a == "ongekozen"){
+if (zet3 == 2){
+a = 6;
+}}
+
+if (a == "ongekozen"){
+if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
+a = 1;
+}else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
+a = 2;
+}else if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
+a = 3;
+}else if (zet1 != 6 && zet2 != 6 && zet3 != 6 && zet4 != 6 && zet1a != 6 && zet2a != 6 && zet3a != 6 && zet4a != 6) {
+a = 6;
+}else if (zet1 != 14 && zet2 != 14 && zet3 != 14 && zet4 != 14 && zet1a != 14 && zet2a != 14 && zet3a != 14 && zet4a != 14) {
+a = 14;
+}else if (zet1 != 20 && zet2 != 20 && zet3 != 20 && zet4 != 20 && zet1a != 20 && zet2a != 20 && zet3a != 20 && zet4a != 20) {
+a = 20;
+}else if (zet1 != 7 && zet2 != 7 && zet3 != 7 && zet4 != 7 && zet1a != 7 && zet2a != 7 && zet3a != 7 && zet4a != 7) {
+a = 7;
+}else if (zet1 != 16 && zet2 != 16 && zet3 != 16 && zet4 != 16 && zet1a != 16 && zet2a != 16 && zet3a != 16 && zet4a != 16) {
+a = 16;
+}else if (zet1 != 23 && zet2 != 23 && zet3 != 23 && zet4 != 23 && zet1a != 23 && zet2a != 23 && zet3a != 23 && zet4a != 23) {
+a = 23;
+}}
+
+}
+
+
+														/*beurt 4*/
+
+if (beurt == 4) {
+
+if (zet1 == 1 || zet2 == 1 || zet3 == 1 || zet4 == 1 || zet1a == 1 || zet2a == 1 || zet3a == 1 || zet4a == 1) {
+nr1 = 0;
+}
+if (zet1 == 2 || zet2 == 2 || zet3 == 2 || zet4 == 2 || zet1a == 2 || zet2a == 2 || zet3a == 2 || zet4a == 2) {
+nr2 = 0;
+}
+if (zet1 == 3 || zet2 == 3 || zet3 == 3 || zet4 == 3 || zet1a == 3 || zet2a == 3 || zet3a == 3 || zet4a == 3) {
+nr3 = 0;
+}
+if (zet1 == 6 || zet2 == 6 || zet3 == 6 || zet4 == 6 || zet1a == 6 || zet2a == 6 || zet3a == 6 || zet4a == 6) {
+nr4 = 0;
+}
+if (zet1 == 14 || zet2 == 14 || zet3 == 14 || zet4 == 14 || zet1a == 14 || zet2a == 14 || zet3a == 14 || zet4a == 14) {
+nr5 = 0;
+}
+if (zet1 == 20 || zet2 == 20 || zet3 == 20 || zet4 == 20 || zet1a == 20 || zet2a == 20 || zet3a == 20 || zet4a == 20) {
+nr6 = 0;
+}
+if (zet1 == 7 || zet2 == 7 || zet3 == 7 || zet4 == 7 || zet1a == 7 || zet2a == 7 || zet3a == 7 || zet4a == 7) {
+nr7 = 0;
+}
+if (zet1 == 16 || zet2 == 16 || zet3 == 16 || zet4 == 16 || zet1a == 16 || zet2a == 16 || zet3a == 16 || zet4a == 16) {
+nr8 = 0;
+}
+if (zet1 == 23 || zet2 == 23 || zet3 == 23 || zet4 == 23 || zet1a == 23 || zet2a == 23 || zet3a == 23 || zet4a == 23) {
+nr9 = 0;
+}
+
+if (zet1 == 14) {
+if (zet2 == 23) {
+if (zet3 == 6) {
+if (zet4 == 7) {
+a = 3;
+}
+}
+}
+}
+
+if (zet1a > zet3a) {
+a = zet1a - zet3a;
+}
+if (zet1a < zet3a) {
+a = zet3a - zet1a;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+a = zet1a + zet3a;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}
+
+
+if (zet2a > zet3a) {
+a = zet2a - zet3a;
+}
+if (zet2a < zet3a) {
+a = zet3a - zet2a;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+a = zet2a + zet3a;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}
+
+if (zet3a > zet4a) {
+a = zet3a - zet4a;
+}
+if (zet3a < zet4a) {
+a = zet4a - zet3a;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+a = zet3a + zet4a;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}
+
+if (a == "ongekozen") {
+if (zet1 > zet4) {
+a = zet1 - zet4;
+}
+if (zet1 < zet4) {
+a = zet4 - zet1;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+if (a == "ongekozen") {
+a = zet1 + zet4;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}}
+
+if (a == "ongekozen") {
+if (zet2 > zet4) {
+a = zet2 - zet4;
+}
+if (zet2 < zet4) {
+a = zet4 - zet2;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+if (a == "ongekozen") {
+a = zet2 + zet4;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}}
+
+if (a == "ongekozen") {
+if (zet3 > zet4) {
+a = zet3 - zet4;
+}
+if (zet3 < zet4) {
+a = zet4 - zet3;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+}
+if (a == "ongekozen") {
+a = zet3 + zet4;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}}
+
+
+if (a == "ongekozen"){
+if (zet1 != 1 && zet2 != 1 && zet3 != 1 && zet4 != 1 && zet1a != 1 && zet2a != 1 && zet3a != 1 && zet4a != 1) {
+a = 1;
+}else if (zet1 != 2 && zet2 != 2 && zet3 != 2 && zet4 != 2 && zet1a != 2 && zet2a != 2 && zet3a != 2 && zet4a != 2) {
+a = 2;
+}else if (zet1 != 3 && zet2 != 3 && zet3 != 3 && zet4 != 3 && zet1a != 3 && zet2a != 3 && zet3a != 3 && zet4a != 3) {
+a = 3;
+}else if (zet1 != 6 && zet2 != 6 && zet3 != 6 && zet4 != 6 && zet1a != 6 && zet2a != 6 && zet3a != 6 && zet4a != 6) {
+a = 6;
+}else if (zet1 != 14 && zet2 != 14 && zet3 != 14 && zet4 != 14 && zet1a != 14 && zet2a != 14 && zet3a != 14 && zet4a != 14) {
+a = 14;
+}else if (zet1 != 20 && zet2 != 20 && zet3 != 20 && zet4 != 20 && zet1a != 20 && zet2a != 20 && zet3a != 20 && zet4a != 20) {
+a = 20;
+}else if (zet1 != 7 && zet2 != 7 && zet3 != 7 && zet4 != 7 && zet1a != 7 && zet2a != 7 && zet3a != 7 && zet4a != 7) {
+a = 7;
+}else if (zet1 != 16 && zet2 != 16 && zet3 != 16 && zet4 != 16 && zet1a != 16 && zet2a != 16 && zet3a != 16 && zet4a != 16) {
+a = 16;
+}else if (zet1 != 23 && zet2 != 23 && zet3 != 23 && zet4 != 23 && zet1a != 23 && zet2a != 23 && zet3a != 23 && zet4a != 23) {
+a = 23;
+}}
+}
+
+
+if (beurt == 1) {
+zet1a = a;
+}
+if (beurt == 2) {
+zet2a = a;
+}
+if (beurt == 3) {
+zet3a = a;
+}
+if (beurt == 4) {
+zet4a = a;
+}
+
+
+document.getElementById(a).innerHTML = "o";
+document.getElementById(a).id = "";
+document.getElementById(a).onclick = "";
+
+
+}}
+</script>
+</body>
+</html>
