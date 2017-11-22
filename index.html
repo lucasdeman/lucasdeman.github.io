@@ -11,6 +11,7 @@
 
 </style>
 <body>
+<p id="test">-</p>
 <center>
 <button class="button" id="1" onclick="myFunction(1)">-</button>
 <button class="button" id="2" onclick="myFunction(2)">-</button>
@@ -118,26 +119,31 @@ if (zet1 == 23 || zet2 == 23 || zet3 == 23 || zet4 == 23 || zet1a == 23 || zet2a
 nr9 = 0;
 }
 
+if (zet1 == 14){
+if (zet2 == 1){
+a = 23;
+if (zet2 == 23){
+a = 1;
+if (zet2 == 3){
+a = 7;
+if (zet2 == 7){
+a = 3;
+}
+}
+}
+}
+}
+
+if (a == "ongekozen"){
 if (zet1 + zet2 == 24) {
 a = 2;
 }
 if (zet1 + zet2 == 10) {
 a = 2;
-}														/*standart*/
+}}														/*standart*/
 
-if (zet1 == 14) {
-if (zet2 == 3) {
-a = 7;
-}else if (zet2 == 1) {
-a = 23;
-}else if (zet2 == 7) {
-a = 3;
-}else if (zet2 == 23) {
-a = 1;
-}
-if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
-a = "ongekozen";
-}}
+
+
 
 
 if (a == "ongekozen") {
@@ -237,12 +243,13 @@ if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a !=
 a = "ongekozen";
 ikwin = 0;
 }
+if (a == "ongekozen"){
 a = zet1a + zet2a;
 ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 ikwin = 0;
-}
+}}
 
 
 if (a == "ongekozen") {
@@ -267,7 +274,15 @@ if (zet3 == 7){
 a = 3;
 }else if (zet3 == 3){
 a = 7;
-}}}
+}else if (zet3 == 1){
+a = 23;
+}else if (zet3 == 23){
+a = 1;
+}
+}
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+}}
 
 if (a == "ongekozen") {
 if (zet2 > zet3) {
@@ -368,14 +383,15 @@ if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a !=
 a = "ongekozen";
 ikwin = 0;
 }
+if (a == "ongekozen"){
 a = zet1a + zet3a;
 ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 ikwin = 0;
-}
+}}
 
-
+if (a == "ongekozen"){
 if (zet2a > zet3a) {
 a = zet2a - zet3a;
 ikwin = 1;
@@ -388,14 +404,15 @@ if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a !=
 a = "ongekozen";
 ikwin = 0;
 }
+if (a == "ongekozen"){
 a = zet2a + zet3a;
 ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 ikwin = 0;
-}
+}}}
 
-
+if (a == "ongekozen"){
 if (zet3a > zet4a) {
 a = zet3a - zet4a;
 ikwin = 1;
@@ -408,12 +425,35 @@ if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a !=
 a = "ongekozen";
 ikwin = 0;
 }
+if (a == "ongekozen"){
 a = zet3a + zet4a;
 ikwin = 1;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 ikwin = 0;
+}}}
+
+if (a == "ongekozen"){
+if (zet1 > zet4a) {
+a = zet1 - zet4a;
+ikwin = 1;
 }
+if (zet1a < zet4a) {
+a = zet4a - zet1a;
+ikwin = 1;
+}
+if (a != nr1 && a != nr2 && a != nr3 && a != nr3 && a != nr4 && a != nr5 && a != nr6 && a != nr7 && a != nr8) {
+a = "ongekozen";
+ikwin = 0;
+}
+if (a == "ongekozen"){
+a = zet1 + zet4a;
+ikwin = 1;
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";
+ikwin = 0;
+}}}
+
 
 if (a == "ongekozen"){
 if (zet1 == 14){
@@ -426,6 +466,8 @@ a = 1;
 }else if (zet4 == 7){
 a = 3;
 }
+if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
+a = "ongekozen";}
 }}
 
 if (a == "ongekozen") {
@@ -475,6 +517,7 @@ a = zet3 + zet4;
 if (a != nr9 && a != nr3 && a != nr5 && a != nr6 && a != nr8 && a != nr7) {
 a = "ongekozen";
 }}}
+
 
 
 if (a == "ongekozen"){
