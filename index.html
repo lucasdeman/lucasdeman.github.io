@@ -21,6 +21,7 @@
 <button class="button" id="7" onclick="myFunction(7)">-</button>
 <button class="button" id="16" onclick="myFunction(16)">-</button>
 <button class="button" id="23" onclick="myFunction(23)">-</button><br>
+<button class="button" id="restet" onclick="myFunction(99)">reset</button><br>
 </center>
 
 <script>
@@ -48,6 +49,9 @@ var nr9 = 23;
 
 function myFunction(b) {
 var knop = b;
+if (knop == 99){
+location.reload();
+}
 beurt++;
 nr1 = 1;
 nr2 = 2;
