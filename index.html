@@ -21,7 +21,6 @@
 <button class="button" id="7" onclick="myFunction(7)">-</button>
 <button class="button" id="16" onclick="myFunction(16)">-</button>
 <button class="button" id="23" onclick="myFunction(23)">-</button><br>
-<button class="button" id="opnieuw" onclick="snoep()">opnieuw</button>
 </center>
 
 <script>
@@ -46,51 +45,10 @@ var nr7 = 7;
 var nr8 = 16;
 var nr9 = 23;
 
-function snoep() {
-ikwin = 0;
-beurt = 0;
-a = 0;
-zet1 = 0;
-zet2 = 0;
-zet3 = 0;
-zet4 = 0;
-zet1a = 0;
-zet2a = 0;
-zet3a = 0;
-zet4a = 0;
-
-document.getElementById("nope1").id = "1";
-document.getElementById("nope2").id = "2";
-document.getElementById("nope3").id = "3";
-document.getElementById("nope6").id = "6";
-document.getElementById("nope14").id = "14";
-document.getElementById("nope20").id = "20";
-document.getElementById("nope7").id = "7";
-document.getElementById("nope16").id = "16";
-document.getElementById("nope23").id = "23";
-
-document.getElementById("1").onclick = "myFunction(1)";
-document.getElementById("2").onclick = "myFunction(2)";
-document.getElementById("3").onclick = "myFunction(3)";
-document.getElementById("6").onclick = "myFunction(6)";
-document.getElementById("14").onclick = "myFunction(14)";
-document.getElementById("20").onclick = "myFunction(20)";
-document.getElementById("7").onclick = "myFunction(7)";
-document.getElementById("16").onclick = "myFunction(16)";
-document.getElementById("23").onclick = "myFunction(23)";
-
-document.getElementById("1").innerHTML = "-";
-document.getElementById("2").innerHTML = "-";
-document.getElementById("3").innerHTML = "-";
-document.getElementById("6").innerHTML = "-";
-document.getElementById("14").innerHTML = "-";
-document.getElementById("20").innerHTML = "-";
-document.getElementById("7").innerHTML = "-";
-document.getElementById("16").innerHTML = "-";
-document.getElementById("23").innerHTML = "-";
-}
 
 function myFunction(b) {
+
+var knop = b;
 beurt++;
 nr1 = 1;
 nr2 = 2;
@@ -102,7 +60,6 @@ nr7 = 7;
 nr8 = 16;
 nr9 = 23;
 a = "ongekozen";
-var knop = b;
 document.getElementById(knop).innerHTML = "x";
 document.getElementById(knop).onclick = "";
 document.getElementById(knop).id = "";
