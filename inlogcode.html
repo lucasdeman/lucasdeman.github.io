@@ -14,6 +14,7 @@
 <h id="nr4"></h>
 <br>
 
+<button type="button" onclick="myFunction(50)">reset</button><br>
 <button type="button" onclick="myFunction(15)">backspace</button><br>
 <button type="button" onclick="myFunction(1)">1</button>
 <button type="button" onclick="myFunction(2)">2</button>
@@ -38,6 +39,20 @@ var x = 0;
 var y = 0;
 
 function myFunction(a){
+
+if (a == 50){
+    document.getElementById("nr1").innerHTML = "*";
+    document.getElementById("nr2").innerHTML = "*";
+    document.getElementById("nr3").innerHTML = "*";
+    document.getElementById("nr4").innerHTML = "";
+    x = 0;
+    v = 0;
+	b = 0;
+	n = 0;
+	x = 0;
+	y = 0;
+}
+
 var t = x + a;
 if (15 < t) {
 
@@ -87,6 +102,12 @@ if (x > 3) {
     document.getElementById("nr3").innerHTML = "*";
     document.getElementById("nr4").innerHTML = "";
     x = 0;
+    v = 0;
+	b = 0;
+	n = 0;
+	x = 0;
+	y = 0;
+
 }
 }
 }
