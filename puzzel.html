@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="test">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test1">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test2">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test3">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test4">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test5">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test6">Click the button to wait 3 seconds, then alert "Hello".</p>
+<p id="test7">Click the button to wait 3 seconds, then alert "Hello".</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="1">-</p><p id="2">-</p><p id="3">-</p><br>
+<p id="4">-</p><p id="5">-</p><p id="6">-</p><br>
+<p id="7">-</p><p id="8">-</p><p id="9">-</p><br>
+
+<script>
+var nr1;
+var nr2;
+var nr3;
+var nr4;
+var nr5;
+var nr6;
+var nr7;
+var nr8;
+var nr9;
+var a = 0;
+var jep = 0;
+function myFunction() {
+
+jep = 1;
+
+nr1 = Math.floor(Math.random() * 1000 - 500);
+nr2 = Math.floor(Math.random() * 1000 - 500);
+nr3 = Math.floor(Math.random() * 1000 - 500);
+nr4 = Math.floor(Math.random() * 1000 - 500);
+nr5 = Math.floor(Math.random() * 1000 - 500);
+nr6 = Math.floor(Math.random() * 1000 - 500);
+nr7 = Math.floor(Math.random() * 1000 - 500);
+nr8 = Math.floor(Math.random() * 1000 - 500);
+nr9 = Math.floor(Math.random() * 1000 - 500);
+
+document.getElementById("1").innerHTML = nr1;
+document.getElementById("2").innerHTML = nr2;
+document.getElementById("3").innerHTML = nr3;
+document.getElementById("4").innerHTML = nr4;
+document.getElementById("5").innerHTML = nr5;
+document.getElementById("6").innerHTML = nr6;
+document.getElementById("7").innerHTML = nr7;
+document.getElementById("8").innerHTML = nr8;
+document.getElementById("9").innerHTML = nr9;
+
+document.getElementById("test").innerHTML = jep;
+
+if (jep == 1){
+if (nr7 != nr1 + nr4) {
+jep = 0;
+}}document.getElementById("test1").innerHTML = jep;
+
+if (jep == 1){
+if (nr3 != nr1 + nr2) {
+jep = 0;
+}}document.getElementById("test2").innerHTML = jep;
+
+if (jep == 1){
+if (nr9 != nr1 + nr5) {
+jep = 0;
+}}document.getElementById("test3").innerHTML = jep;
+
+if (jep == 1){
+if (nr8 != nr2 + nr5) {
+jep = 0;
+}}document.getElementById("test4").innerHTML = jep;
+
+if (jep == 1){
+if (nr9 != nr3 + nr6) {
+jep = 0;
+}}document.getElementById("test5").innerHTML = jep;
+
+if (jep == 1){
+if (nr6 != nr4 + nr5) {
+jep = 0;
+}}document.getElementById("test6").innerHTML = jep;
+
+if (jep == 1){
+if (nr9 != nr7 + nr8) {
+jep = 0;
+}}document.getElementById("test7").innerHTML = jep;
+
+if (jep == 1){
+if (nr3 != nr5 + nr7){
+if (nr7 != nr5 + nr3){
+if (nr5 != nr3 + nr7){
+jep = 0;
+}else{
+jep = 1;
+}
+}else{
+jep = 1;
+}
+}else{
+jep = 1;
+}
+}
+
+   if (jep == 0){
+    setTimeout(myFunction, 1);
+    }
+
+}
+</script>
+
+</body>
+</html>
