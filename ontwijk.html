@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<style>
+#myContainer {
+  left: 350px;
+  top: -100px;
+  width: 500px;
+  height: 500px;
+  position: relative;
+  background: yellow;
+}
+#myAnimation {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: red;
+}
+#popetje {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: blue;
+  }
+.knop1{
+    left: 102px;
+    top: -2px;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 13px;
+    margin: 4px 2px;
+    font-size: 20px;
+    width: 95px;
+    height: 95px;
+}
+.knop2{
+    left: -102px;
+    top: 100px;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 13px;
+    margin: 4px 2px;
+    font-size: 20px;
+    width: 95px;
+    height: 95px;
+}
+.knop3{
+    left: -103px;
+    top: 130px;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 13px;
+    margin: 4px 2px;
+    font-size: 20px;
+    width: 95px;
+    height: 95px;
+}
+.knop4{
+    left: -105px;
+    top: 99px;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 13px;
+    margin: 4px 2px;
+    font-size: 20px;
+    width: 95px;
+    height: 95px;
+}
+.knop5{
+    left: -310px;
+    top: 200px;
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 13px;
+    margin: 4px 2px;
+    font-size: 20px;
+    width: 95px;
+    height: 95px;
+}
+
+</style>
+<body>
+
+<p id="test"></p>
+
+
+
+
+
+
+
+<div>
+<button class="knop1"  onclick="bewegen(1)">boven</button>
+<button class="knop2" onclick="bewegen(2)">links</button>
+<button class="knop3" onclick=""></button>
+<button class="knop4" onclick="bewegen(3)">rechts</button>
+<button class="knop5" onclick="bewegen(4)">beneden</button>
+</div>
+
+<div id ="myContainer">
+<div id ="myAnimation"></div>
+<div id ="popetje" style="top: 450px; left: 450px;"></div>
+</div>
+
+
+<script>
+var richting = 0;
+var elem = document.getElementById("myAnimation");   
+var omhoog = 0;
+var links = 0;
+var door = 0;
+var omhoog2 = 450;
+var links2 = 450;
+var levelnr = 0;
+var tijd = 500;
+var voorrang;
+
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+
+alert("ben je er klaar voor?");
+
+setTimeout(frame, 0);
+setTimeout(wiewint, 0);
+setTimeout(level, 10000);
+
+function level(){
+levelnr++;
+setTimeout(level, 10000 + levelnr * 3);
+tijd = 500 - levelnr * 10;
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+}
+
+
+function wiewint(){
+
+setTimeout(diewint, 150);
+
+function diewint() {
+if (omhoog - omhoog2 == 0){
+if (links - links2 == 0){
+alert('game over');
+
+levelnr = 0;
+omhoog = 0;
+links = 0;
+omhoog2 = 450;
+links2 = 450;
+levelnr = 0;
+
+document.getElementById("popetje").style.left = 450 + 'px';
+document.getElementById("popetje").style.top = 450 + 'px';
+
+elem.style.top = 0 + 'px'; 
+elem.style.left = 0 + 'px'; 
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+}
+}
+}
+
+setTimeout(wiewint, 0);
+}
+
+function frame() {
+door = 0;
+
+voorrang = Math.floor(Math.random() * 2); 
+
+if ( voorrang == 0){
+if (omhoog > omhoog2){
+richting = 2;
+}}
+
+if ( voorrang == 0){
+if (omhoog < omhoog2){
+richting = 0;
+}}
+
+if ( voorrang == 1){
+if (links < links2){
+richting = 1;
+}}
+
+if ( voorrang == 1){
+if (links > links2){
+richting = 3;
+}}
+
+
+
+if (links == 450) {
+if (richting == 1) {
+setTimeout(frame, 0);
+door = 1;
+}
+}
+
+if (links == 0) {
+if (richting == 3) {
+setTimeout(frame, 0);
+door = 1;
+}
+}
+
+if (omhoog == 0) {
+if (richting == 2) {
+setTimeout(frame, 0);
+door = 1;
+}
+}
+
+if (omhoog == 450) {
+if (richting == 0) {
+setTimeout(frame, 0);
+door = 1;
+}
+}
+
+if (door == 0){
+setTimeout(stap, 0);
+setTimeout(frame, tijd);
+}
+
+}
+
+
+function stap() {
+if (richting == 0){
+omhoog = omhoog + 50; 
+}
+if (richting == 1){
+links = links + 50; 
+}
+if (richting == 2){
+omhoog = omhoog - 50; 
+}
+if (richting == 3){
+links = links - 50; 
+}
+
+elem.style.top = omhoog + 'px'; 
+elem.style.left = links + 'px'; 
+
+if (omhoog - omhoog2 == 0){
+if (links - links2 == 0){
+alert('game over');
+}
+}
+
+} 
+
+function bewegen(nr){
+
+if (nr == 1){
+if (omhoog2 != 0){
+omhoog2 = omhoog2 - 50;
+}
+}
+
+if (nr == 4){
+if (omhoog2 != 450){
+omhoog2 = omhoog2 + 50;
+}
+}
+
+if (nr == 3){
+if (links2 != 450){
+links2 = links2 + 50;
+}
+}
+
+if (nr == 2){
+if (links2 != 0){
+links2 = links2 - 50;
+}
+}
+
+
+document.getElementById("popetje").style.left = links2 + 'px';
+document.getElementById("popetje").style.top = omhoog2 + 'px';
+}
+
+</script>
+
+</body>
+</html>
