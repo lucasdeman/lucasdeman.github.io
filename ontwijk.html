@@ -15,6 +15,12 @@
   position: absolute;
   background-color: red;
 }
+#myAnimation2 {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: yellow;
+}
 #popetje {
   width: 50px;
   height: 50px;
@@ -49,7 +55,6 @@
     left: -103px;
     top: 130px;
     position: relative;
-    background-color: #4CAF50;
     border: none;
     padding: 10px 13px;
     margin: 4px 2px;
@@ -96,12 +101,13 @@
 <div>
 <button class="knop1"  onclick="bewegen(1)">boven</button>
 <button class="knop2" onclick="bewegen(2)">links</button>
-<button class="knop3" onclick=""></button>
+<button style="background-color: rgb(255, 0, 0)" id='knop3' class="knop3" onclick="superatack()"></button>
 <button class="knop4" onclick="bewegen(3)">rechts</button>
 <button class="knop5" onclick="bewegen(4)">beneden</button>
 </div>
 
 <div id ="myContainer">
+<div id ="myAnimation2" style="background-color: yellow;"></div>
 <div id ="myAnimation"></div>
 <div id ="popetje" style="top: 450px; left: 450px;"></div>
 </div>
@@ -118,6 +124,15 @@ var links2 = 450;
 var levelnr = 0;
 var tijd = 500;
 var voorrang;
+var omhoog3  = 0;
+var links3 = 0;
+var richting2 = 0;
+var voorrang2;
+var r = 76;
+var g = 175;
+var b = 80;
+var geladen = 200;
+var stop = 0;
 
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 
@@ -127,19 +142,51 @@ setTimeout(frame, 0);
 setTimeout(wiewint, 0);
 setTimeout(level, 10000);
 
+
 function level(){
 levelnr++;
-setTimeout(level, 10000 + levelnr * 3);
+setTimeout(level, 10000 + levelnr * 10);
 tijd = 500 - levelnr * 10;
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+if (levelnr == 15){
+document.getElementById('myAnimation2').style.backgroundColor = 'green';
+}
+}
+
+function superatack(){
+if (geladen == 200){
+geladen = 0;
+r = 76;
+g = 175;
+b = 80;
+document.getElementById('knop3').style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+setTimeout(langzaam, 0)
+setTimeout(laden, 0);
+}
+}
+
+function langzaam(){
+stop = 1;
+setTimeout(normaal, 500)
+}
+
+function normaal(){
+stop = 0;
+}
+
+function laden(){
+geladen++;
+r = Math.round(geladen * 0.895 + 76);
+g = Math.round(geladen * -0.875 + 175);
+b = Math.round(geladen * -0.4 + 80);
+document.getElementById('knop3').style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+if (geladen < 200){
+setTimeout(laden, 38);
+}
 }
 
 
-function wiewint(){
-
-setTimeout(diewint, 150);
-
-function diewint() {
+function wiewint() {
 if (omhoog - omhoog2 == 0){
 if (links - links2 == 0){
 alert('game over');
@@ -149,15 +196,49 @@ omhoog = 0;
 links = 0;
 omhoog2 = 450;
 links2 = 450;
-levelnr = 0;
+omhoog3 = 0;
+links3 = 0;
+geladen = 200;
+
+document.getElementById('myAnimation2').style.backgroundColor = 'yellow';
 
 document.getElementById("popetje").style.left = 450 + 'px';
 document.getElementById("popetje").style.top = 450 + 'px';
 
 elem.style.top = 0 + 'px'; 
 elem.style.left = 0 + 'px'; 
+
+document.getElementById('myAnimation2').style.top = 0 + 'px'; 
+document.getElementById('myAnimation2').style.left = 0 + 'px'; 
+
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 }
+}
+
+if (omhoog3 - omhoog2 == 0){
+if (links3 - links2 == 0){
+alert('game over');
+
+levelnr = 0;
+omhoog = 0;
+links = 0;
+omhoog2 = 450;
+links2 = 450;
+omhoog3 = 0;
+links3 = 0;
+
+document.getElementById('myAnimation2').style.backgroundColor = 'yellow';
+
+document.getElementById("popetje").style.left = 450 + 'px';
+document.getElementById("popetje").style.top = 450 + 'px';
+
+elem.style.top = 0 + 'px'; 
+elem.style.left = 0 + 'px'; 
+
+document.getElementById('myAnimation2').style.top = 0 + 'px'; 
+document.getElementById('myAnimation2').style.left = 0 + 'px';
+
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 }
 }
 
@@ -165,11 +246,13 @@ setTimeout(wiewint, 0);
 }
 
 function frame() {
-door = 0;
+if (stop != 1){
 
 voorrang = Math.floor(Math.random() * 2); 
+voorrang2 = Math.floor(Math.random() * 2);
 
-if ( voorrang == 0){
+
+if (voorrang == 0){
 if (omhoog > omhoog2){
 richting = 2;
 }}
@@ -189,41 +272,34 @@ if (links > links2){
 richting = 3;
 }}
 
+if (levelnr == 15){
+
+if (voorrang2 == 0){
+if (omhoog3 > omhoog2){
+richting2 = 2;
+}}
+
+if (voorrang2 == 0){
+if (omhoog3 < omhoog2){
+richting2 = 0;
+}}
+
+if (voorrang2 == 1){
+if (links3 < links2){
+richting2 = 1;
+}}
+
+if (voorrang2 == 1){
+if (links3 > links2){
+richting2 = 3;
+}}
+
+}
 
 
-if (links == 450) {
-if (richting == 1) {
-setTimeout(frame, 0);
-door = 1;
-}
-}
-
-if (links == 0) {
-if (richting == 3) {
-setTimeout(frame, 0);
-door = 1;
-}
-}
-
-if (omhoog == 0) {
-if (richting == 2) {
-setTimeout(frame, 0);
-door = 1;
-}
-}
-
-if (omhoog == 450) {
-if (richting == 0) {
-setTimeout(frame, 0);
-door = 1;
-}
-}
-
-if (door == 0){
 setTimeout(stap, 0);
-setTimeout(frame, tijd);
 }
-
+setTimeout(frame, tijd);
 }
 
 
@@ -244,12 +320,26 @@ links = links - 50;
 elem.style.top = omhoog + 'px'; 
 elem.style.left = links + 'px'; 
 
-if (omhoog - omhoog2 == 0){
-if (links - links2 == 0){
-alert('game over');
+
+if (levelnr > 14){
+
+if (richting2 == 0){
+omhoog3 = omhoog3 + 50; 
 }
+if (richting2 == 1){
+links3 = links3 + 50; 
+}
+if (richting2 == 2){
+omhoog3 = omhoog3 - 50; 
+}
+if (richting2 == 3){
+links3 = links3 - 50; 
 }
 
+document.getElementById('myAnimation2').style.top = omhoog3 + 'px'; 
+document.getElementById('myAnimation2').style.left = links3 + 'px'; 
+
+}
 } 
 
 function bewegen(nr){
