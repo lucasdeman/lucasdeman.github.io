@@ -134,6 +134,7 @@ var b = 80;
 var geladen = 200;
 var stop = 0;
 
+
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 
 alert("ben je er klaar voor?");
@@ -167,7 +168,7 @@ setTimeout(laden, 0);
 
 function langzaam(){
 stop = 1;
-setTimeout(normaal, 500)
+setTimeout(normaal, 750)
 }
 
 function normaal(){
@@ -215,6 +216,8 @@ document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 }
 }
 
+if (level > 14){
+
 if (omhoog3 - omhoog2 == 0){
 if (links3 - links2 == 0){
 alert('game over');
@@ -240,7 +243,7 @@ document.getElementById('myAnimation2').style.left = 0 + 'px';
 
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 }
-}
+}}
 
 setTimeout(wiewint, 0);
 }
@@ -248,8 +251,10 @@ setTimeout(wiewint, 0);
 function frame() {
 if (stop != 1){
 
+
 voorrang = Math.floor(Math.random() * 2); 
 voorrang2 = Math.floor(Math.random() * 2);
+
 
 
 if (voorrang == 0){
