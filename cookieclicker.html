@@ -12,7 +12,7 @@ left: 0px;
 top: 0px;
 width: 150px;
 height: 150px;
-background-image: url("http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png");;
+background-image: url("http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png");
 border: none;
 background-size: cover;
 background-color:#15bac8;
@@ -24,7 +24,10 @@ top: 0px;
 position: relative;
 width: 25px;
 height: 25px;
-background-color: #15bac8;
+background-color:transparent;
+
+background-size: cover;
+
 }
 
 
@@ -41,7 +44,7 @@ background-color: #15bac8;
 
 background-image: url("https://wouterwe.github.io/factory.jpg");
 border: none;
-padding: 45px 60px;
+padding: 60px 80px;
 background-color:white;
 background-size:contain;
 }
@@ -88,9 +91,13 @@ onclick="myautoclickUpgrade()">
 var a = location.href;
 if (a == 'https://lucasdeman.github.io/cookieclicker'){
 
+
+
+
 var links = -6;
 var omhoog = 0;
 var wissel = 0;
+var graden = 90;
 
 
 function draai(){
@@ -115,21 +122,24 @@ links--;
 
 if (wissel == 0){
 omhoog = 125 - (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5) - 62.5;
+graden = 90 - (links + 6) * 1.44;
 }
 if (wissel == 1){
 omhoog = (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5) - 62.5;
+graden = 90 + (links + 6) * 1.44;
+
 }
 
 
-
+document.getElementById('autoclicker').style.transform = 'rotate(' + graden + 'deg)' ;
 document.getElementById("autoclicker").style.left = links + 'px';
 document.getElementById("autoclicker").style.top = omhoog + 'px';
 
-document.getElementById('autoclicker').style.backgroundColor = 'green';
+document.getElementById('autoclicker').style.backgroundImage = 'url("https://d30y9cdsu7xlg0.cloudfront.net/png/976235-200.png")';
 setTimeout(draai, 20);
 }
 
-var myscore = 0;
+var myscore = 9999999;
 var myupgrade2 = 0;
 var upgradeprice2 = 250;
 var geldTijd;
@@ -187,3 +197,13 @@ document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#12
 </center>
 </body>
 </html> 
+
+
+
+
+
+
+
+
+
+
