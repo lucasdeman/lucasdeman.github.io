@@ -1,9 +1,13 @@
 
+
 <!DOCTYPE html>
 <html>
 <style>
 
-
+.cheetbar{
+background-color:#15bac8;
+border: none;
+}
 
 .cookie{
 position: relative;
@@ -55,6 +59,10 @@ background-color:#15bac8;
 </style>
 
 <body>
+
+<form name="myForm" action="" method="post"> 
+<input name="cheet" type="text" class="cheetbar" placeholder="">
+</form>
 
 <center>
 <font size="8">Cookie Clikker</font>
@@ -183,7 +191,12 @@ upgradeprice = upgradeprice * 2;
 }
 }
 
+var cheetnr = 0;
+
 function myFunction() {
+
+cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
+myscore = myscore + cheetnr;
 
 myscore = myscore + myupgrade;
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
@@ -191,19 +204,9 @@ document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#12
 }
 
 
-
 }
+
 </script>
 </center>
 </body>
 </html> 
-
-
-
-
-
-
-
-
-
-
