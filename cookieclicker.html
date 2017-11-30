@@ -198,8 +198,16 @@ if (location.href == 'https://lucasdeman.github.io/cookieclicker'){
 
 function myFunction() {
 
+if (document.forms["myForm"]["cheet"].value == 'cowlevel-auto'){
+myupgrade2 = myupgrade2 + 10000;
+
+}else if (document.forms["myForm"]["cheet"].value == 'cowlevel-click'){
+myupgrade = myupgrade * 64;
+
+}else{
 cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
 myscore = myscore + cheetnr;
+}
 
 myscore = myscore + myupgrade;
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
