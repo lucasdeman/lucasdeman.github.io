@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<style>
+.div1 {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: yellow;
+}
+.brick {
+  opacity: 0.0;
+  width: 60px;
+  height: 30px;
+  position: relative;
+  background: red;
+  top: 0;
+  left: 0;
+}
+
+.button {
+  left: 400px;
+  top: -430px;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  background: green;
+}
+
+#kogel {
+  opacity: 0.0;
+  width: 10px;
+  height: 20px;
+  position: relative;
+  background: black;
+}
+
+#pistol {
+  width: 20px;
+  height: 30px;
+  position: relative;
+  background: brown;
+}
+</style>
+<body>
+
+<p id='test'>p</p>
+
+
+<div id='change' class='div1'>
+<div id='brick1' class='brick'></div>
+<div id='brick2' class='brick'></div>
+
+
+<div id='kogel'></div>
+</div>
+
+<div id="pistol" onclick='schieten()'></div>
+
+<button class='button' onclick='schieten()'></button>
+
+<script>
+
+var level = 0;
+var valtijd = 10;
+
+setTimeout(level, 0);
+setTimeout(control, 0);
+
+function level(){
+
+level++;
+draaitijd = valtijd / 1.1;
+
+
+setTimeout(level, 10000);
+}
+
+function control(){
+
+if (levens == 0){
+
+alert("game over");
+location.reload();
+
+}
+
+setTimeout(control, 0);
+}
+
+
+var door1 = 0;
+var door2 = 0;
+var kogelleft;
+
+var levens = 3;
+document.getElementById('test').innerHTML = levens;
+
+setTimeout(pistolmove, 0);
+setTimeout(nieuwblokje, 0);
+
+function nieuwblokje(){
+if (door1 == 0){
+setTimeout(bewegen1, 0);
+}else if (door2 == 0){
+setTimeout(bewegen2, 0);
+}
+setTimeout(nieuwblokje, 3000);
+}
+
+var pistolleft = 0;
+var wissel = 0;
+
+function pistolmove(){
+
+if (pistolleft == 380){
+wissel = 1;
+}
+
+if (pistolleft == 0){
+wissel = 0;
+}
+
+if (wissel == 1){
+pistolleft--;
+}
+
+if (wissel == 0){
+pistolleft++;
+}
+
+if (geschoten != 1){
+kogelleft = pistolleft;
+document.getElementById('kogel').style.left = pistolleft + 'px';
+}
+
+document.getElementById('pistol').style.left = pistolleft - 5 + 'px';
+setTimeout(pistolmove, 5);
+}
+
+
+
+var geschoten = 0;
+var kogelheight = 350;
+var stop = 0;
+
+function schieten(){
+stop = 0;
+if (geschoten == 0){
+setTimeout(pjiew, 0)
+}}
+
+
+function pjiew(){
+if (stop != 1){
+document.getElementById('kogel').style.opacity = 1.0;
+
+kogelheight--;
+
+document.getElementById('kogel').style.top = kogelheight + 'px';
+
+geschoten = 1;
+
+if (kogelheight == -60){
+geschoten = 0;
+kogelheight = 350;
+stop = 1;
+document.getElementById('kogel').style.opacity = 0.0;
+}
+
+
+setTimeout(pjiew, 0);
+}
+
+
+}
+
+
+var top1 = 0;
+var left1;
+var stop1 = 0;
+
+function bewegen1(){
+top1++;
+door1 = 1;
+
+if (stop1 != 1){
+left1 = Math.floor(Math.random() * 300);
+stop1 = 1;
+}
+
+document.getElementById('brick1').style.opacity = 1.0;
+document.getElementById('brick1').style.top = top1 + 'px';
+document.getElementById('brick1').style.left = left1 + 'px';
+
+if (geschoten == 1){
+
+if (top1 - kogelheight > 30){
+
+if (kogelleft - left1 < 60){
+if (left1 - kogelleft < 0){
+
+geschoten = 0;
+kogelheight = 350;
+stop = 1;
+document.getElementById('kogel').style.opacity = 0.0;
+
+door1 = 0;
+top1 = 0;
+document.getElementById('brick1').style.opacity = 0.0;
+document.getElementById('brick1').style.top = top1 + 'px';
+}}}}
+
+if (top1 == 370){
+door1 = 0;
+top1 = 0;
+document.getElementById('brick1').style.opacity = 0.0;
+document.getElementById('brick1').style.top = top1 + 'px';
+levens--;
+document.getElementById('test').innerHTML = levens;
+}
+
+if (door1 == 1){
+setTimeout(bewegen1, valtijd);
+}
+
+}
+
+var top2 = 0;
+var left2;
+var stop2 = 0;
+
+function bewegen2(){
+door2 = 1;
+top2++;
+
+if (stop2 != 1){
+left2 = Math.floor(Math.random() * 300);
+stop2 = 1;
+}
+
+document.getElementById('brick2').style.opacity = 1.0;
+document.getElementById('brick2').style.top = top2 + 'px';
+document.getElementById('brick2').style.left = left2 + 'px';
+
+if (geschoten == 1){
+
+if (top2 - kogelheight > 10){
+
+if (kogelleft - left2 < 60){
+if (left2 - kogelleft < 30){
+
+geschoten = 0;
+kogelheight = 350;
+stop = 1;
+document.getElementById('kogel').style.opacity = 0.0;
+
+door2 = 0;
+top2 = 0;
+document.getElementById('brick2').style.opacity = 0.0;
+document.getElementById('brick2').style.top = top2 + 'px';
+}}}}
+
+if (top2 == 340){
+door2 = 0;
+top2 = 0;
+document.getElementById('brick2').style.opacity = 0.0;
+document.getElementById('brick2').style.top = top2 + 'px';
+levens--;
+document.getElementById('test').innerHTML = levens;
+}
+
+if (door2 == 1){
+setTimeout(bewegen2, valtijd);
+}
+
+}
+
+
+</script>
+
+</body>
+</html>
+
