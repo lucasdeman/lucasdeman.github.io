@@ -44,7 +44,7 @@
 <body>
 
 <p id='test'>p</p>
-
+<p id='tekst'>level: 0</p>
 
 <div id='change' class='div1'>
 <div id='brick1' class='brick'></div>
@@ -60,7 +60,7 @@
 
 <script>
 
-var level = 0;
+var levelnr = 0;
 var valtijd = 10;
 
 setTimeout(level, 0);
@@ -68,9 +68,9 @@ setTimeout(control, 0);
 
 function level(){
 
-level++;
+levelnr++;
 draaitijd = valtijd / 1.1;
-
+document.getElementById('tekst').innerHTML = 'level: ' + levelnr;
 
 setTimeout(level, 10000);
 }
