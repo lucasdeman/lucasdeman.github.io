@@ -43,7 +43,7 @@
 </style>
 <body>
 
-<p id='test'>p</p>
+<p id='test'>levens: 3</p>
 <p id='tekst'>level: 0</p>
 
 <div id='change' class='div1'>
@@ -59,6 +59,8 @@
 <button class='button' onclick='schieten()'></button>
 
 <script>
+
+alert('ben je er klaar voor?');
 
 var levelnr = 0;
 var valtijd = 10;
@@ -93,7 +95,7 @@ var door2 = 0;
 var kogelleft;
 
 var levens = 3;
-document.getElementById('test').innerHTML = levens;
+document.getElementById('test').innerHTML = 'levens: ' + levens;
 
 setTimeout(pistolmove, 0);
 setTimeout(nieuwblokje, 0);
@@ -197,7 +199,7 @@ if (geschoten == 1){
 if (top1 - kogelheight > 30){
 
 if (kogelleft - left1 < 60){
-if (left1 - kogelleft < 0){
+if (left1 - kogelleft < 10){
 
 geschoten = 0;
 kogelheight = 350;
@@ -216,7 +218,7 @@ top1 = 0;
 document.getElementById('brick1').style.opacity = 0.0;
 document.getElementById('brick1').style.top = top1 + 'px';
 levens--;
-document.getElementById('test').innerHTML = levens;
+document.getElementById('test').innerHTML = 'levens: ' + levens;
 }
 
 if (door1 == 1){
@@ -266,7 +268,7 @@ top2 = 0;
 document.getElementById('brick2').style.opacity = 0.0;
 document.getElementById('brick2').style.top = top2 + 'px';
 levens--;
-document.getElementById('test').innerHTML = levens;
+document.getElementById('test').innerHTML = 'levens: ' + levens;
 }
 
 if (door2 == 1){
