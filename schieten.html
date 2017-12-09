@@ -5,14 +5,17 @@
   width: 400px;
   height: 400px;
   position: relative;
-  background: yellow;
+  background-image: url("https://ak6.picdn.net/shutterstock/videos/16907806/thumb/1.jpg"); 
+
 }
 .brick {
   opacity: 0.0;
   width: 60px;
-  height: 30px;
+  height: 60px;
   position: relative;
-  background: red;
+  background-image: url("https://vignette.wikia.nocookie.net/b__/images/1/10/BMC_Monkey_Ace_Fix.png/revision/latest/scale-to-width-down/310?cb=20151222214114&path-prefix=bloons");
+    background-size: cover;
+  
   top: 0;
   left: 0;
 }
@@ -35,10 +38,11 @@
 }
 
 #pistol {
-  width: 20px;
-  height: 30px;
+  width: 100px;
+  height: 90px;
   position: relative;
-  background: brown;
+  background-image:url("https://wouterwe.github.io/Mortar_Tower_Icon%20(1).png");
+  background-size: cover;
 }
 </style>
 <body>
@@ -47,8 +51,8 @@
 <p id='tekst'>level: 0</p>
 
 <div id='change' class='div1'>
-<div id='brick1' class='brick'></div>
-<div id='brick2' class='brick'></div>
+<div id='brick1' class='brick'>1</div>
+<div id='brick2' class='brick'>2</div>
 
 
 <div id='kogel'></div>
@@ -94,7 +98,7 @@ var door1 = 0;
 var door2 = 0;
 var kogelleft;
 
-var levens = 3;
+var levens = 300;
 document.getElementById('test').innerHTML = 'levens: ' + levens;
 
 setTimeout(pistolmove, 0);
@@ -142,7 +146,7 @@ setTimeout(pistolmove, 5);
 
 
 var geschoten = 0;
-var kogelheight = 350;
+var kogelheight = 300;
 var stop = 0;
 
 function schieten(){
@@ -162,9 +166,9 @@ document.getElementById('kogel').style.top = kogelheight + 'px';
 
 geschoten = 1;
 
-if (kogelheight == -60){
+if (kogelheight == -120){
 geschoten = 0;
-kogelheight = 350;
+kogelheight = 300;
 stop = 1;
 document.getElementById('kogel').style.opacity = 0.0;
 }
@@ -186,7 +190,7 @@ top1++;
 door1 = 1;
 
 if (stop1 != 1){
-left1 = Math.floor(Math.random() * 300);
+left1 = Math.floor(Math.random() * 250);
 stop1 = 1;
 }
 
@@ -202,8 +206,9 @@ if (kogelleft - left1 < 60){
 if (left1 - kogelleft < 10){
 
 geschoten = 0;
-kogelheight = 350;
+kogelheight = 300;
 stop = 1;
+stop1 = 0;
 document.getElementById('kogel').style.opacity = 0.0;
 
 door1 = 0;
@@ -212,7 +217,8 @@ document.getElementById('brick1').style.opacity = 0.0;
 document.getElementById('brick1').style.top = top1 + 'px';
 }}}}
 
-if (top1 == 370){
+if (top1 == 345){
+stop1 = 0;
 door1 = 0;
 top1 = 0;
 document.getElementById('brick1').style.opacity = 0.0;
@@ -227,7 +233,7 @@ setTimeout(bewegen1, valtijd);
 
 }
 
-var top2 = 0;
+var top2 = -70;
 var left2;
 var stop2 = 0;
 
@@ -236,7 +242,7 @@ door2 = 1;
 top2++;
 
 if (stop2 != 1){
-left2 = Math.floor(Math.random() * 300);
+left2 = Math.round(Math.random() * 300);
 stop2 = 1;
 }
 
@@ -246,25 +252,26 @@ document.getElementById('brick2').style.left = left2 + 'px';
 
 if (geschoten == 1){
 
-if (top2 - kogelheight > 10){
+if (top2 - kogelheight > -50){
 
 if (kogelleft - left2 < 60){
 if (left2 - kogelleft < 30){
 
 geschoten = 0;
-kogelheight = 350;
+kogelheight = 300;
 stop = 1;
 document.getElementById('kogel').style.opacity = 0.0;
-
+stop2 = 0;
 door2 = 0;
-top2 = 0;
+top2 = -70;
 document.getElementById('brick2').style.opacity = 0.0;
 document.getElementById('brick2').style.top = top2 + 'px';
 }}}}
 
-if (top2 == 340){
+if (top2 == 285){
+stop2 = 0;
 door2 = 0;
-top2 = 0;
+top2 = -70;
 document.getElementById('brick2').style.opacity = 0.0;
 document.getElementById('brick2').style.top = top2 + 'px';
 levens--;
@@ -282,4 +289,3 @@ setTimeout(bewegen2, valtijd);
 
 </body>
 </html>
-
