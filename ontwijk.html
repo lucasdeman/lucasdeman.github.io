@@ -134,7 +134,6 @@ var b = 80;
 var geladen = 200;
 var stop = 0;
 
-
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 
 alert("ben je er klaar voor?");
@@ -168,7 +167,7 @@ setTimeout(laden, 0);
 
 function langzaam(){
 stop = 1;
-setTimeout(normaal, 750)
+setTimeout(normaal, 500)
 }
 
 function normaal(){
@@ -191,59 +190,16 @@ function wiewint() {
 if (omhoog - omhoog2 == 0){
 if (links - links2 == 0){
 alert('game over');
-
-levelnr = 0;
-omhoog = 0;
-links = 0;
-omhoog2 = 450;
-links2 = 450;
-omhoog3 = 0;
-links3 = 0;
-geladen = 200;
-
-document.getElementById('myAnimation2').style.backgroundColor = 'yellow';
-
-document.getElementById("popetje").style.left = 450 + 'px';
-document.getElementById("popetje").style.top = 450 + 'px';
-
-elem.style.top = 0 + 'px'; 
-elem.style.left = 0 + 'px'; 
-
-document.getElementById('myAnimation2').style.top = 0 + 'px'; 
-document.getElementById('myAnimation2').style.left = 0 + 'px'; 
-
-document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+location.reload();
 }
 }
-
-if (level > 14){
 
 if (omhoog3 - omhoog2 == 0){
 if (links3 - links2 == 0){
 alert('game over');
-
-levelnr = 0;
-omhoog = 0;
-links = 0;
-omhoog2 = 450;
-links2 = 450;
-omhoog3 = 0;
-links3 = 0;
-
-document.getElementById('myAnimation2').style.backgroundColor = 'yellow';
-
-document.getElementById("popetje").style.left = 450 + 'px';
-document.getElementById("popetje").style.top = 450 + 'px';
-
-elem.style.top = 0 + 'px'; 
-elem.style.left = 0 + 'px'; 
-
-document.getElementById('myAnimation2').style.top = 0 + 'px'; 
-document.getElementById('myAnimation2').style.left = 0 + 'px';
-
-document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
+location.reload();
 }
-}}
+}
 
 setTimeout(wiewint, 0);
 }
@@ -251,11 +207,16 @@ setTimeout(wiewint, 0);
 function frame() {
 if (stop != 1){
 
-
 voorrang = Math.floor(Math.random() * 2); 
 voorrang2 = Math.floor(Math.random() * 2);
 
+if (omhoog == omhoog2){
+voorrang = 1;
+}
 
+if (links == links2){
+voorrang = 0;
+}
 
 if (voorrang == 0){
 if (omhoog > omhoog2){
@@ -278,6 +239,14 @@ richting = 3;
 }}
 
 if (levelnr == 15){
+
+if (omhoog3 == omhoog2){
+voorrang = 1;
+}
+
+if (links3 == links2){
+voorrang = 0;
+}
 
 if (voorrang2 == 0){
 if (omhoog3 > omhoog2){
