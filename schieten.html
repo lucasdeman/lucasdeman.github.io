@@ -98,7 +98,7 @@ var door1 = 0;
 var door2 = 0;
 var kogelleft;
 
-var levens = 300;
+var levens = 3;
 document.getElementById('test').innerHTML = 'levens: ' + levens;
 
 setTimeout(pistolmove, 0);
@@ -200,7 +200,7 @@ document.getElementById('brick1').style.left = left1 + 'px';
 
 if (geschoten == 1){
 
-if (top1 - kogelheight > 30){
+if (top1 - kogelheight > 60){
 
 if (kogelleft - left1 < 60){
 if (left1 - kogelleft < 10){
@@ -252,7 +252,7 @@ document.getElementById('brick2').style.left = left2 + 'px';
 
 if (geschoten == 1){
 
-if (top2 - kogelheight > -50){
+if (top2 - kogelheight > 0){
 
 if (kogelleft - left2 < 60){
 if (left2 - kogelleft < 30){
