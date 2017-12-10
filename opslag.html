@@ -1,1 +1,9 @@
-
+@ApplicationPath("/api")
+public class Application extends javax.ws.rs.core.Application {
+    public Set<Class<?>> getClasses() {
+        final Set<Class<?>> resources = new HashSet<>();
+        resources.add(UploadFileService.class);
+        resources.add(MultiPartFeature.class);
+        return resources;
+    }
+}
