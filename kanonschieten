@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+#container{
+background-color: lightblue;
+width: 350px;
+height: 200px;
+}
+
+#kogel{
+background-color: black;
+width: 10px;
+height: 10px;
+position: relative;
+top: 190px;
+}
+
+#schietpaal{
+opacity: 0;
+background-color: green;
+width: 10px;
+height: 40px;
+position: relative;
+top: 150px;
+left: 100px;
+}
+
+</style>
+<body>
+
+<button onclick='myMove()'>klik</button>
+
+<div id='container'>
+<div id='kogel'></div>
+<div id='schietpaal'></div>
+</div>
+
+<p id="test">aantal punten: 0</p>
+<p id='aantalgraden'></p>
+
+<script>
+
+var stopall = 0;
+var graden = 0;
+var wissel = 0;
+var stop = 0;
+
+setTimeout(gradenmaken, 0);
+function gradenmaken() {
+
+if (graden < 1){
+wissel = 0;
+}
+if (graden > 89){
+wissel = 1;
+}
+if (wissel == 0){
+graden++;
+}
+if (wissel == 1){
+graden--;
+}
+omhoog = 90 - graden;
+if (stop != 1){
+setTimeout(gradenmaken, 50);
+}
+document.getElementById("aantalgraden").innerHTML = 'de hoek van je kanon: ' + graden;
+}
+
+var top = 190;
+var left = 0;
+var omhoog = 0;
+var height = 190;
+var left = 0;
+
+function myMove() {
+setTimeout(controle, 0);
+stop = 1;
+omhoog = omhoog - 0.75;
+
+height = height - (omhoog / 90 * 5);
+left += graden / 90 * 5;
+
+document.getElementById("kogel").style.left = left + 'px';
+document.getElementById("kogel").style.top = height + 'px';
+if (stopall != 1) {
+setTimeout(myMove, 15);
+}
+}
+
+var paalleft;
+var paalheight = 150;
+
+setTimeout(paalleftmaker, 0);
+function paalleftmaker() {
+paalleft = Math.round(Math.random() * 240 + 100);
+}
+
+var debug = 0;
+var punten= 0;
+
+setTimeout(controle, 0);
+function controle() {
+if (left - paalleft > 0 && left - paalleft < 10 && height - paalheight > 0 && height - paalheight < 40){
+debug++;
+if (debug < 2){
+punten++;
+alert('goed zo!');
+setTimeout(reload, 16);
+stopall = 1;
+}}
+
+if (height > 190){
+debug++;
+if (debug < 2){
+punten--;
+alert('jammer...');
+setTimeout(reload, 16);
+stopall = 1;
+}}
+
+document.getElementById("schietpaal").style.left = paalleft + 'px';
+document.getElementById("schietpaal").style.top = paalheight + 'px';
+document.getElementById("schietpaal").style.opacity = 1;
+document.getElementById("test").innerHTML = 'je aantal punten: ' + punten;
+if (stopall != 1) {
+setTimeout(controle, 0);
+}
+}
+
+var reloaddebug = 0;
+
+function reload() {
+reloaddebug++;
+debug = 0;
+stopall = 0;
+graden = 0;
+wissel = 0;
+stop = 0;
+top = 190;
+left = 0;
+omhoog = 0;
+height = 190;
+left = 0;
+paalheight = 150;
+setTimeout(paalleftmaker, 0);
+setTimeout(gradenmaken, 10);
+document.getElementById("kogel").style.left = left + 'px';
+document.getElementById("kogel").style.top = height + 'px';
+}
+
+</script>
+
+</body>
+</html> 
+
+
