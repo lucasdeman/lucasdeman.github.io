@@ -249,11 +249,11 @@ richting = 3;
 if (levelnr > 8){
 
 if (omhoog3 == omhoog2){
-voorrang = 1;
+voorrang2 = 1;
 }
 
 if (links3 == links2){
-voorrang = 0;
+voorrang2 = 0;
 }
 
 if (voorrang2 == 0){
@@ -326,7 +326,7 @@ document.getElementById('myAnimation2').style.left = links3 + 'px';
 
 setTimeout(controle, 0)
 function controle() {
-document.onkeydown = keymove;
+document.body.onkeyup = keymove;
 setTimeout(controle, 0)
 }
 
