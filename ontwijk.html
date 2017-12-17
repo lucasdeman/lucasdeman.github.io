@@ -139,7 +139,7 @@ document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 
 alert("ben je er klaar voor?");
 
-setTimeout(frame, 0);
+//setTimeout(frame, 0);
 setTimeout(wiewint, 0);
 setTimeout(level, 10000);
 
@@ -186,20 +186,26 @@ setTimeout(laden, 38);
 }
 }
 
+var debug = 0;
 
 function wiewint() {
 if (omhoog - omhoog2 == 0){
 if (links - links2 == 0){
+debug++;
+if (debug < 2){
 alert('game over');
 location.reload();
+}
 }
 }
 if (levelnr > 14){
 if (omhoog3 - omhoog2 == 0){
 if (links3 - links2 == 0){
+debug++;
+if (debug < 2){
 alert('game over');
 location.reload();
-}
+}}
 }
 }
 
@@ -319,6 +325,7 @@ document.getElementById('myAnimation2').style.left = links3 + 'px';
 } 
 
 function bewegen(nr){
+
 
 if (nr == 1){
 if (omhoog2 != 0){
