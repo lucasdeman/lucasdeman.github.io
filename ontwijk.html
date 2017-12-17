@@ -93,7 +93,7 @@
 
 <p id="test"></p>
 
-
+<input type="text"  >
 
 
 
@@ -139,7 +139,7 @@ document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
 
 alert("ben je er klaar voor?");
 
-//setTimeout(frame, 0);
+setTimeout(frame, 0);
 setTimeout(wiewint, 0);
 setTimeout(level, 10000);
 
@@ -324,6 +324,48 @@ document.getElementById('myAnimation2').style.left = links3 + 'px';
 }
 } 
 
+setTimeout(controle, 0)
+function controle() {
+document.onkeydown = keymove;
+setTimeout(controle, 0)
+}
+
+function keymove() {
+var key = event.key;
+
+if (key == 'w'){
+if (omhoog2 != 0){
+omhoog2 = omhoog2 - 50;
+}
+}
+
+if (key == 's'){
+if (omhoog2 != 450){
+omhoog2 = omhoog2 + 50;
+}
+}
+
+if (key == 'd'){
+if (links2 != 450){
+links2 = links2 + 50;
+}
+}
+
+if (key == 'a'){
+if (links2 != 0){
+links2 = links2 - 50;
+}
+}
+
+if (event.keyCode == 32){
+setTimeout(superatack, 0);
+}
+
+document.getElementById("popetje").style.left = links2 + 'px';
+document.getElementById("popetje").style.top = omhoog2 + 'px';
+}
+
+
 function bewegen(nr){
 
 
@@ -360,3 +402,8 @@ document.getElementById("popetje").style.top = omhoog2 + 'px';
 
 </body>
 </html>
+
+
+
+
+
