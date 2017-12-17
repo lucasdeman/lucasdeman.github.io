@@ -122,7 +122,7 @@ var links = 0;
 var door = 0;
 var omhoog2 = 450;
 var links2 = 450;
-var levelnr = 0;
+var levelnr = 8;
 var tijd = 500;
 var voorrang;
 var omhoog3  = 0;
@@ -149,7 +149,7 @@ levelnr++;
 setTimeout(level, 10000 + levelnr * 10);
 tijd = 500 - levelnr * 10;
 document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;
-if (levelnr == 15){
+if (levelnr == 9){
 document.getElementById('myAnimation2').style.backgroundColor = 'green';
 }
 }
@@ -168,7 +168,7 @@ setTimeout(laden, 0);
 
 function langzaam(){
 stop = 1;
-setTimeout(normaal, 500)
+setTimeout(normaal, 750)
 }
 
 function normaal(){
@@ -198,7 +198,7 @@ location.reload();
 }
 }
 }
-if (levelnr > 14){
+if (levelnr > 8){
 if (omhoog3 - omhoog2 == 0){
 if (links3 - links2 == 0){
 debug++;
@@ -246,7 +246,7 @@ if (links > links2){
 richting = 3;
 }}
 
-if (levelnr == 15){
+if (levelnr > 8){
 
 if (omhoog3 == omhoog2){
 voorrang = 1;
@@ -303,7 +303,7 @@ elem.style.top = omhoog + 'px';
 elem.style.left = links + 'px'; 
 
 
-if (levelnr > 14){
+if (levelnr > 8){
 
 if (richting2 == 0){
 omhoog3 = omhoog3 + 50; 
@@ -402,8 +402,3 @@ document.getElementById("popetje").style.top = omhoog2 + 'px';
 
 </body>
 </html>
-
-
-
-
-
