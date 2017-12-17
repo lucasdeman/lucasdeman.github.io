@@ -15,56 +15,61 @@ h1 {
 }
 #kanonschieter {
   position: absolute;
-  width: 7.5%;
-  height: 15%;
+  width: 100px;
+  height: 100px;
   background-image: url('https://vignette.wikia.nocookie.net/b__/images/3/34/Bomb_Tower_Icon.png/revision/latest?cb=20151212161118&path-prefix=bloons');
     background-size: cover;
-  left: 47.5%;
+  left: 45%;
   top: 24.5%;
-	background-size: 7.5% 15%
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+	
 }
 #cookieclicker {
   position: absolute;
-  width: 7.5%;
-  height: 15%;
+  width: 100px;
+  height: 100px;
   background-image: url('http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png');
     background-size: cover;
-  left: 38.5%;
-  top: 42%;
+  left: 30%;
+  top: 43%;
+  background-size: 100px 100px;
 }
 #boterkaaseneieren {
   position: absolute;
-  width: 7.5%;
-  height: 15%;
+  width: 100px;
+  height: 100px;
   background-image: url('http://upload.wikimedia.org/wikipedia/commons/1/1d/Tic-tac-toe_%28PSF%29.png?uselang=nl');
   background-size: cover;
-  left: 47.5%;
-  top: 42%;
+  left: 45%;
+  top: 43%;
+  background-size: 100px 100px;
 }
 #ontwijk {
   position: absolute;
-  width: 7.5%;
-  height: 15%;
+  width: 100px;
+  height: 100px;
   background-image: url('http://kinderspelletjes.spelletjes-voor-kinderen.nl/sites/default/files/imagecache/200_200/large_391139[1].jpg');
   background-size: cover;
-  left: 56.5%;
-  top: 42%;
+  left: 60%;
+  top: 43%;
+  background-size: 100px 100px;
 }
 #schieten {
   position: absolute;
-  width: 7.5%;
-  height: 15%;
+  width: 100px;
+  height: 100px;
   background-image: url('https://vignette.wikia.nocookie.net/b__/images/7/79/Monkey_Ace_Icon.png/revision/latest?cb=20151212160103&path-prefix=bloons');
   background-size: cover;
-  left: 47.5%;
-  top: 59.5%;
+  left: 45%;
+  top: 62%;
 }
 .div{
 position: relative;
 width: 150px;
 height: 150px;
 top: -180px;
-left: 25%;
+left: 8%;
 }
 .autoclickdiv{
 left: 0px;
@@ -76,13 +81,12 @@ background-color: green;
 }
 #inhoud {
 position: relative;
-left: 65%;
+left: 75%;
 top: -280px;
 background: yellow;
 width: 100px;
 height: 100px;
 }
-
 #erin1 {
 position: relative;
 left: 0px;
@@ -135,124 +139,91 @@ height: 20px;
 
 
 <script>
-
 setTimeout(draai, 0);
-
-
-
 var links = 0;
 var omhoog = 0;
 var wissel = 0;
-
-
 function draai(){
-
 var links2 = links - 62.5;
-
 if (links == 125){
 wissel = 1;
 }
-
 if (links == 0){
 wissel = 0;
 }
-
 if (wissel == 0) {
 links++;
 }
-
 if (wissel == 1) {
 links--;
 }
-
 if (wissel == 0){
 omhoog = 125 - (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5);
 }
 if (wissel == 1){
 omhoog = (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5);
 }
-
-
-
 document.getElementById("autoclicker").style.left = links + 'px';
 document.getElementById("autoclicker").style.top = omhoog + 'px';
-
 setTimeout(draai, 8);
 }
-
-
-
-
 </script>
 
 <script>
-
 setTimeout (stap1, 500);
-
 function stap1() {
 document.getElementById('erin1').style.top = 20 + 'px';
 document.getElementById('erin2').style.top = 40 + 'px';
 setTimeout(stap2, 500);
 }
-
 function stap2() {
 document.getElementById('erin1').style.left = 20 + 'px';
 document.getElementById('erin2').style.top = 20 + 'px';
 setTimeout(stap3, 500);
 }
-
 function stap3() {
 document.getElementById('erin1').style.top = 40 + 'px';
 document.getElementById('erin2').style.top = 0 + 'px';
 setTimeout(stap4, 500);
 }
-
 function stap4() {
 document.getElementById('erin1').style.left = 40 + 'px';
 document.getElementById('erin2').style.left = 60 + 'px';
 setTimeout(stap5, 500);
 }
-
 function stap5() {
 document.getElementById('erin1').style.left = 60 + 'px';
 document.getElementById('erin2').style.top = -20 + 'px';
 setTimeout(stap6, 500);
 }
-
 function stap6() {
 document.getElementById('erin1').style.left = 40 + 'px';
 document.getElementById('erin2').style.left = 40 + 'px';
 setTimeout(stap7, 500);
 }
-
 function stap7() {
 document.getElementById('erin1').style.top = 20 + 'px';
 document.getElementById('erin2').style.left = 20 + 'px';
 setTimeout(stap8, 500);
 }
-
 function stap8() {
 document.getElementById('erin1').style.left = 20 + 'px';
 document.getElementById('erin2').style.left = 0 + 'px';
 setTimeout(stap9, 500);
 }
-
 function stap9() {
 document.getElementById('erin1').style.left = 0 + 'px';
 document.getElementById('erin2').style.top = 0 + 'px';
 setTimeout(stap10, 750);
 }
-
 function stap10() {
 document.getElementById('inhoud').innerHTML = '<center><br><br>Game Over</center>';
 setTimeout(stap11, 1000);
 }
-
 function stap11() {
 document.getElementById('inhoud').innerHTML = "<div id='erin1'></div><div id='erin2'></div>";
 setTimeout(stap1, 500);
 }
-
 </script>
 
 </body>
