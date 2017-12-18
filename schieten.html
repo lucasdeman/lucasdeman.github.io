@@ -67,6 +67,7 @@
 
 <script>
 alert('ben je er klaar voor?');
+var debug = 0;
 var levelnr = 0;
 var valtijd = 10;
 setTimeout(level, 0);
@@ -79,20 +80,18 @@ document.getElementById('tekst').innerHTML = 'level: ' + levelnr;
 setTimeout(level, 10000 + levelnr * 100);
 }
 
-var debug = 0;
-
 function control(){
-document.body.onkeyup = keymove;
-if (event.keyCode == 32){
-setTimeout(schieten, 0);
-}
-if (levens == 0){
+setTimeout(control, 0);
 if (debug < 2){
+if (levens < 1){
+debug++;
 alert("game over");
 location.reload();
 }
 }
-setTimeout(control, 0);
+if (event.keyCode == 32){
+setTimeout(schieten, 0);
+}
 }
 var door1 = 0;
 var door2 = 0;
