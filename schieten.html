@@ -82,6 +82,10 @@ setTimeout(level, 10000 + levelnr * 100);
 var debug = 0;
 
 function control(){
+document.body.onkeyup = keymove;
+if (event.keyCode == 32){
+setTimeout(schieten, 0);
+}
 if (levens == 0){
 if (debug < 2){
 alert("game over");
