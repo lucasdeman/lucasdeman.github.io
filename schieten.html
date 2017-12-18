@@ -71,16 +71,22 @@ var levelnr = 0;
 var valtijd = 10;
 setTimeout(level, 0);
 setTimeout(control, 0);
+
 function level(){
 levelnr++;
 draaitijd = valtijd / 1.1;
 document.getElementById('tekst').innerHTML = 'level: ' + levelnr;
 setTimeout(level, 10000 + levelnr * 100);
 }
+
+var debug = 0;
+
 function control(){
 if (levens == 0){
+if (debug < 2){
 alert("game over");
 location.reload();
+}
 }
 setTimeout(control, 0);
 }
@@ -99,8 +105,10 @@ setTimeout(bewegen2, 0);
 }
 setTimeout(nieuwblokje, 3000);
 }
+
 var pistolleft = 0;
 var wissel = 0;
+
 function pistolmove(){
 if (pistolleft == 380){
 wissel = 1;
