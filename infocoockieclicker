@@ -42,7 +42,29 @@ background:url("https://img00.deviantart.net/5e6e/i/2010/201/8/a/rice_paper_text
 
 }
 
+#foto {
+background: url('http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png');
+background-size: cover;
+width: 250px;
+height: 250px;
+position: relative;
+top: -1100px;
+left: 500px;
+}
 
+#infinitycoockies {
+font-size: 60px;
+position: relative;
+top: -980px;
+left: 500px;
+}
+
+#javatext {
+font-size: 30px;
+position: relative;
+top: -800px;
+left: 450px;
+}
 </style>
 
 <body>
@@ -108,7 +130,11 @@ Wanneer u de Autoclicker upgradet, duurt het 0,01 seconde minder lang tot u een 
 
 
 
+<div id='foto'></div>
 
+<p id='infinitycoockies'>Infinity&#127850</p>
+
+<p id='javatext'>geldTijd = 2510 - myupgrade2 * 10;<br>myscore += myupgrade2;</p>
 
 </body>
 
