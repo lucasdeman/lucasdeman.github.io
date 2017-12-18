@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Info Page Cookie Clicker</title>
+</head>
+<style>
+h1 {color: #000000;
+  font-size: 30px;
+text-align: center;}
+
+
+
+h2 {color:	#4f4f4f;
+ font-size: 50px;
+ text-align: center;}
+ 
+ 
+ h3 {color:	#000000;
+ font-size: 17.5px;
+ margin-left: 10px;
+ }
+ 
+.one{
+color: white;
+}
+
+.uitlegdiv{
+background:url("http://bgfons.com/uploads/newspaper/newspaper_texture2845.jpg");
+
+width:30%;
+height:1150px;
+left: 5%;
+position: relative;
+
+
+}
+
+
+body{
+background:url("https://img00.deviantart.net/5e6e/i/2010/201/8/a/rice_paper_texture_by_maplerose_stock.jpg");
+
+
+}
+
+
+</style>
+
+<body>
+
+
+
+<h2>Informatiepagina Cookie Clicker</h2>
+
+
+
+<div class="uitlegdiv">
+
+<h1>
+Controls
+</h1>
+
+<h3>
+Door op het koekje te klikken krijg u Cookies.
+<br>
+<br>
+Door het het koekje te upgraden krijg u meer Cookies per klik.
+<br>
+<br>
+Als u voor de eerste keer op Upgrade Autoclick drukt activeer u de Autoclikcker.
+<br>
+<br>
+Door op upgrade Autoclick te drukken nadat u de Autoclicker hebt geactiveerd, upgrade u uw Autoclicker.
+</h3>
+
+<h1>
+Doel van het spel
+</h1>
+<h3>
+Het doel van het spel is dat u een oneindige hoeveelheid Cookies bereikt. 
+<br>
+<br>
+U bereikt het doel door de Autoclikcker en het koekje te upgraden.
+<br>
+<br>
+Veel Succes!
+</h3>
+
+<h1>
+Technische Details
+</h1>
+
+<h3>
+Wanneer u de Autoclicker activeert, krijgt u elke 2,5 seconde één koekje.
+<br>
+<br>
+Wanneer u het Koekje upgradet, verdubbelt de Upgradeprijs.
+<br>
+<br>
+Wanneer u de Autocklicker upgradet, verdubbelt de Upgradeprijs.
+<br>
+<br>
+Wanneer u het koekje upgradet, verdubbelt het aantal Cookies dat u krijgt per klik.
+<br>
+<br>
+Wanneer u de Autoclicker upgradet, duurt het 0,01 seconde minder lang tot u een Cookie krijgt en ontvangt u het level dat uw Autoclicker is in Cookies. 
+</h3>
+</div>
+
+
+
+
+
+</body>
+
+</html>
