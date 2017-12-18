@@ -89,10 +89,16 @@ alert("game over");
 location.reload();
 }
 }
+document.body.onkeyup = keymove;
+
+}
+
+function keymove() {
 if (event.keyCode == 32){
 setTimeout(schieten, 0);
 }
 }
+
 var door1 = 0;
 var door2 = 0;
 var kogelleft;
