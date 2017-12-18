@@ -1,302 +1,183 @@
+
 <!DOCTYPE html>
 <html>
+<head>
+<title>Info Page Cookie Clicker</title>
+</head>
 <style>
+h1 {color: #000000;
+  font-size: 200%;
+text-align: center;}
 
 
 
-
-.div1 {
-  width: 400px;
-  height: 400px;
-  position: relative;
-  background-image: url("https://ak6.picdn.net/shutterstock/videos/16907806/thumb/1.jpg"); 
-
-}
-.brick {
-  opacity: 0.0;
-  width: 60px;
-  height: 60px;
-  position: relative;
-  background-image: url("https://vignette.wikia.nocookie.net/b__/images/1/10/BMC_Monkey_Ace_Fix.png/revision/latest/scale-to-width-down/310?cb=20151222214114&path-prefix=bloons");
-    background-size: cover;
-  
-  top: 0;
-  left: 0;
-}
-
-.button {
- opacity: 25.25;
-  left: 400px;
-  top: -430px;
-  width: 100px;
-  height: 75px;
-  position: relative;
+h2 {color:	#4f4f4f;
+ font-size: 330%;
+ text-align: center;}
  
-  background: url("https://wouterwe.github.io/button.png");
-  background-repeat: no-repeat;
-  background-size: 100px 75px;
-  backdround-size: cover;
-  border: none;
+ 
+ h3 {color:	#000000;
+ font-size: 110%;
+ margin-left: 10px;
+ }
+ 
+.one{
+color: white;
 }
 
-#kogel {
-  opacity: 0.0;
-  width: 30px;
-  height: 30px;
-  position: relative;
-  background-image:url("https://wouterwe.github.io/firball2.png");
-  background-size: cover;
+.uitlegdiv{
+background:url("http://bgfons.com/uploads/newspaper/newspaper_texture2845.jpg");
+width:30%;
+height:1150px;
+left: 5%;
+position: relative;
 }
 
-#pistol {
-  width: 100px;
-  height: 90px;
-  position: relative;
-  background-image:url("https://wouterwe.github.io/Mortar_Tower_Icon%20(1).png");
-  background-size: cover;
+
+body{
+background:url("https://img00.deviantart.net/5e6e/i/2010/201/8/a/rice_paper_texture_by_maplerose_stock.jpg");
+
+
+}
+
+#foto {
+background: url('https://wouterwe.github.io/button.png');
+background-size: cover;
+background-size: 250px 250px;
+width: 250px;
+height: 250px;
+position: relative;
+top: -1100px;
+left: 75%;
+}
+
+#infinitycoockies {
+font-size: 400%;
+position: relative;
+top: -980px;
+left: 75%;
+}
+
+#javatext {
+font-size: 200%;
+position: relative;
+top: -650px;
+left: 75%;
+}
+
+#knopterug {
+transform: rotate(180deg);
+margin-left: 0.1%;
+position: relative;
+background-size: 40px 70px;
+background: url('https://image.flaticon.com/icons/svg/60/60758.svg');
+background-size: cover;
+width: 60px;
+height: 70px;
+top:-1200px;
+left: 0.1%
+}
+
+#knopveder {
+position: relative;
+background-size: 40px 70px;
+background: url('https://image.flaticon.com/icons/svg/60/60758.svg');
+background-size: cover;
+width: 60px;
+height: 70px;
+top: -1270px;
+left: 96.5%;
 }
 </style>
+
 <body>
 
-<p id='test'>levens: 3</p>
-<p id='tekst'>level: 0</p>
-
-<div id='change' class='div1'>
-<div id='brick1' class='brick'></div>
-<div id='brick2' class='brick'></div>
 
 
-<div id='kogel'></div>
+<h2>Informatiepagina Vliegtuigtuig schieten</h2>
+
+
+
+<div class="uitlegdiv">
+
+<h1>
+Controls
+</h1>
+
+<h3>
+Door op de knop met "Do Not Press" te druken kunt u een kogel afvuren.
+<br>
+<br>
+Probeer met de kogel een van de dalende vliegtuigen te raken voordat de vliegtuigen de grond halen.
+<br>
+<br>
+Wanneer dat lukt verdwijnt het vliegtuig.
+<br>
+<br> 
+Wanneer het u niet lukt om één van de vliegtuigen optijd neer te halen verdwijnt één van uw levens.
+<br>
+<br>
+Naarmate u langer overleeft neemt uw level toe.
+<br>
+<br>
+LET OP! er kan maar één kogel tegelijk in beeld zijn.
+</h3>
+
+<h1>
+Doel van het spel
+</h1>
+<h3>
+Het doel van het spel is om een zo hoog mogelijk level te halen.
+<br>
+<br>
+Veel Succes!
+</h3>
+
+<h1>
+Technische Details
+</h1>
+<h3>
+U begint met 3 levens, iedere keer als een vliegtuig de grond bereikt verliest u één leven.
+<br>
+<br>
+Wanneer u geen levens meer over heeft en een vliegtuig raakt de grond bent u "game over".
+<br>
+<br>
+Elke 0,01 seconde vallen de vliegtuigen 1 pixel naar beneden.
+<br>
+<br>
+Het kanon beweegt 2 keer zo snel als de vliegtuigen.
+<br>
+<br>
+De kogel beweegt zo snel als uw computer aankan.
+</h3>
+
 </div>
 
-<div id="pistol" onclick='schieten()'></div>
 
-<button class='button' onclick='schieten()'></button>
 
-<script>
 
-alert('ben je er klaar voor?');
+<div id='foto'></div>
 
-var levelnr = 0;
-var valtijd = 10;
+<p id='infinitycoockies'></p>
 
-setTimeout(level, 0);
-setTimeout(control, 0);
+<p id='javatext'>function nieuwblokje(){<br>
+if (door1 == 0){<br>
+setTimeout(bewegen1, 0);<br>
+}else if (door2 == 0){<br>
+setTimeout(bewegen2, 0);<br>
+}<br>
+setTimeout(nieuwblokje, 3000);<br>
+}</p>
 
-function level(){
+<a href='https://lucasdeman.github.io'>
+<div id='knopterug'></div>
+</a>
 
-levelnr++;
-draaitijd = valtijd / 1.1;
-document.getElementById('tekst').innerHTML = 'level: ' + levelnr;
-
-setTimeout(level, 10000 + levelnr * 100);
-}
-
-function control(){
-
-if (levens == 0){
-
-alert("game over");
-location.reload();
-
-}
-
-setTimeout(control, 0);
-}
-
-
-var door1 = 0;
-var door2 = 0;
-var kogelleft;
-
-var levens = 3;
-document.getElementById('test').innerHTML = 'levens: ' + levens;
-
-setTimeout(pistolmove, 0);
-setTimeout(nieuwblokje, 0);
-
-function nieuwblokje(){
-if (door1 == 0){
-setTimeout(bewegen1, 0);
-}else if (door2 == 0){
-setTimeout(bewegen2, 0);
-}
-setTimeout(nieuwblokje, 3000);
-}
-
-var pistolleft = 0;
-var wissel = 0;
-
-function pistolmove(){
-
-if (pistolleft == 380){
-wissel = 1;
-}
-
-if (pistolleft == 0){
-wissel = 0;
-}
-
-if (wissel == 1){
-pistolleft--;
-}
-
-if (wissel == 0){
-pistolleft++;
-}
-
-if (geschoten != 1){
-kogelleft = pistolleft;
-document.getElementById('kogel').style.left = pistolleft + 'px';
-}
-
-document.getElementById('pistol').style.left = pistolleft - 5 + 'px';
-setTimeout(pistolmove, 5);
-}
-
-
-
-var geschoten = 0;
-var kogelheight = 300;
-var stop = 0;
-
-function schieten(){
-stop = 0;
-if (geschoten == 0){
-setTimeout(pjiew, 0)
-}}
-
-
-function pjiew(){
-if (stop != 1){
-document.getElementById('kogel').style.opacity = 1.0;
-
-kogelheight--;
-
-document.getElementById('kogel').style.top = kogelheight + 'px';
-
-geschoten = 1;
-
-if (kogelheight == -120){
-geschoten = 0;
-kogelheight = 300;
-stop = 1;
-document.getElementById('kogel').style.opacity = 0.0;
-}
-
-
-setTimeout(pjiew, 0);
-}
-
-
-}
-
-
-var top1 = 0;
-var left1;
-var stop1 = 0;
-
-function bewegen1(){
-top1++;
-door1 = 1;
-
-if (stop1 != 1){
-left1 = Math.floor(Math.random() * 250);
-stop1 = 1;
-}
-
-document.getElementById('brick1').style.opacity = 1.0;
-document.getElementById('brick1').style.top = top1 + 'px';
-document.getElementById('brick1').style.left = left1 + 'px';
-
-if (geschoten == 1){
-
-if (top1 - kogelheight > 60){
-
-if (kogelleft - left1 < 60){
-if (kogelleft - left1 > -17){
-
-geschoten = 0;
-kogelheight = 300;
-stop = 1;
-stop1 = 0;
-document.getElementById('kogel').style.opacity = 0.0;
-
-door1 = 0;
-top1 = 0;
-document.getElementById('brick1').style.opacity = 0.0;
-document.getElementById('brick1').style.top = top1 + 'px';
-}}}}
-
-if (top1 == 345){
-stop1 = 0;
-door1 = 0;
-top1 = 0;
-document.getElementById('brick1').style.opacity = 0.0;
-document.getElementById('brick1').style.top = top1 + 'px';
-levens--;
-document.getElementById('test').innerHTML = 'levens: ' + levens;
-}
-
-if (door1 == 1){
-setTimeout(bewegen1, valtijd);
-}
-
-}
-
-var top2 = -70;
-var left2;
-var stop2 = 0;
-
-function bewegen2(){
-door2 = 1;
-top2++;
-
-if (stop2 != 1){
-left2 = Math.round(Math.random() * 300);
-stop2 = 1;
-}
-
-document.getElementById('brick2').style.opacity = 1.0;
-document.getElementById('brick2').style.top = top2 + 'px';
-document.getElementById('brick2').style.left = left2 + 'px';
-
-if (geschoten == 1){
-
-if (top2 - kogelheight > 0){
-
-if (kogelleft - left2 < 60){
-if (left2 - kogelleft < 30){
-
-geschoten = 0;
-kogelheight = 300;
-stop = 1;
-document.getElementById('kogel').style.opacity = 0.0;
-stop2 = 0;
-door2 = 0;
-top2 = -70;
-document.getElementById('brick2').style.opacity = 0.0;
-document.getElementById('brick2').style.top = top2 + 'px';
-}}}}
-
-if (top2 == 285){
-stop2 = 0;
-door2 = 0;
-top2 = -70;
-document.getElementById('brick2').style.opacity = 0.0;
-document.getElementById('brick2').style.top = top2 + 'px';
-levens--;
-document.getElementById('test').innerHTML = 'levens: ' + levens;
-}
-
-if (door2 == 1){
-setTimeout(bewegen2, valtijd);
-}
-
-}
-
-
-</script>
+<a href='https://lucasdeman.github.io/schieten'>
+<div id='knopveder'></div>
+</a>
 
 </body>
+
 </html>
