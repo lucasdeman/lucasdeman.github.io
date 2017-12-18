@@ -152,7 +152,7 @@ background-color:#15bac8;
 
 #upgradetext {
 
-left: 17.5%;
+left: 18.5%;
 
 top: 110px;
 
@@ -168,6 +168,19 @@ top: -60px;
 
 position: relative;
 
+}
+
+#upgradekostenclick{
+top: 85px;
+left: -65px;
+position: relative;
+width: 160px;
+}
+
+#upgradekostenauto{
+top: 105px;
+left: 0%;
+position: relative;
 }
 
 </style>
@@ -277,7 +290,7 @@ position: relative;
 <button id="Upgrade" class="Upgrade"
 
 
-onclick="myUpgrade()">
+onclick="myUpgrade()"><p id='upgradekostenclick'>100&#127850</p>
 
 
 </button><p id='upgradetext'>Upgrade Cookie</p>
@@ -286,7 +299,7 @@ onclick="myUpgrade()">
 <button id="autoclickUpgrade" class="autoclickUpgrade"
 
 
-onclick="myautoclickUpgrade()">
+onclick="myautoclickUpgrade()"><p id='upgradekostenauto'>250&#127850</p>
 
 
 </button><p id='upgradetext2'>Upgrade Autoclick</p>
@@ -297,27 +310,6 @@ onclick="myautoclickUpgrade()">
 
 
 <script>
-
-
-var a = location.href;
-
-
-if (a == 'https://lucasdeman.github.io/cookieclicker'){
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -331,14 +323,6 @@ var wissel = 0;
 
 
 var graden = 90;
-
-
-
-
-
-
-
-
 
 
 function draai(){
@@ -506,6 +490,8 @@ document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#12
 
 upgradeprice2 = upgradeprice2 + 50;
 
+document.getElementById("upgradekostenauto").innerHTML = upgradeprice2 + '&#127850;';
+
 
 geldTijd = 2500 - myupgrade2 * 10;
 
@@ -598,7 +584,7 @@ document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#12
 
 upgradeprice = upgradeprice * 2;
 
-
+document.getElementById("upgradekostenclick").innerHTML = upgradeprice + '&#127850;';
 
 
 
@@ -620,7 +606,7 @@ var cheetnr = 0;
 
 
 
-if (location.href == 'https://lucasdeman.github.io/cookieclicker'){
+
 
 
 
@@ -666,6 +652,10 @@ myscore = myscore + cheetnr;
 }
 
 
+
+
+
+
 myscore = myscore + myupgrade;
 
 
@@ -673,17 +663,10 @@ document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#12
 
 
 
-}
 
-}
 
 
 }
-
-
-
-
-
 
 </script>
 
