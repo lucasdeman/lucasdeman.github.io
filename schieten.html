@@ -47,8 +47,29 @@
   background-image:url("https://wouterwe.github.io/Mortar_Tower_Icon%20(1).png");
   background-size: cover;
 }
+#terugknop{
+background-color: #50DB8B;
+width: 111px;
+height: 30px;
+position: relative;
+}
+
+#terugknoptext {
+margin: 8px;
+position: relative;
+color: black;
+top: 20%
+}
+
+a {
+text-decoration: none;
+}
 </style>
 <body>
+
+<a href='https://lucasdeman.github.io/index'>
+<div id='terugknop'><p id='terugknoptext'>naar homepage</p></div>
+</a>
 
 <p id='test'>levens: 3</p>
 <p id='tekst'>level: 0</p>
@@ -102,7 +123,7 @@ setTimeout(schieten, 0);
 var door1 = 0;
 var door2 = 0;
 var kogelleft;
-var levens = 3;
+var levens = 3000;
 document.getElementById('test').innerHTML = 'levens: ' + levens;
 setTimeout(pistolmove, 0);
 setTimeout(nieuwblokje, 0);
