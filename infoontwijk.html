@@ -41,7 +41,7 @@ background:url("https://img00.deviantart.net/5e6e/i/2010/201/8/a/rice_paper_text
 }
 
 #foto {
-background: url('http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png');
+background: url('http://kinderspelletjes.spelletjes-voor-kinderen.nl/sites/default/files/imagecache/200_200/large_391139[1].jpg');
 background-size: cover;
 width: 250px;
 height: 250px;
@@ -51,14 +51,14 @@ left: 75%;
 }
 
 #infinitycoockies {
-font-size: 400%;
+font-size: 300%;
 position: relative;
 top: -980px;
 left: 75%;
 }
 
 #javatext {
-font-size: 250%;
+font-size: 120%;
 position: relative;
 top: -800px;
 left: 60%;
@@ -93,7 +93,7 @@ left: 96.5%;
 
 
 
-<h2>Informatiepagina Onrwijk Game</h2>
+<h2>Informatiepagina Ontwijk Game</h2>
 
 
 
@@ -131,7 +131,7 @@ Veel Succes!
 Technische Details
 </h1>
 <h3>
-Nadat u level 15 heeft bereikt verschijnt er een 2e "pakker" die u zal moeten ontwijken.
+Nadat u level 9 heeft bereikt verschijnt er een 2e "pakker" die u zal moeten ontwijken.
 <br>
 <br>
 De "pakkers" bewegen niet erg snel, u kunt zo snel bewegen als u kunt tikken.
@@ -145,9 +145,16 @@ Waneer u en een van de "pakkers" zich op dezelfde plek bevinden bent u gepakt en
 
 <div id='foto'></div>
 
-<p id='infinitycoockies'>Infinity&#127850</p>
+<p id='infinitycoockies'>je bent level : 0</p>
 
-<p id='javatext'>geldTijd = 2510 - myupgrade2 * 10;<br>myscore += myupgrade2;</p>
+<p id='javatext'>levelnr++;<br>
+setTimeout(level, 10000 + levelnr * 10);<br>
+tijd = 500 - levelnr * 10;<br>
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;<br>
+if (levelnr == 9){<br>
+document.getElementById('myAnimation2').style.backgroundColor = 'green';<br>
+}<br>
+}</p>
 
 <a href='https://lucasdeman.github.io/index'>
 <div id='knopterug'></div>
@@ -160,9 +167,3 @@ Waneer u en een van de "pakkers" zich op dezelfde plek bevinden bent u gepakt en
 </body>
 
 </html>
-
-
-
-
-
-
