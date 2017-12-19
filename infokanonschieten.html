@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Info Page Kanon Schieten</title>
+<title>Info Page Ontwijk Game</title>
 </head>
-<link rel="stylesheet" type="text/css" href="https://lucasdeman.github.io/infokanonschietencss.css">
+<link rel="stylesheet" type="text/css" href="https://lucasdeman.github.io/infoontwijkcss.css">
 
 <body id='body'>
 
 
 
-<h2>Informatiepagina Kanon Schieten</h2>
+<h2>Informatiepagina Ontwijk Game</h2>
 
 
 
@@ -22,55 +22,63 @@ Controls
 </h1>
 
 <h3>
-Door op de knop met klik te drukken schiet je.
+Wanneeer u op de bovenste knop druk beweegt u een stukje omhoog.
 <br>
 <br>
-Als je raakt krijg je een punt en als je mist verlies je er een.
+Wanneer u op de linkerknop drukt beweegt u een stukje naar links.
 <br>
 <br>
-De hoek van je kanon staat voor hoe schuin je schiet.
-
+Wanneer u op de rechterknop drukt beweegt u een stukje naar rechts.
+<br>
+<br>
+Wanneer u op de onderste knop drukt beweegt u naar een stukje naar beneden.
 </h3>
-
 <h1>
 Doel van het spel
 </h1>
 <h3>
-Het doel van het spel is dat je een zo'n hoog mogelijk aantal punten behaald.
+U moet proberen zo lang mogelijk uit handen te houden van de "pakkers".
 <br>
 <br>
-Dit berijk je door op het groene paaltje te schieten.
-
+Verder moet u proberen om een zo hoog mogelijk level te halen.
+<br>
+<br>
+Veel Succes!
 </h3>
-
 <h1>
 Technische Details
 </h1>
-
 <h3>
-De richting van de kogel word berekent doormiddel van twee krachten, de een horizontaal en de ander verticaal.
+Nadat u level 9 heeft bereikt verschijnt er een 2e "pakker" die u zal moeten ontwijken.
 <br>
 <br>
-De zwaartekracht is een variable die elke stap van de verticaale kracht word afgetrokken. Hierdoor zal je kogel steets sneller vallen.
-
+De "pakkers" bewegen niet erg snel, u kunt zo snel bewegen als u kunt tikken.
+<br>
+<br>
+Waneer u en een van de "pakkers" zich op dezelfde plek bevinden bent u gepakt en bent u game over.
 </h3>
 </div>
 
 
 
-<button id='button'>klik</button>
+<div id='foto'></div>
 
-<p id='infinitycoockies'>je aantal punten: 7</p>
+<p id='infinitycoockies'>je bent level : 0</p>
 
-<p id='javatext'>omhoog = omhoog - 0.75;<br>
-height = height - (omhoog / 90 * 5);<br>
-left += graden / 90 * 5;</p>
+<p id='javatext'>levelnr++;<br>
+setTimeout(level, 10000 + levelnr * 10);<br>
+tijd = 500 - levelnr * 10;<br>
+document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;<br>
+if (levelnr == 9){<br>
+document.getElementById('myAnimation2').style.backgroundColor = 'green';<br>
+}<br>
+}</p>
 
 <a href='https://lucasdeman.github.io/index'>
 <div id='knopterug'></div>
 </a>
 
-<a href='https://lucasdeman.github.io/kanonschieten'>
+<a href='https://lucasdeman.github.io/ontwijk'>
 <div id='knopveder'></div>
 </a>
 
