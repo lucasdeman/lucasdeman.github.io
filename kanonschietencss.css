@@ -1,0 +1,42 @@
+
+#container{
+background-color: lightblue;
+width: 350px;
+height: 200px;
+}
+
+#kogel{
+background-color: black;
+width: 10px;
+height: 10px;
+position: relative;
+top: 190px;
+}
+
+#schietpaal{
+opacity: 0;
+background-color: green;
+width: 10px;
+height: 40px;
+position: relative;
+top: 150px;
+left: 100px;
+}
+
+#terugknop{
+background-color: #50DB8B;
+width: 111px;
+height: 30px;
+position: relative;
+}
+
+#terugknoptext {
+text-align: center;
+position: relative;
+color: black;
+top: 20%
+}
+
+a {
+text-decoration: none;
+}
