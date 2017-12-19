@@ -1,0 +1,83 @@
+h1 {color: #000000;
+  font-size: 200%;
+text-align: center;}
+
+
+
+h2 {color:	#4f4f4f;
+ font-size: 330%;
+ text-align: center;}
+ 
+ 
+ h3 {color:	#000000;
+ font-size: 110%;
+ margin-left: 10px;
+ }
+ 
+.one{
+color: white;
+}
+
+.uitlegdiv{
+background:url("http://bgfons.com/uploads/newspaper/newspaper_texture2845.jpg");
+width:30%;
+height:1150px;
+left: 5%;
+position: relative;
+}
+
+
+#body{
+background:url("https://img00.deviantart.net/5e6e/i/2010/201/8/a/rice_paper_texture_by_maplerose_stock.jpg");
+
+
+}
+
+#foto {
+background: url('https://virbela.zendesk.com/hc/en-us/article_attachments/210135888/wasd.png');
+background-size: cover;
+background-size: 350px 250px;
+width: 350px;
+height: 250px;
+position: relative;
+top: -1100px;
+left: 75%;
+}
+
+#infinitycoockies {
+font-size: 300%;
+position: relative;
+top: -980px;
+left: 75%;
+}
+
+#javatext {
+font-size: 120%;
+position: relative;
+top: -800px;
+left: 60%;
+}
+
+#knopterug {
+transform: rotate(180deg);
+margin-left: 0.1%;
+position: relative;
+background-size: 40px 70px;
+background: url('https://image.flaticon.com/icons/svg/60/60758.svg');
+background-size: cover;
+width: 60px;
+height: 70px;
+top:-1200px;
+left: 0.1%
+}
+
+#knopveder {
+position: relative;
+background-size: 40px 70px;
+background: url('https://image.flaticon.com/icons/svg/60/60758.svg');
+background-size: cover;
+width: 60px;
+height: 70px;
+top: -1270px;
+left: 96.5%;
+}
