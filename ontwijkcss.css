@@ -4,25 +4,26 @@
   width: 500px;
   height: 500px;
   position: relative;
-  background: yellow;
+  background: url("http://decorationsblog.com/wp-content/uploads/2014/01/floor-tiles-that-look-like-wood-india.jpg");
 }
 #myAnimation {
   width: 50px;
   height: 50px;
   position: absolute;
-  background-color: red;
+  background: url("https://lucasdeman.github.io/Tom_the_cat.png");
 }
 #myAnimation2 {
   width: 50px;
   height: 50px;
   position: absolute;
-  background-color: yellow;
+  background: url("https://lucasdeman.github.io/Tom_the_cat.png");
+  opcity: 0.0;
 }
 #popetje {
   width: 50px;
   height: 50px;
   position: absolute;
-  background-color: blue;
+  background: url("https://lucasdeman.github.io/jerry%20mouse.gif");
   }
 .knop1{
     left: 102px;
