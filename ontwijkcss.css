@@ -11,12 +11,16 @@
   height: 50px;
   position: absolute;
   background: url("https://lucasdeman.github.io/Tom_the_cat.png");
+  background-size: cover;
+  background-size: 50px 50px;
 }
 #myAnimation2 {
   width: 50px;
   height: 50px;
   position: absolute;
   background: url("https://lucasdeman.github.io/Tom_the_cat.png");
+  background-size: cover;
+  background-size: 50px 50px;
   opcity: 0.0;
 }
 #popetje {
@@ -24,6 +28,8 @@
   height: 50px;
   position: absolute;
   background: url("https://lucasdeman.github.io/jerry%20mouse.gif");
+  background-size: cover;
+  background-size: 50px 50px;
   }
 .knop1{
     left: 102px;
