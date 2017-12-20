@@ -1,8 +1,8 @@
+
 <!DOCTYPE html>
 <html>
 <body>
 
-<h2 id='testtest'>Activate debugging with F12</h2>
 
 <p id='opslag'></p>
 
@@ -160,25 +160,23 @@ zet4 = zet;
 
 if (beurt == 2 && andw == 'ongekozen'){
 andw = localStorage.getItem('nr' + zet1 + zet2);
-setTimeout(klopthet, 10);
-}else{
-setTimeout(andwgenerator, 0);
-andw = 'gekozen'
 }
 
 if (beurt == 3 && andw == 'ongekozen'){
 andw = localStorage.getItem('nr' + zet1 + zet2 + zet3);
-setTimeout(klopthet, 10);
 }
 
 if (beurt == 4 && andw == 'ongekozen'){
 andw = localStorage.getItem('nr' + zet1 + zet2 + zet3 + zet4);
-setTimeout(klopthet, 10);
 }
 
-if (andw == 'ongekozen'){
+if (andw == 'ongekozen' || andw + 'n' == 'nulln'){
 setTimeout(andwgenerator, 0);
+}else{
+setTimeout(klopthet, 0);
 }
+
+
 
 if (knop1 == 'gekozen' && knop2 == 'gekozen' && knop3 == 'gekozen'){
 uitslag = 'verloren';
@@ -361,6 +359,3 @@ document.getElementById('opslag').innerHTML = oud + nieuw5;
 
 </body>
 </html> 
-
-
-
