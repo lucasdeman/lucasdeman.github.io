@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2 id='testtest'>Activate debugging with F12</h2>
+
+<p id='opslag'></p>
+
+<p id='test'></p>
+<center>
+<button id='button1' onclick='klik(1)'>1</button>
+<button id='button2' onclick='klik(2)'>2</button>
+<button id='button3' onclick='klik(3)'>3</button><br>
+<button id='button4' onclick='klik(4)'>4</button>
+<button id='button5' onclick='klik(5)'>5</button>
+<button id='button6' onclick='klik(6)'>6</button><br>
+<button id='button7' onclick='klik(7)'>7</button>
+<button id='button8' onclick='klik(8)'>8</button>
+<button id='button9' onclick='klik(9)'>9</button><br>
+<button onclick='reload()'>reset</button>
+</center>
+
+
+<script>
+
+function reload(){
+door = 1;
+andw = 'ongekozen';
+beurt = 0;
+zet1 = 'ongekozen';
+zet2 = 'ongekozen';
+zet3 = 'ongekozen';
+zet4 = 'ongekozen';
+nieuw1 = 'ongekozen';
+nieuw2 = 'ongekozen';
+nieuw3 = 'ongekozen';
+nieuw4 = 'ongekozen';
+uitslag = 'ongekozen';
+knop1 = 'ongekozen';
+knop2 = 'ongekozen';
+knop3 = 'ongekozen';
+knop4 = 'ongekozen';
+knop5 = 'ongekozen';
+knop6 = 'ongekozen';
+knop7 = 'ongekozen';
+knop8 = 'ongekozen';
+knop9 = 'ongekozen';
+knop1a = 'ongekozen';
+knop2a = 'ongekozen';
+knop3a = 'ongekozen';
+knop4a = 'ongekozen';
+knop5a = 'ongekozen';
+knop6a = 'ongekozen';
+knop7a = 'ongekozen';
+knop8a = 'ongekozen';
+knop9a = 'ongekozen';
+document.getElementById('button1').innerHTML = '1';
+document.getElementById('button2').innerHTML = '2';
+document.getElementById('button3').innerHTML = '3';
+document.getElementById('button4').innerHTML = '4';
+document.getElementById('button5').innerHTML = '5';
+document.getElementById('button6').innerHTML = '6';
+document.getElementById('button7').innerHTML = '7';
+document.getElementById('button8').innerHTML = '8';
+document.getElementById('button9').innerHTML = '9';
+}
+
+function andwgenerator(){
+andw = Math.floor(Math.random() * 9 + 1);
+setTimeout(klopthet, 10);
+}
+
+var door = 1;
+var andw = 'ongekozen';
+var beurt = 0;
+var zet1 = 'ongekozen';
+var zet2 = 'ongekozen';
+var zet3 = 'ongekozen';
+var zet4 = 'ongekozen';
+var nieuw1 = 'ongekozen';
+var nieuw2 = 'ongekozen';
+var nieuw3 = 'ongekozen';
+var nieuw4 = 'ongekozen';
+var uitslag = 'ongekozen';
+var knop1 = 'ongekozen';
+var knop2 = 'ongekozen';
+var knop3 = 'ongekozen';
+var knop4 = 'ongekozen';
+var knop5 = 'ongekozen';
+var knop6 = 'ongekozen';
+var knop7 = 'ongekozen';
+var knop8 = 'ongekozen';
+var knop9 = 'ongekozen';
+var knop1a = 'ongekozen';
+var knop2a = 'ongekozen';
+var knop3a = 'ongekozen';
+var knop4a = 'ongekozen';
+var knop5a = 'ongekozen';
+var knop6a = 'ongekozen';
+var knop7a = 'ongekozen';
+var knop8a = 'ongekozen';
+var knop9a = 'ongekozen';
+
+function klik(zet) {
+andw = 'ongekozen';
+document.getElementById('button' + zet).innerHTML = 'x';
+beurt++;
+door = 1;
+
+
+if (zet == 1){
+knop1 = 'gekozen';
+knop1a = 'bezet';
+}
+if (zet == 2){
+knop2 = 'gekozen';
+knop2a = 'bezet';
+}
+if (zet == 3){
+knop3 = 'gekozen';
+knop3a = 'bezet';
+}
+if (zet == 4){
+knop4 = 'gekozen';
+knop4a = 'bezet';
+}
+if (zet == 5){
+knop5 = 'gekozen';
+knop5a = 'bezet';
+}
+if (zet == 6){
+knop6 = 'gekozen';
+knop6a = 'bezet';
+}
+if (zet == 7){
+knop7 = 'gekozen';
+knop7a = 'bezet';
+}
+if (zet == 8){
+knop8 = 'gekozen';
+knop8a = 'bezet';
+}
+if (zet == 9){
+knop9 = 'gekozen';
+knop9a = 'bezet';
+}
+
+if (beurt == 1){
+zet1 = zet;
+}
+if (beurt == 2){
+zet2 = zet;
+}
+if (beurt == 3){
+zet3 = zet;
+}
+if (beurt == 4){
+zet4 = zet;
+}
+
+if (beurt == 2 && andw == 'ongekozen'){
+andw = localStorage.getItem('nr' + zet1 + zet2);
+setTimeout(klopthet, 10);
+}else{
+setTimeout(andwgenerator, 0);
+andw = 'gekozen'
+}
+
+if (beurt == 3 && andw == 'ongekozen'){
+andw = localStorage.getItem('nr' + zet1 + zet2 + zet3);
+setTimeout(klopthet, 10);
+}
+
+if (beurt == 4 && andw == 'ongekozen'){
+andw = localStorage.getItem('nr' + zet1 + zet2 + zet3 + zet4);
+setTimeout(klopthet, 10);
+}
+
+if (andw == 'ongekozen'){
+setTimeout(andwgenerator, 0);
+}
+
+if (knop1 == 'gekozen' && knop2 == 'gekozen' && knop3 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop1 == 'gekozen' && knop4 == 'gekozen' && knop7 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop1 == 'gekozen' && knop5 == 'gekozen' && knop9 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop1 == 'gekozen' && knop2 == 'gekozen' && knop3 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop2 == 'gekozen' && knop5 == 'gekozen' && knop8 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop3 == 'gekozen' && knop6 == 'gekozen' && knop9 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop4 == 'gekozen' && knop5 == 'gekozen' && knop6 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop7 == 'gekozen' && knop8 == 'gekozen' && knop9 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+if (knop3 == 'gekozen' && knop5 == 'gekozen' && knop7 == 'gekozen'){
+uitslag = 'verloren';
+alert('jij wint');
+}
+
+
+}
+
+function klopthet(){
+door = 1;
+if (knop1a == 'bezet' && andw == 1){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop2a == 'bezet' && andw == 2){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop3a == 'bezet' && andw == 3){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop4a == 'bezet' && andw == 4){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop5a == 'bezet' && andw == 5){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop6a == 'bezet' && andw == 6){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop7a == 'bezet' && andw == 7){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop8a == 'bezet' && andw == 8){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+if (knop9a == 'bezet' && andw == 9){
+door = 0;
+setTimeout(andwgenerator, 0);
+}
+
+
+if (door != 0){
+document.getElementById('button' + andw).innerHTML = 'o';
+setTimeout(opslaan, 0);
+}
+
+
+}
+
+
+
+function opslaan(){
+
+if (andw == 1){
+knop1a = 'bezet';
+knop1ik = 'bezet';
+}
+if (andw == 2){
+knop2a = 'bezet';
+knop2ik = 'bezet';
+}
+if (andw == 3){
+knop3a = 'bezet';
+knop3ik = 'bezet';
+}
+if (andw == 4){
+knop4a = 'bezet';
+knop4ik = 'bezet';
+}
+if (andw == 5){
+knop5a = 'bezet';
+knop5ik = 'bezet';
+}
+if (andw == 6){
+knop6a = 'bezet';
+knop6ik = 'bezet';
+}
+if (andw == 7){
+knop7a = 'bezet';
+knop7ik = 'bezet';
+}
+if (andw == 8){
+knop8a = 'bezet';
+knop8ik = 'bezet';
+}
+if (andw == 9){
+knop9a = 'bezet';
+knop9ik = 'bezet';
+}
+
+
+
+if (beurt == 3){
+if (typeof(Storage) != "undefined") {
+    localStorage.setItem('nr' + zet1 + zet2, zet3);
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+}
+
+if (beurt == 4){
+if (typeof(Storage) != "undefined") {
+    localStorage.setItem('nr' + zet1 + zet2 + zet3, zet4);
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+}
+
+if (beurt == 5){
+if (typeof(Storage) != "undefined") {
+    localStorage.setItem('nr' + zet1 + zet2 + zet3 + zet4, zet5);
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+}
+
+if (uitslag == 'verloren'){
+
+if (nieuw3 != 'ongekozen'){
+var oud = document.getElementById('opslag').innerHTML;
+document.getElementById('opslag').innerHTML = oud + nieuw3;
+}
+
+if (nieuw4 != 'ongekozen'){
+var oud = document.getElementById('opslag').innerHTML;
+document.getElementById('opslag').innerHTML = oud + nieuw4;
+}
+
+if (nieuw5 != 'ongekozen'){
+var oud = document.getElementById('opslag').innerHTML;
+document.getElementById('opslag').innerHTML = oud + nieuw5;
+}
+
+}
+}
+
+
+
+</script>
+
+</body>
+</html> 
+
+
+
