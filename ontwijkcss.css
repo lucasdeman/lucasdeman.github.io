@@ -5,6 +5,8 @@
   height: 500px;
   position: relative;
   background: url("http://decorationsblog.com/wp-content/uploads/2014/01/floor-tiles-that-look-like-wood-india.jpg");
+  background-size: cover;
+  background-size: 500px 500px;
 }
 #myAnimation {
   width: 50px;
@@ -21,7 +23,7 @@
   background: url("https://lucasdeman.github.io/Tom_the_cat.png");
   background-size: cover;
   background-size: 50px 50px;
-  opcity: 0.0;
+  opacity: 0.0;
 }
 #popetje {
   width: 50px;
