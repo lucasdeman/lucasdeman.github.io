@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Info Page Ontwijk Game</title>
+<title>Info Page Kanonschieten</title>
 </head>
-<link rel="stylesheet" type="text/css" href="https://lucasdeman.github.io/infoontwijkcss.css">
+<link rel="stylesheet" type="text/css" href="https://lucasdeman.github.io/infokanonschietencss.css">
 
 <body id='body'>
 
 
 
-<h2>Informatiepagina Ontwijk Game</h2>
+<h2>Informatiepagina Kanonschieten</h2>
 
 
 
@@ -22,25 +22,16 @@ Controls
 </h1>
 
 <h3>
-Wanneeer u op de bovenste knop druk beweegt u een stukje omhoog.
+Wanneer u op de knop met 'klik' klikt, schiet het kannon.
 <br>
 <br>
-Wanneer u op de linkerknop drukt beweegt u een stukje naar links.
-<br>
-<br>
-Wanneer u op de rechterknop drukt beweegt u een stukje naar rechts.
-<br>
-<br>
-Wanneer u op de onderste knop drukt beweegt u naar een stukje naar beneden.
+Het aantal graden staat voor de hoek van het kannon, hiermee kun je richten.
 </h3>
 <h1>
 Doel van het spel
 </h1>
 <h3>
-U moet proberen zo lang mogelijk uit handen te houden van de "pakkers".
-<br>
-<br>
-Verder moet u proberen om een zo hoog mogelijk level te halen.
+U moet proberen de groene paal zo vaak mogelijk te raken.
 <br>
 <br>
 Veel Succes!
@@ -49,13 +40,7 @@ Veel Succes!
 Technische Details
 </h1>
 <h3>
-Nadat u level 9 heeft bereikt verschijnt er een 2e "pakker" die u zal moeten ontwijken.
-<br>
-<br>
-De "pakkers" bewegen niet erg snel, u kunt zo snel bewegen als u kunt tikken.
-<br>
-<br>
-Waneer u en een van de "pakkers" zich op dezelfde plek bevinden bent u gepakt en bent u game over.
+Door twee maal op de knop te klikken zal de kogel versnellen en zal de zwaartekracht anders werken.
 </h3>
 </div>
 
@@ -63,16 +48,12 @@ Waneer u en een van de "pakkers" zich op dezelfde plek bevinden bent u gepakt en
 
 <div id='foto'></div>
 
-<p id='infinitycoockies'>je bent level : 0</p>
+<p id='paaldiv'></p>
 
-<p id='javatext'>levelnr++;<br>
-setTimeout(level, 10000 + levelnr * 10);<br>
-tijd = 500 - levelnr * 10;<br>
-document.getElementById('test').innerHTML = 'je bent level : ' + levelnr;<br>
-if (levelnr == 9){<br>
-document.getElementById('myAnimation2').style.backgroundColor = 'green';<br>
-}<br>
-}</p>
+<p id='javatext'>omhoog = omhoog - 0.75;<br>
+<br>
+height = height - (omhoog / 90 * 5);<br>
+left += graden / 90 * 5;</p>
 
 <a href='https://lucasdeman.github.io/index'>
 <div id='knopterug'></div>
