@@ -27,7 +27,10 @@ var andw = 0;
 var x;
 var win = 0;
 function zet(a){
+
+if (vlak[a] == 1){
 vlak[a] = 2;
+
 document.getElementById("knop" + a).innerHTML = "X";
 andw = 0;
 if (vlak[0] * vlak[1] * vlak[2] == 4){
@@ -268,6 +271,11 @@ alert("ik win!");
 }else if (win == -1){
 alert("jij wint....");
 }
+
+}else{
+alert("probeer iets anders");
+}
+
 }
 </script>
 </body>
