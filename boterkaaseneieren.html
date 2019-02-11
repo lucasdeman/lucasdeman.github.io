@@ -7,7 +7,7 @@
 <div id='terugknop'><p id='terugknoptext'>naar homepage</p></div>
 </a>
 
-<center>
+ <center>
 <button class="button" id="knop0" onclick="zet(0)">-</button>
 <button class="button" id="knop1" onclick="zet(1)">-</button>
 <button class="button" id="knop2" onclick="zet(2)">-</button><br>
@@ -19,8 +19,7 @@
 <button class="button" id="knop8" onclick="zet(8)">-</button><br>
 <button class="button" id="opnieuw" onclick="location.reload()">opnieuw</button>
 </center>
-
-
+  
 <script>
 var vlak = [1,1,1,1,1,1,1,1,1];
 var andw = 0;
@@ -78,6 +77,12 @@ andw = 2;
 }
 if (vlak[0] * vlak[7] == 4 && vlak[3] == 1){
 andw = 3;
+}
+if (vlak[2] * vlak[6] == 4 && vlak[1] == 1){
+andw = 1;
+}
+if (vlak[0] * vlak[7] * vlak[5] == 8 && vlak[8] == 1){
+andw = 8;
 }
 
 if (vlak[0] * vlak[1] * vlak[2] == 4){
