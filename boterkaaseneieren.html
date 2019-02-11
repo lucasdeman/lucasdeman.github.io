@@ -26,13 +26,10 @@ var vlak = [1,1,1,1,1,1,1,1,1];
 var andw = 0;
 var x;
 var win = 0;
-
 function zet(a){
 vlak[a] = 2;
 document.getElementById("knop" + a).innerHTML = "X";
-
 andw = 0;
-
 if (vlak[0] * vlak[1] * vlak[2] == 4){
 if (vlak[0] == 1){
 andw = 0;
@@ -44,7 +41,6 @@ if (vlak[2] == 1){
 andw = 1;
 }
 }
-
 if (vlak[0] * vlak[3] * vlak[6] == 4){
 if (vlak[0] == 1){
 andw = 0;
@@ -56,7 +52,6 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[0] * vlak[4] * vlak[8] == 4){
 if (vlak[0] == 1){
 andw = 0;
@@ -68,7 +63,6 @@ if (vlak[8] == 1){
 andw = 8;
 }
 }
-
 if (vlak[3] * vlak[4] * vlak[5] == 4){
 if (vlak[3] == 1){
 andw = 3;
@@ -80,7 +74,6 @@ if (vlak[5] == 1){
 andw = 5;
 }
 }
-
 if (vlak[1] * vlak[4] * vlak[7] == 4){
 if (vlak[1] == 1){
 andw = 1;
@@ -92,7 +85,6 @@ if (vlak[7] == 1){
 andw = 7;
 }
 }
-
 if (vlak[6] * vlak[8] * vlak[7] == 4){
 if (vlak[6] == 1){
 andw = 6;
@@ -104,7 +96,6 @@ if (vlak[7] == 1){
 andw = 7;
 }
 }
-
 if (vlak[2] * vlak[8] * vlak[5] == 4){
 if (vlak[2] == 1){
 andw = 2;
@@ -116,7 +107,6 @@ if (vlak[5] == 1){
 andw = 5;
 }
 }
-
 if (vlak[2] * vlak[4] * vlak[6] == 4){
 if (vlak[2] == 1){
 andw = 2;
@@ -128,7 +118,6 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[0] * vlak[1] * vlak[2] == 9){
 win = 1;
 if (vlak[0] == 1){
@@ -141,7 +130,6 @@ if (vlak[2] == 1){
 andw = 1;
 }
 }
-
 if (vlak[0] * vlak[3] * vlak[6] == 9){
 win = 1;
 if (vlak[0] == 1){
@@ -154,7 +142,6 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[0] * vlak[4] * vlak[8] == 9){
 win = 1;
 if (vlak[0] == 1){
@@ -167,7 +154,6 @@ if (vlak[8] == 1){
 andw = 8;
 }
 }
-
 if (vlak[3] * vlak[4] * vlak[5] == 9){
 win = 1;
 if (vlak[3] == 1){
@@ -180,7 +166,6 @@ if (vlak[5] == 1){
 andw = 5;
 }
 }
-
 if (vlak[1] * vlak[4] * vlak[7] == 9){
 win = 1;
 if (vlak[1] == 1){
@@ -193,7 +178,6 @@ if (vlak[7] == 1){
 andw = 7;
 }
 }
-
 if (vlak[6] * vlak[8] * vlak[7] == 9){
 win = 1;
 if (vlak[6] == 1){
@@ -206,7 +190,6 @@ if (vlak[7] == 1){
 andw = 7;
 }
 }
-
 if (vlak[2] * vlak[8] * vlak[5] == 9){
 win = 1;
 if (vlak[2] == 1){
@@ -219,7 +202,6 @@ if (vlak[5] == 1){
 andw = 5;
 }
 }
-
 if (vlak[2] * vlak[4] * vlak[6] == 9){
 win = 1;
 if (vlak[2] == 1){
@@ -232,39 +214,30 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[0] * vlak[1] * vlak[2] == 8){
 win = -1;
 }
-
 if (vlak[0] * vlak[3] * vlak[6] == 8){
 win = -1;
 }
-
 if (vlak[0] * vlak[4] * vlak[8] == 8){
 win = -1;
 }
-
 if (vlak[3] * vlak[4] * vlak[5] == 8){
 win = -1;
 }
-
 if (vlak[1] * vlak[4] * vlak[7] == 8){
 win = -1;
 }
-
 if (vlak[6] * vlak[8] * vlak[7] == 8){
 win = -1;
 }
-
 if (vlak[2] * vlak[8] * vlak[5] == 8){
 win = -1;
 }
-
 if (vlak[2] * vlak[4] * vlak[6] == 8){
 win = -1;
 }
-
 if (andw == 0){
 for (x=8; x>-1; x--){
 if (vlak[x] == 1){
@@ -275,14 +248,15 @@ if (vlak[4] == 1){
 andw = 4;
 }
 }
-
 if (vlak[3] * vlak[7] == 4 && vlak[6] == 1){
 andw = 6;
 }
 if (vlak[5] * vlak[7] == 4 && vlak[8] == 1){
 andw = 8;
 }
-
+if (vlak[4] * vlak[8] == 4 && vlak[2] == 1){
+andw = 2;
+}
 
 vlak[andw] = 3;
 document.getElementById("knop" + andw).innerHTML = "O";
@@ -291,10 +265,7 @@ alert("ik win!");
 }else if (win == -1){
 alert("jij wint....");
 }
-
 }
-
-
 </script>
 </body>
 </html>
