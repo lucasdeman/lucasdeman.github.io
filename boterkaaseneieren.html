@@ -29,11 +29,10 @@ var vlak = [1,1,1,1,1,1,1,1,1];
 var andw = 0;
 var x;
 var win = 0;
+var anders = 0;
 function zet(a){
-
 if (vlak[a] == 1){
 vlak[a] = 2;
-
 document.getElementById("knop" + a).innerHTML = "X";
 andw = 0;
 if (vlak[0] * vlak[1] * vlak[2] == 8){
@@ -88,7 +87,6 @@ andw = 1;
 if (vlak[0] * vlak[7] * vlak[5] == 8 && vlak[8] == 1){
 andw = 8;
 }
-
 if (vlak[0] * vlak[1] * vlak[2] == 4){
 if (vlak[0] == 1){
 andw = 0;
@@ -177,7 +175,6 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[0] * vlak[1] * vlak[2] == 9){
 win = 1;
 if (vlak[0] == 1){
@@ -274,7 +271,6 @@ if (vlak[6] == 1){
 andw = 6;
 }
 }
-
 if (vlak[andw] == 1){
 vlak[andw] = 3;
 document.getElementById("knop" + andw).innerHTML = "O";
@@ -285,9 +281,13 @@ alert("jij wint....");
 }
 }
 }else{
+if (anders < 3){
 alert("probeer iets anders");
+}else{
+alert("ben je debiel ofzo?");
 }
-
+anders++;
+}
 }
 </script>
 </body>
