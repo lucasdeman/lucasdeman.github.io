@@ -35,7 +35,9 @@
 <div id='schieten'></div>
 </a>
 
-<div id="visitorcount" style="position: absolute; top: 80%; background-color: red;">000</div>
+<div style="background-color: red; width:100px; height:30px; position: absolute; top: 80%;">
+<p id="visitorcount" style="position: absolute; top: -40%; left: 10%;">000</p>
+</div>
 
 <!--visitorcount script-->
 <script>
@@ -44,7 +46,7 @@ location.href = "https://informatica-lucasdeman.c9users.io/visitorcount.php?name
 }
 
 var getal = location.href.slice(location.href.length - 4, location.href.length);
-document.getElementById("visitorcount").innerHTML = "visitorcount: " + getal;
+document.getElementById("visitorcount").innerHTML = getal;
 </script>
 
 <script>
