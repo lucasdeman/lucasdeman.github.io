@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 
 
@@ -10,121 +8,40 @@
 <body id='body'>
 
 
-
-
-
-
 <form name="myForm" action="" method="post">
-
-
 <input name="cheet" type="text" class="cheetbar" placeholder="">
-
-
 </form>
 
-
-
-
-
-
 <center>
-
-
 <font size="8">Cookie Clikker</font>
 
-
 <center>
-
-
-
-
-
-
 <button id='cookie' class='cookie' onclick="myFunction()">
-
-
-
-
-
-
 <div id='autoclicker' class='autoclickdiv'>
-
-
 </div>
-
-
-
-
-
-
 </button>
-
-
-
-
-
-
 </center>
 
 
 <br>
-
-
 <br>
-
-
 <br>
-
-
 <br>
-
-
 <p><font size="6">score:
-
-
 <p id="score">0&#127850;</p></font></p>
-
-
 <br>
-
-
 <br>
-
-
 <br>
-
-
 <br>
-
-
 <br>
-
-
 <br>
-
-
-
-
 <button id="Upgrade" class="Upgrade"
-
-
 onclick="myUpgrade()"><p id='upgradekostenclick'>100&#127850</p>
-
-
 </button><p id='upgradetext'>Upgrade Cookie</p>
-
-
 <button id="autoclickUpgrade" class="autoclickUpgrade"
-
-
 onclick="myautoclickUpgrade()"><p id='upgradekostenauto'>250&#127850</p>
-
-
 </button><p id='upgradetext2'>Upgrade Autoclick</p>
-
-
 </center>
-
 <a href='https://lucasdeman.github.io/index'>
 <div id='terugknop'><p id='terugknoptext'>naar homepage</p></div>
 </a>
@@ -133,368 +50,113 @@ onclick="myautoclickUpgrade()"><p id='upgradekostenauto'>250&#127850</p>
 
 
 
+
 var links = -6;
-
-
 var omhoog = 0;
-
-
 var wissel = 0;
-
-
 var graden = 90;
 
-
 function draai(){
-
-
-
-
-
-
 var links2 = links - 56.5;
 
-
-
-
-
-
 if (links == 119){
-
-
 wissel = 1;
-
-
 }
-
-
-
-
-
 
 if (links == -6){
-
-
 wissel = 0;
-
-
 }
-
-
-
-
-
 
 if (wissel == 0) {
-
-
 links++;
-
-
 }
-
-
-
-
-
 
 if (wissel == 1) {
-
-
 links--;
-
-
 }
-
-
-
-
-
 
 if (wissel == 0){
-
-
 omhoog = 125 - (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5) - 62.5;
-
-
 graden = 90 - (links + 6) * 1.44;
-
-
 }
-
-
 if (wissel == 1){
-
-
 omhoog = (links2 * links2 * links2 * links2 / 62.5 / 62.5 / 62.5) - 62.5;
-
-
 graden = 90 + (links + 6) * 1.44;
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
 document.getElementById('autoclicker').style.transform = 'rotate(' + graden + 'deg)' ;
-
-
 document.getElementById("autoclicker").style.left = links + 'px';
-
-
 document.getElementById("autoclicker").style.top = omhoog + 'px';
-
-
-
-
-
-
 document.getElementById('autoclicker').style.backgroundImage = 'url("https://d30y9cdsu7xlg0.cloudfront.net/png/976235-200.png")';
-
-
 setTimeout(draai, 20);
-
-
 }
-
-
-
-
-
 
 var myscore = 0;
-
-
 var myupgrade2 = 0;
-
-
 var upgradeprice2 = 250;
-
-
 var geldTijd;
 
-
-
-
-
-
 function myautoclickUpgrade(){
-
-
 if (myscore >= upgradeprice2) {
-
-
-
-
-
-
 myscore = myscore - upgradeprice2;
-
-
 myupgrade2++;
-
-
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
-
-
 upgradeprice2 = upgradeprice2 + 50;
-
 document.getElementById("upgradekostenauto").innerHTML = upgradeprice2 + '&#127850;';
-
-
 geldTijd = 2510 - myupgrade2 * 10;
-
-
 setTimeout(autoclick, 0);
-
-
 if (myupgrade2 == 1){
-
-
 setTimeout(draai, 0);
-
-
 }
-
-
 }
-
-
 }
-
-
-
-
 
 
 function autoclick(){
-
-
 myscore = myscore + myupgrade2;
-
-
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
-
-
-
-
-
-
 setTimeout(autoclick, geldTijd);
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var myupgrade = 1;
-
-
 var upgradeprice = 100;
-
-
-
-
-
-
 function myUpgrade() {
-
-
-
-
-
-
 if (myscore >= upgradeprice) {
-
-
-
-
-
-
 myscore = myscore - upgradeprice;
-
-
 myupgrade = myupgrade * 2;
-
-
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
-
-
 upgradeprice = upgradeprice * 2;
 
 document.getElementById("upgradekostenclick").innerHTML = upgradeprice + '&#127850;';
-
-
-
-
 }
-
-
 }
-
-
-
-
-
 
 var cheetnr = 0;
-
-
-
-
-
-
-
-
-
-
-
-
+var allowCheet = 0;
 
 function myFunction() {
 
+var tekst = location.href.slice(location.href.length - 7, location.href.length);
 
-
-
-
-
-if (document.forms["myForm"]["cheet"].value == 'cowlevel-auto'){
-
-
-myupgrade2 = myupgrade2 + 10000;
-
-
-
-
-
-
-}else if (document.forms["myForm"]["cheet"].value == 'cowlevel-click'){
-
-
-myupgrade = myupgrade * 64;
-
-
-
-
-
-
-}else{
-
-
-cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
-
-
-myscore = myscore + cheetnr;
-
-
+if (tekst == "admin=1"){
+allowCheet = 1;
 }
 
+if (allowCheet == 1){
 
-
-
-
-
+if (document.forms["myForm"]["cheet"].value == 'cowlevel-auto'){
+myupgrade2 = myupgrade2 + 10000;
+}else if (document.forms["myForm"]["cheet"].value == 'cowlevel-click'){
+myupgrade = myupgrade * 64;
+}else{
+cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
+myscore = myscore + cheetnr;
+}
 myscore = myscore + myupgrade;
 
-
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
-
-
-
-
-
-
+}
 }
 
 </script>
-
-
-
-
-
 </body>
-
-
 </html>
