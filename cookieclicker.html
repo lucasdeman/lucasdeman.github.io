@@ -147,7 +147,7 @@ if (document.forms["myForm"]["cheet"].value == 'cowlevel-auto'){
 myupgrade2 = myupgrade2 + 10000;
 }else if (document.forms["myForm"]["cheet"].value == 'cowlevel-click'){
 myupgrade = myupgrade * 64;
-}else{
+}else if (isNaN(document.forms["myForm"]["cheet"].value * 1) == false){
 cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
 myscore = myscore + cheetnr;
 }
