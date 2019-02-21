@@ -35,11 +35,16 @@
 <div id='schieten'></div>
 </a>
 
+<div id="visitorcount" style="position: absolute; top: 80%; background-color: red;">000</div>
+
 <!--visitorcount script-->
 <script>
 if (location.href == "https://lucasdeman.github.io/"){
 location.href = "https://informatica-lucasdeman.c9users.io/visitorcount.php?name=https://lucasdeman.github.io/";
 }
+
+var getal = location.href.slice(location.href.length - 4, location.href.length);
+document.getElementById("visitorcount").innerHTML = getal;
 </script>
 
 <script>
