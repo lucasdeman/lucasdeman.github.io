@@ -45,12 +45,7 @@ onclick="myautoclickUpgrade()"><p id='upgradekostenauto'>250&#127850</p>
 <a href='https://lucasdeman.github.io/index'>
 <div id='terugknop'><p id='terugknoptext'>naar homepage</p></div>
 </a>
-
 <script>
-
-
-
-
 var links = -6;
 var omhoog = 0;
 var wissel = 0;
@@ -151,10 +146,11 @@ myupgrade = myupgrade * 64;
 cheetnr = document.forms["myForm"]["cheet"].value * 2 / 2;
 myscore = myscore + cheetnr;
 }
+}
 myscore = myscore + myupgrade;
 
 document.getElementById("score").innerHTML = "<font size='6'>" + myscore + "&#127850;<font>";
-}
+
 }
 
 </script>
