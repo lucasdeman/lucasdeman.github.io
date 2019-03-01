@@ -18,6 +18,15 @@ h1 {
   left: 47.5%;
   top: 24.5%;
 }
+#minesweeper {
+  position: absolute;
+  width: 7.5%;
+  height: 15%;
+  background-image: url('https://vignette.wikia.nocookie.net/b__/images/3/34/Bomb_Tower_Icon.png/revision/latest?cb=20151212161118&path-prefix=bloons');
+    background-size: cover;
+  left: 47.5%;
+  top: 24.5%;
+}
 #cookieclicker {
   position: absolute;
   width: 7.5%;
