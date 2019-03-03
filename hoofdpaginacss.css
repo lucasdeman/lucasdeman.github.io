@@ -12,7 +12,7 @@ h1 {
 #minesweeper {
   position: absolute;
   width: 7.5%;
-  height: 8%;
+  height: 12.5%;
   background-image: url('https://icon2.kisspng.com/20180602/wa/kisspng-microsoft-minesweeper-land-mine-minesweeper-classi-minesweeper-5b1332ee553760.8559237915279848783491.jpg');
     background-size: cover;
   left: 47.5%;
@@ -21,7 +21,7 @@ h1 {
 #cookieclicker {
   position: absolute;
   width: 7.5%;
-  height: 8%;
+  height: 12.5%;
   background-image: url('http://www.greatamericancookies.com/app/themes/greatamericancookies/library/images/home/carousel3.png');
     background-size: cover;
   left: 38.5%;
@@ -30,7 +30,7 @@ h1 {
 #boterkaaseneieren {
   position: absolute;
   width: 7.5%;
-  height: 8%;
+  height: 12.5%;
   background-image: url('http://upload.wikimedia.org/wikipedia/commons/1/1d/Tic-tac-toe_%28PSF%29.png?uselang=nl');
   background-size: cover;
   left: 47.5%;
@@ -39,7 +39,7 @@ h1 {
 #ontwijk {
   position: absolute;
   width: 7.5%;
-  height: 8%;
+  height: 12.5%;
   background-image: url('http://kinderspelletjes.spelletjes-voor-kinderen.nl/sites/default/files/imagecache/200_200/large_391139[1].jpg');
   background-size: cover;
   left: 56.5%;
@@ -48,7 +48,7 @@ h1 {
 #schieten {
   position: absolute;
   width: 7.5%;
-  height: 8%;
+  height: 12.5%;
   background-image: url('https://vignette.wikia.nocookie.net/b__/images/7/79/Monkey_Ace_Icon.png/revision/latest?cb=20151212160103&path-prefix=bloons');
   background-size: cover;
   left: 47.5%;
