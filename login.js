@@ -1,5 +1,5 @@
 var text;
-//var echo = document.getElementById("echo");
+var echo = document.getElementById("echo");
 document.getElementById("filetoRead").addEventListener("change",function(){
         var file = this.files[0];
 
@@ -25,7 +25,7 @@ document.getElementById("filetoRead").addEventListener("change",function(){
     
     function save(){
     	text = document.getElementById("editor").value;
-        //echo.innerHTML = text;
+        echo.innerHTML = text;
         var script = document.createElement('script');
         script.innerHTML = text;
         document.body.appendChild(script);
