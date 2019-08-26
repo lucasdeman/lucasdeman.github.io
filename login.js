@@ -1,4 +1,6 @@
 var text;
+var password;
+var passed = false;
 //var echo = document.getElementById("echo");
 document.getElementById("filetoRead").addEventListener("change",function(){
         var file = this.files[0];
@@ -33,5 +35,9 @@ document.getElementById("filetoRead").addEventListener("change",function(){
     
     function doRest(){
     	//echo.innerHTML = data[0];
-        LocalFunction();
+        password = prompt('please enter your password', '.....');
+        if (password == data[0]){
+        passed = true;
+        }
+        LocalFunction(passed);
     }
