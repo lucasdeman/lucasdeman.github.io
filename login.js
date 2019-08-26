@@ -1,16 +1,14 @@
 var text;
-var echo = document.getElementById("echo");
+//var echo = document.getElementById("echo");
 document.getElementById("filetoRead").addEventListener("change",function(){
         var file = this.files[0];
-
         if (file) {
             var reader = new FileReader();
-            
             reader.onload = function (evt) {
-            	var textarea = document.createElement('textarea');
-                textarea.hidden = 'true';
-                textarea.id = 'editor';
-                document.body.appendChild(textarea);
+            var textarea = document.createElement('textarea');
+        	textarea.id = 'editor';
+        	document.body.appendChild(textarea);
+                
                 document.getElementById("editor").value = evt.target.result;
                 save();
             };
@@ -25,14 +23,15 @@ document.getElementById("filetoRead").addEventListener("change",function(){
     
     function save(){
     	text = document.getElementById("editor").value;
-        echo.innerHTML = text;
+        //echo.innerHTML = text;
         var script = document.createElement('script');
         script.innerHTML = text;
         document.body.appendChild(script);
         document.getElementById('editor').remove();
         setTimeout(doRest, 50);
     }
-  	
-    function doRest{
-        helpFunction();
+    
+    function doRest(){
+    	//echo.innerHTML = data[0];
+        LocalFunction();
     }
