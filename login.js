@@ -34,5 +34,5 @@ document.getElementById("filetoRead").addEventListener("change",function(){
     }
   	
     function doRest{
-    
+        helpFunction();
     }
