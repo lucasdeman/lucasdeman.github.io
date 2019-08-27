@@ -51,3 +51,4 @@ function download() {
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);
+}
