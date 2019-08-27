@@ -39,6 +39,12 @@ document.getElementById("filetoRead").addEventListener("change",function(){
         if (password == data[0]){
         passed = true;
         }
+            if (!passed){
+    document.getElementById("datascript").remove();
+    delete this.data;
+    text = 0;
+    delete this.text;
+    }
         LocalFunction(passed);
     }
     var newtext;
