@@ -41,3 +41,13 @@ document.getElementById("filetoRead").addEventListener("change",function(){
         }
         LocalFunction(passed);
     }
+
+        var newtext;
+function download() {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/javascript;charset=utf-8,' + encodeURIComponent(newtext));
+  element.setAttribute('download', 'account.txt');
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
