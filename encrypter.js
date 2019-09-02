@@ -63,7 +63,7 @@ return echo;
 
 function goTo(target){
   var tussen = '';
-  while (Math.floor(Math.log10(coins)) + tussen.length < 4 || (Math.floor(Math.log(coins)) < 5 && tussen == '')){
+  while (Math.floor(Math.log10(coins)) + tussen.length < 4 || (Math.floor(Math.log10(coins)) < 5 && tussen == '')){
     tussen += '~';
   }
 target += '?' + encode(ww) + tussen + encode(coins + '');
