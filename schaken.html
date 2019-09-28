@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script>
+  var zwart = 1;
+  var selected = false;
+  var selectloc = [0, 0];
+  var grootst;
+  var xstep;
+  var ystep;
+  var scherm = window.innerWidth / 2 - 400;
+  var bord = [['T', 'H', 'B', 'Q', 'K', 'B', 'H', 'T'],
+              ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+              ['T', 'H', 'B', 'Q', 'K', 'B', 'H', 'T'] ];
+  var blackwhite = [['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
+              ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['', '', '', '', '', '', '', ''],
+              ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'],
+              ['w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'] ];
+  for (y = 0; y < 8; y++)
+  {
+    for (x = 0; x < 8; x++)
+    {
+      var button = document.createElement('div');
+      button.id = x + ',' + y;
+      button.style.position = 'absolute';
+      button.style.top = (y * 100 + 10) + 'px';
+      button.style.left = (x * 100 + scherm) + 'px';
+      button.style.width = '100px';
+      button.style.height = '100px';
+      button.style.fontSize = '70px';
+      button.style.textAlign = 'center';
+      button.onclick = function()
+      {
+        var dezeknop = document.getElementById(this.id);
+        var left = dezeknop.style.left.slice(0, dezeknop.style.left.length - 2);
+        var top = dezeknop.style.top.slice(0, dezeknop.style.top.length - 2);
+        if (selected == false)
+        {
+          if (dezeknop.innerHTML != ''){
+          selected = true;
+          dezeknop.style.border = "3px solid #0000FF";
+          dezeknop.style.width = '94px';
+          dezeknop.style.height = '94px';
+          document.getElementById(selectloc[0] + ',' + selectloc[1]).style.border = null;
+          document.getElementById(selectloc[0] + ',' + selectloc[1]).style.width = '100px';
+          document.getElementById(selectloc[0] + ',' + selectloc[1]).style.height = '100px';
+          selectloc = [(left * 1 - scherm) / 100, (top * 1 - 10) / 100];
+          }
+        }
+        else
+        {
+          bewegen(selectloc[0], selectloc[1], (left * 1 - scherm) / 100, (top * 1 - 10) / 100);
+        }
+      };
+      if (zwart == -1)
+      {
+        button.style.backgroundColor = 'rgb(' + 119 + ',' + 162 + ',' + 109 + ')';
+      }
+      else
+      {
+        button.style.backgroundColor = 'rgb(' + 200 + ',' + 195 + ',' + 101 + ')';
+      }
+      zwart *= -1;
+      document.body.appendChild(button);
+      textnaarplaatje(bord[y][x], y, x);
+    }
+    zwart *= -1;
+  }
+function bewegen(x, y, x2, y2)
+{
+  var toegestaan = false;
+  var letter = bord[y][x];
+  var dx = Math.abs(x2 - x);
+  var dy = Math.abs(y2 - y);
+  if (letter == 'H' && ((dx == 2 && dy == 1) || (dx == 1 && dy == 2))) { toegestaan = true; }
+  if (letter == 'T' && (dx == 0 || dy == 0)) { toegestaan = true; }
+  if (letter == 'B' && dx == dy) { toegestaan = true; }
+  if (letter == 'K' && (dx <= 1 && dy <= 1)) { toegestaan = true; }
+  if (letter == 'Q' && ((dx == 0 || dy == 0) || dx == dy)) { toegestaan = true; }
+  if (letter == 'p')
+  {
+    if (((blackwhite[y][x] == 'w' && y2 - y == -1) || (blackwhite[y][x] == 'b' && y2 - y == 1)) && dx == 1)
+    {
+      if (blackwhite[y2][x2] != blackwhite[y][x] && blackwhite[y2][x2] != '') { toegestaan = true; }
+    }
+    else if (dx == 0)
+    {
+      if (blackwhite[y][x] == 'w')
+      {
+        if ((y2 - y == -2 && y == 6) || (y2 - y == -1 && blackwhite[y2][x2] == '')) { toegestaan = true; }
+      }
+      else
+      {
+        if ((y2 - y == 2 && y == 1) || (y2 - y == 1 && blackwhite[y2][x2] == '')) { toegestaan = true; }
+      }
+    }
+  }
+
+  if (letter != 'H')
+  {
+    xstep = 0;
+    ystep = 0;
+    if (dx >= dy){ grootst = dx; } else {grootst = dy; }
+    if (y2 - y < 0){ ystep = -1; }  if(y2 - y > 0){ ystep = 1; }
+    if (x2 - x < 0){ xstep = -1; }  if(x2 - x > 0){ xstep = 1; }
+    for (i = 1; i < grootst; i++)
+    {
+      if (bord[y + (i * ystep)][x + (i * xstep)] != ''){ toegestaan = false; }
+    }
+  }
+
+if (blackwhite[y2][x2] == blackwhite[y][x]){ toegestaan = false; }
+
+  if (toegestaan && (dx != 0 || dy != 0))
+  {
+    document.getElementById(x + ',' + y).innerHTML = '';
+    bord[y][x] = '';
+    var str1 = '';
+    if (bord[y2][x2] == 'K' && blackwhite[y][x] == 'w') { str1 = 'White'; } else if (bord[y2][x2] == 'K') { str1 = 'Black'; }
+    bord[y2][x2] = letter;
+    blackwhite[y2][x2] = blackwhite[y][x];
+    blackwhite[y][x] = '';
+    textnaarplaatje(letter, y2, x2);
+    selected = false;
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.border = null;
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.width = '100px';
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.height = '100px';
+    if (letter == 'p' && (y2 == 0 || y2 == 7)) { textnaarplaatje('Q', y2, x2); bord[y2][x2] = 'Q'; }
+    if (str1 != '') { alert(str1 + ' won the game!'); }
+  }
+  if (dx == 0 && dy == 0)
+  {
+    selected = false;
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.border = null;
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.width = '100px';
+    document.getElementById(selectloc[0] + ',' + selectloc[1]).style.height = '100px';
+  }
+}
+
+function textnaarplaatje(letter, y, x)
+{
+  var str0 = document.getElementById(x + ',' + y);
+  if (letter == 'p' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9817'; }
+  if (letter == 'p' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9823'; }
+  if (letter == 'B' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9815'; }
+  if (letter == 'B' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9821'; }
+  if (letter == 'T' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9814'; }
+  if (letter == 'T' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9820'; }
+  if (letter == 'Q' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9813'; }
+  if (letter == 'Q' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9819'; }
+  if (letter == 'K' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9812'; }
+  if (letter == 'K' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9818'; }
+  if (letter == 'H' && blackwhite[y][x] == 'w') { str0.innerHTML = '&#9816'; }
+  if (letter == 'H' && blackwhite[y][x] == 'b') { str0.innerHTML = '&#9822'; }
+}
+
+function queen(kleur)
+{
+  if (kleur == 'white')
+  {
+    for (x = 0; x < 8; x++)
+    {
+      for (y = 0; y < 8; y++)
+      {
+        if (bord[y][x] == 'p' && blackwhite[y][x] == 'w') { bord[y][x] = 'Q'; textnaarplaatje('Q', y, x); }
+      }
+    }
+  }
+  else if (kleur == 'black')
+  {
+    for (x = 0; x < 8; x++)
+    {
+      for (y = 0; y < 8; y++)
+      {
+        if (bord[y][x] == 'p' && blackwhite[y][x] == 'b') { bord[y][x] = 'Q'; textnaarplaatje('Q', y, x); }
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
