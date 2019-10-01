@@ -12,7 +12,7 @@
  <a href='https://lucasdeman.github.io/boterkaaseneieren_begint.html'>
 <div style="position: absolute; top: 10px; right: 0px;" id='terugknop'><center>begint bot</center></div>
 </a>
- 
+
  <center>
 <button class="button" id="knop0" onclick="zet(0)">-</button>
 <button class="button" id="knop1" onclick="zet(1)">-</button>
@@ -25,9 +25,7 @@
 <button class="button" id="knop8" onclick="zet(8)">-</button><br>
 <button class="button" id="opnieuw" onclick="location.reload()">opnieuw</button>
 </center>
-  <?php
-    echo "test";
-  ?>
+
 <script>
 var vlak = [1,1,1,1,1,1,1,1,1];
 var andw = 0;
@@ -283,6 +281,10 @@ win = -1;
 
 if (vlak[0] * vlak[1] == 9 && vlak[2] == 1){
 andw = 2;
+}
+
+if (vlak[6]*vlak[8]*vlak[7] == 4){
+  andw = 7;
 }
 
 if (vlak[andw] == 1){
