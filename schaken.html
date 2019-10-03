@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
   var grootst;
   var xstep;
   var ystep;
+  var beurt = 1;
   var scherm = window.innerWidth / 2 - 400;
   var bord = [['T', 'H', 'B', 'Q', 'K', 'B', 'H', 'T'],
               ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -121,9 +123,12 @@ function bewegen(x, y, x2, y2)
   }
 
 if (blackwhite[y2][x2] == blackwhite[y][x]){ toegestaan = false; }
-
+  if ((blackwhite[y][x] == 'w' && beurt != 1)||(blackwhite[y][x] == 'b' && beurt != -1)){
+    toegestaan = false;
+  }
   if (toegestaan && (dx != 0 || dy != 0))
   {
+    beurt *= -1;
     document.getElementById(x + ',' + y).innerHTML = '';
     bord[y][x] = '';
     var str1 = '';
