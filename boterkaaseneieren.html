@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="https://lucasdeman.github.io/boterkaaseneierencss.css">
@@ -254,6 +255,14 @@ andw = 6;
 }
 }
 
+if (vlak[0] * vlak[1] == 9 && vlak[2] == 1){
+andw = 2;
+}
+
+if (vlak[6]*vlak[8]*vlak[7] == 4 && vlak[7] == 1){
+  andw = 7;
+}
+
 if (vlak[0] * vlak[1] * vlak[2] == 8){
 win = -1;
 }
@@ -277,14 +286,6 @@ win = -1;
 }
 if (vlak[2] * vlak[4] * vlak[6] == 8){
 win = -1;
-}
-
-if (vlak[0] * vlak[1] == 9 && vlak[2] == 1){
-andw = 2;
-}
-
-if (vlak[6]*vlak[8]*vlak[7] == 4){
-  andw = 7;
 }
 
 if (vlak[andw] == 1){
