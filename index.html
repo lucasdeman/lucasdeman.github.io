@@ -60,6 +60,7 @@
 <script>
 function Send(){
   document.cookie = "name="+document.getElementById('user').value;
+  location.reload();
 }
 
 document.getElementById('tag').innerHTML=getCookie('name');
