@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,9 @@
 <body id='body'>
 
 <h1>JavaGames</h1>
+<input type='text' id='user' placeholder="type hier je naam..."></input>
+<input type='submit' onclick='Send()'></input>
+<p id='tag'></p>
 
 <div id='cookiediv' class='div'>
 
@@ -52,6 +56,29 @@
 
 <!--visitorcount script-->
 <script>
+function Send(){
+  document.cookie = "name="+document.getElementById('user').value;
+}
+
+document.getElementById('tag').innerHTML=getCookie('name');
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
 if ((location.href == "https://lucasdeman.github.io/" || location.href == "https://lucasdeman.github.io/index") && tel == 1){
 location.href = "https://informatica-lucasdeman.c9users.io/visitorcount.php?name=https://lucasdeman.github.io/";
 }
