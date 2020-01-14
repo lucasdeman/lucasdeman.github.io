@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet">
+
+  <style>
+  .area{
+    background-color: #272B33;
+    color: white;
+    font-size: 30px;
+    font-family: 'Courier Prime', monospace;
+  }
+  .area::selection{
+    background: #AFAEAC;
+  }
+  .grass{
+    background-image: url('grass.png');
+    background-size: cover;
+  }
+  .mine{
+    background-image: url('mine.png');
+    background-size: cover;
+  }
+  .player{
+    background-image: url('test.png');
+    background-size: cover;
+  }
+  .goal{
+    background-image: url('goal.png');
+    background-size: cover;
+  }
+  #startknop{
+    background-color: #20242A;
+    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+    position:absolute;
+    left:42%;
+    top:550px;
+  }
+  .insertbutton{
+    background-color: #272B33;
+    color: white;
+    font-size: 30px;
+    font-family: 'Courier Prime', monospace;
+    width: 200px;
+    height: 40px;
+    text-align:center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  </style>
+
+  <textarea style="resize:none;width:40%" class="area" spellcheck="false" name="opmerking:" cols="30" rows="20" id="input" onkeypress="onenter()"></textarea>
+  <textarea style="resize:none;width:15%" placeholder="output" class="area" spellcheck="false" name="opmerking:" cols="10" rows="20" id="output"></textarea>
+  <div class="area" onclick="start()" style="width:100px;height:100px" id="startknop">Start</div>
+  <button class="insertbutton" style="top:680px;left:10px;position:absolute" onclick="insert('if (')">if (</button>
+  <button class="insertbutton" style="top:680px;left:210px;position:absolute" onclick="insert('while (')">while (</button>
+  <button class="insertbutton" style="top:680px;left:410px;position:absolute" onclick="insert('loop (')">loop (</button>
+  <button class="insertbutton" style="top:680px;left:610px;position:absolute" onclick="insert('print(')">print(</button>
+  <button class="insertbutton" style="top:720px;left:10px;position:absolute" onclick="insert('links()')">links()</button>
+  <button class="insertbutton" style="top:720px;left:210px;position:absolute" onclick="insert('rechts()')">rechts()</button>
+  <button class="insertbutton" style="top:720px;left:410px;position:absolute" onclick="insert('d()')">d()</button>
+  <button class="insertbutton" style="top:720px;left:610px;position:absolute" onclick="insert('vooruit()')">vooruit()</button>
+  <button class="insertbutton" style="top:760px;left:10px;position:absolute" onclick="insertvar()">variable</button>
+  <select id="lvlselecter" onchange="setuptodolist()" class="area" style="position:absolute">
+    <option value="1">lvl1</option>
+    <option value="2">lvl2</option>
+    <option value="3">lvl3</option>
+    <option value="4">lvl4</option>
+  </select>
+
+<script>
+
+var heldposx0;
+var heldposy0;
+var richting0;
+var code;
+var javascript_code;
+document.getElementById("input").placeholder = "var_1 = stel waarde in\n\nif (var_1 == waarde){\n  //run dan deze code\n}\n\nvooruit() loop vooruit\nlinks() draai naar links\nrechts() draai naar rechts\n\nprint(var_1) laat var_1 zien\n\nd() is afstand tot eerste bom in de richting waar je kijkt. Gebruik d() als waarde";
+
+function getlvl(lvlnummer){
+  if (lvlnummer == "2"){
+    heldposx0 = 2;
+    heldposy0 = 6;
+    richting0 = 2;
+    return [[0,0,0,0,2,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,0,0,0,0],
+            [0,1,0,0,0,1,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,1,0,0]];
+  }
+  if (lvlnummer == "1"){
+    heldposx0 = 2;
+    heldposy0 = 6;
+    richting0 = 2;
+    return [[0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,0,0,0,0],
+            [0,0,0,0,0,2,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,1,0,0]];
+  }
+  if (lvlnummer == "3"){
+    heldposx0 = 0;
+    heldposy0 = 6;
+    richting0 = 2;
+    return [[0,0,0,0,0,1,0],
+            [0,0,0,0,1,0,2],
+            [0,0,0,1,0,0,0],
+            [0,0,1,0,0,0,0],
+            [0,1,0,0,0,0,0],
+            [1,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0]];
+  }
+  if (lvlnummer == "4"){
+    heldposx0 = 3;
+    heldposy0 = 3;
+    richting0 = 1;
+    return [[0,0,0,0,0,0,0],
+            [0,0,0,1,0,2,0],
+            [1,0,0,0,0,0,0],
+            [0,0,0,0,1,0,0],
+            [0,0,0,0,0,0,0],
+            [1,0,0,0,0,0,1],
+            [0,1,0,0,0,0,0]];
+  }
+}
+
+function setnewlvl(){
+  veld = getlvl(document.getElementById("lvlselecter").value);
+  for (var x = 0; x < veld[0].length; x++){
+    for (var y = 0; y < veld.length; y++){
+      var str;
+      if (veld[y][x] == 0) { str = "grass"; }
+      if (veld[y][x] == 1) { str = "mine"; }
+      if (veld[y][x] == 2) { str = "goal"; }
+      document.getElementById(x + ',' + y).setAttribute('class', str);
+    }
+  }
+}
+
+var todolist = ['setuptodolist'];
+function setuptodolist(){
+  setnewlvl();
+  richting = richting0;
+  heldposx = heldposx0;
+  heldposy = heldposy0;
+  document.getElementById('held').style.transform = 'rotate(' + (2 - richting) * 90 + 'deg)';
+  document.getElementById("held").style.left = 0.60 * window.innerWidth + 5 + formaat*heldposx + 'px';
+  document.getElementById("held").style.top = 15 + formaat*heldposy + 'px';
+}
+
+function toDoListHandler(i){
+  console.log(todolist[i]);
+  window[todolist[i]]();
+  if (i - 1 >= todolist.length || veld[heldposy][heldposx] == 1 || heldposx < 0 || heldposy < 0 || heldposx >= veld[0].length || heldposy >= veld.length){
+    return;
+  }
+  setTimeout(function(){toDoListHandler(i + 1);}, 500);
+}
+function insertvar(){
+  var str = document.getElementById("input").value;
+  for (var i = 1; i < 150; i++){
+    if (str.indexOf("var_" + i) == -1){
+      insert('var_' + i + ' = ');
+      return;
+    }
+  }
+}
+
+function creatediv(grootte, xpos, ypos, color, x, y){
+  var div = document.createElement("div");
+  div.style.position = 'absolute';
+  div.style.width = grootte + 'px';
+  div.style.height = grootte + 'px';
+  div.style.left = xpos + 'px';
+  div.style.top = ypos + 'px';
+  div.id = x + ',' + y;
+  if (color == 0) { div.setAttribute('class', 'grass'); }
+  if (color == 1) { div.setAttribute('class', 'mine'); }
+  if (color == 2) { div.setAttribute('class', 'goal'); }
+  div.style.zIndex = 1;
+  document.body.appendChild(div);
+}
+
+function insert(tekst){
+  var cursorposition = document.getElementById("input").selectionStart;
+  document.getElementById("input").value = document.getElementById("input").value.slice(0, cursorposition) + tekst + document.getElementById("input").value.slice(cursorposition);
+  document.getElementById("input").focus();
+  document.getElementById("input").selectionStart = cursorposition + tekst.length;
+  document.getElementById("input").selectionEnd = cursorposition + tekst.length;
+}
+
+var veld = getlvl("1");
+var formaat = 0.35 * window.innerWidth / 7;
+for (var x = 0; x < veld[0].length; x++){
+  for (var y = 0; y < veld.length; y++){
+    creatediv(formaat, 0.60 * window.innerWidth + formaat*x, 10 + formaat*y, veld[y][x], x, y);
+  }
+}
+document.getElementById("lvlselecter").style.left = 0.60 * window.innerWidth + 'px';
+document.getElementById("lvlselecter").style.top = 10 + formaat * 7.5 + 'px';
+
+var richting = richting0;
+var heldposx = heldposx0;
+var heldposy = heldposy0;
+var div = document.createElement("div");
+div.style.position = 'absolute';
+div.style.width = '50px';
+div.style.height = '50px';
+div.style.left = 0.60 * window.innerWidth + formaat / 10 + formaat*heldposx + 'px';
+div.style.top = 15 + formaat*heldposy + 'px';
+div.style.zIndex = 2;
+div.id = "held";
+div.setAttribute('class', 'player');
+document.body.appendChild(div);
+
+function vooruit(){
+    if (richting == 1) { heldposx++; }
+    if (richting == 2) { heldposy--; }
+    if (richting == 3) { heldposx--; }
+    if (richting == 4) { heldposy++; }
+    document.getElementById("held").style.left = 0.60 * window.innerWidth + 5 + formaat*heldposx + 'px';
+    document.getElementById("held").style.top = 15 + formaat*heldposy + 'px';
+}
+function links(){
+  richting++;
+  document.getElementById('held').style.transform = 'rotate(' + (2 - richting) * 90 + 'deg)';
+  if (richting == 5) { richting = 1; }
+}
+function rechts(){
+  richting--;
+  document.getElementById('held').style.transform = 'rotate(' + (2 - richting) * 90 + 'deg)';
+  if (richting == 0) { richting = 4; }
+}
+function d(){
+  var stapx = 0;
+  var stapy = 0;
+  if (richting == 1) { stapx++; }
+  if (richting == 2) { stapy--; }
+  if (richting == 3) { stapx--; }
+  if (richting == 4) { stapy++; }
+  var x0 = heldposx;
+  var y0 = heldposy;
+  while (veld[y0][x0] != 1){
+    y0 += stapy;
+    x0 += stapx;
+    if (x0 < 0 || x0 >= veld[0].length || y0 < 0 || y0 >= veld.length){
+      return 0;
+    }
+  }
+  return Math.max(Math.abs(heldposx - x0), Math.abs(heldposy - y0));
+}
+
+function runcode(code){
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  try {
+    s.appendChild(document.createTextNode(code));
+    document.body.appendChild(s);
+  } catch (e) {
+    s.text = code;
+    document.body.appendChild(s);
+  }
+}
+
+function onenter(){
+  var key = window.event.keyCode;
+  if (key === 13)
+  {
+    var codestring = document.getElementById("input").value;
+    var cursorposition = document.getElementById("input").selectionStart;
+    var str = codestring.slice(0, cursorposition);
+    var hoogte = (str.split("{").length - 1) - (str.split("}").length - 1);
+    var insertstring = "";
+    for (var t = 0; t < hoogte; t++) {
+      insertstring += "  ";
+    }
+    setTimeout(function(){ insert(insertstring); }, 0);
+  }
+}
+
+  function start()
+  {
+    todolist = ['setuptodolist'];
+    setuptodolist();
+    document.getElementById("output").value = null;
+    code = document.getElementById("input").value.replace(/\r\n/g,"\n").split("\n");
+    javascript_code = "";
+    var dict = "";
+    for (var i = 0; i < code.length; i++){
+      code[i] = code[i].replace(/ /g, '');
+
+      var slaover = 0;
+      if (code[i].search('=') != -1 && code[i].search('==') == -1 && code[i].search('!=') == -1 && code[i].search('<=') == -1 && code[i].search('>=') == -1)
+      {
+        var variable = code[i].slice(0, code[i].search('='));
+        if (dict.search(variable) != -1) { javascript_code += code[i] + ";"; }
+        if (dict.search(variable) == -1) { javascript_code += "var " + code[i] + ";"; dict += variable + ";"; }
+      }
+      if (code[i].indexOf("print(") != -1) { javascript_code += "document.getElementById('output').value += " + code[i].slice(6, code[i].length - 1) + " + '\\n';"; }
+      if (code[i].indexOf("loop(") != -1)
+      {
+        var x = code[i].slice(5, code[i].lastIndexOf(")"));
+        var variablename = "var" + i + "1093471014973";
+        javascript_code += "var " + variablename + "=0;" + "while(" + variablename + "<" + x + "){" + variablename + "++;";
+        if (code[i].indexOf("{") == -1) { slaover = 1; }
+      }
+      if (code[i].indexOf("while(") != -1)
+      {
+        var x = code[i].slice(6, code[i].lastIndexOf(")"));
+        javascript_code += "while (" + x + "){";
+        if (code[i].indexOf("{") == -1) { slaover = 1; }
+      }
+      if (code[i].indexOf("if(") != -1)
+      {
+        var x = code[i].slice(3, code[i].lastIndexOf(")"));
+        javascript_code += "if (" + x + "){";
+        if (code[i].indexOf("{") == -1) { slaover = 1; }
+      }
+      if (code[i].indexOf("vooruit()") != -1) {
+        javascript_code += "vooruit(); todolist[todolist.length] = 'vooruit'; if (heldposx < 0 || heldposy < 0 || heldposx >= veld[0].length || heldposy >= veld.length) { toDoListHandler(0); throw new Error(); } if (veld[heldposy][heldposx] == 2) { toDoListHandler(0); throw new Error(); } if (veld[heldposy][heldposx] == 1 || todolist.length == 500) { toDoListHandler(0); throw new Error(); }";
+      }
+      if (code[i].indexOf("links()") != -1) {
+        javascript_code += "links(); todolist[todolist.length] = 'links'; if (todolist.length == 500) { toDoListHandler(0); throw new Error(); }";
+      }
+      if (code[i].indexOf("rechts()") != -1) {
+        javascript_code += "rechts(); todolist[todolist.length] = 'rechts'; if (todolist.length == 500) { toDoListHandler(0); throw new Error(); };";
+      }
+      if (code[i].indexOf("d()") != -1){
+        javascript_code += "d();"
+      }
+      if (code[i].indexOf("++") != -1) {
+        javascript_code += code[i] + ";";
+      }
+      if (code[i].indexOf("else") != -1)
+      {
+        javascript_code += "else{";
+        if (code[i].indexOf("{") == -1) { slaover = 1; }
+      }
+      if (code[i] == "}") { javascript_code += "}"; }
+
+      i += slaover; //hier mag niks achter komen
+    }
+    javascript_code += "setuptodolist(); toDoListHandler(0); throw new Error();";
+    runcode(javascript_code);
+  }
+  setuptodolist();
+
+</script>
+
+</body>
+</html>
