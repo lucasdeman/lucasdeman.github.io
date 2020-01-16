@@ -61,14 +61,14 @@
   <button class="insertbutton" style="top:680px;left:610px;position:absolute" onclick="insert('print(')">print(</button>
   <button class="insertbutton" style="top:720px;left:10px;position:absolute" onclick="insert('links()')">links()</button>
   <button class="insertbutton" style="top:720px;left:210px;position:absolute" onclick="insert('rechts()')">rechts()</button>
-  <button class="insertbutton" style="top:720px;left:410px;position:absolute" onclick="insert('d()')">d()</button>
+  <button class="insertbutton" style="top:720px;left:410px;position:absolute" onclick="insert('d(')">d(</button>
   <button class="insertbutton" style="top:720px;left:610px;position:absolute" onclick="insert('vooruit()')">vooruit()</button>
   <button class="insertbutton" style="top:760px;left:10px;position:absolute" onclick="insertvar()">variable</button>
   <select id="lvlselecter" onchange="setuptodolist()" class="area" style="position:absolute">
-    <option value="1">lvl1</option>
-    <option value="2">lvl2</option>
-    <option value="3">lvl3</option>
-    <option value="4">lvl4</option>
+    <option value="1">lvl1 max.score: 6 regels</option>
+    <option value="2">lvl2 max.score: 8 regels</option>
+    <option value="3">lvl3 max.score: 6 regels</option>
+    <option value="4">lvl4 max.score: 6 regels</option>
   </select>
 
 <script>
@@ -190,7 +190,9 @@ function creatediv(grootte, xpos, ypos, color, x, y){
 
 function insert(tekst){
   var cursorposition = document.getElementById("input").selectionStart;
-  document.getElementById("input").value = document.getElementById("input").value.slice(0, cursorposition) + tekst + document.getElementById("input").value.slice(cursorposition);
+  var str = '';
+  if (tekst == 'if (' || tekst == 'while (' || tekst == 'loop (' || tekst == 'print(' || tekst == 'd('){ str = ')'; }
+  document.getElementById("input").value = document.getElementById("input").value.slice(0, cursorposition) + tekst + str + document.getElementById("input").value.slice(cursorposition);
   document.getElementById("input").focus();
   document.getElementById("input").selectionStart = cursorposition + tekst.length;
   document.getElementById("input").selectionEnd = cursorposition + tekst.length;
@@ -211,8 +213,8 @@ var heldposx = heldposx0;
 var heldposy = heldposy0;
 var div = document.createElement("div");
 div.style.position = 'absolute';
-div.style.width = '50px';
-div.style.height = '50px';
+div.style.width = formaat - 10 + 'px';
+div.style.height = formaat - 10 + 'px';
 div.style.left = 0.60 * window.innerWidth + formaat / 10 + formaat*heldposx + 'px';
 div.style.top = 15 + formaat*heldposy + 'px';
 div.style.zIndex = 2;
@@ -238,7 +240,7 @@ function rechts(){
   document.getElementById('held').style.transform = 'rotate(' + (2 - richting) * 90 + 'deg)';
   if (richting == 0) { richting = 4; }
 }
-function d(){
+function d(x){
   var stapx = 0;
   var stapy = 0;
   if (richting == 1) { stapx++; }
@@ -247,11 +249,16 @@ function d(){
   if (richting == 4) { stapy++; }
   var x0 = heldposx;
   var y0 = heldposy;
-  while (veld[y0][x0] != 1){
+  var zoekvariable;
+  if (x == 'bom'){ zoekvariable = 1; }
+  if (x == 'vlag'){ zoekvariable = 2; }
+  if (x == 'grens'){ zoekvariable = -1; }
+  while (veld[y0][x0] != zoekvariable){
     y0 += stapy;
     x0 += stapx;
     if (x0 < 0 || x0 >= veld[0].length || y0 < 0 || y0 >= veld.length){
-      return 0;
+      if (zoekvariable == -1) { return Math.max(Math.abs(heldposx - x0), Math.abs(heldposy - y0)); }
+      else { return 0; }
     }
   }
   return Math.max(Math.abs(heldposx - x0), Math.abs(heldposy - y0));
@@ -332,9 +339,6 @@ function onenter(){
       if (code[i].indexOf("rechts()") != -1) {
         javascript_code += "rechts(); todolist[todolist.length] = 'rechts'; if (todolist.length == 500) { toDoListHandler(0); throw new Error(); };";
       }
-      if (code[i].indexOf("d()") != -1){
-        javascript_code += "d();"
-      }
       if (code[i].indexOf("++") != -1) {
         javascript_code += code[i] + ";";
       }
@@ -348,11 +352,34 @@ function onenter(){
       i += slaover; //hier mag niks achter komen
     }
     javascript_code += "setuptodolist(); toDoListHandler(0); throw new Error();";
+    javascript_code = javascript_code.replace(/bom/g, "'bom'");
+    javascript_code = javascript_code.replace(/vlag/g, "'vlag'");
+    javascript_code = javascript_code.replace(/grens/g, "'grens'");
     runcode(javascript_code);
   }
   setuptodolist();
 
+
+/*
+lvl2:
+var_1 = 0
+while (true){
+  while (d(bom)==1||var_1==3){
+    rechts()
+    var_1++
+    }
+  vooruit()
+  }
+lvl 3:
+while (true){
+  loop (3-d(bom)){
+    links()
+    }
+  vooruit()
+  }
+*/
 </script>
 
 </body>
 </html>
+
