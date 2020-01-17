@@ -66,7 +66,7 @@
   <button class="insertbutton" style="top:760px;left:10px;position:absolute" onclick="insertvar()">variable</button>
   <select id="lvlselecter" onchange="setuptodolist()" class="area" style="position:absolute">
     <option value="1">lvl1 max.score: 6 regels</option>
-    <option value="2">lvl2 max.score: 7 regels</option>
+    <option value="2">lvl2 max.score: 6 regels</option>
     <option value="3">lvl3 max.score: 6 regels</option>
     <option value="4">lvl4 max.score: 6 regels</option>
   </select>
@@ -362,9 +362,8 @@ function onenter(){
 
 /*
 lvl2:
-links()
 while(true){
-  if (d(grens)==1){
+  while (d(grens)==1||d(bom)>0){
     rechts()
   }
   vooruit()
