@@ -1,120 +1,170 @@
 <!DOCTYPE html>
-<html>
-<body>
-    
-<center>
-
-<a id="gelukt" href="https://lucasdeman.github.io/index.html"></a>
-
-<p id="nogniet">-------</p>
-
-<h id="nr1">*</h>
-<h id="nr2">*</h>
-<h id="nr3">*</h>
-<h id="nr4"></h>
-<br>
-
-<button type="button" onclick="myFunction(50)">reset</button><br>
-<button type="button" onclick="myFunction(15)">backspace</button><br>
-<button type="button" onclick="myFunction(1)">1</button>
-<button type="button" onclick="myFunction(2)">2</button>
-<button type="button" onclick="myFunction(3)">3</button><br>
-<button type="button" onclick="myFunction(4)">4</button>
-<button type="button" onclick="myFunction(5)">5</button>
-<button type="button" onclick="myFunction(6)">6</button><br>
-<button type="button" onclick="myFunction(7)">7</button>
-<button type="button" onclick="myFunction(8)">8</button>
-<button type="button" onclick="myFunction(9)">9</button><br>
-<button type="button" onclick="myFunction(0)">0</button>
+<html lang="en" dir="ltr">
+  <body>
+    <style>
+    td, tr {
+      border: 1px solid black;
+      color: black;
+    }
+    table{
+      width: 450px;
+      height: 450px;
+      text-align: center;
+    }
+    .white{
+      color: white;
+    }
+    </style>
 
 
-</center>
+    <script>
 
-<script>
+    for (var x=0; x<2; x++){
+      var div = document.createElement('div');
+      div.style.width='450px';
+      div.style.height='4px';
+      div.style.position='absolute';
+      div.style.top=5+150*(x+1)+'px';
+      div.style.background='red';
+      document.body.appendChild(div);
+    }
+    for (var x=0; x<2; x++){
+      div = document.createElement('div');
+      div.style.height='450px';
+      div.style.width='4px';
+      div.style.position='absolute';
+      div.style.left=5+150*(x+1)+'px';
+      div.style.background='red';
+      document.body.appendChild(div);
+    }
 
-var v = 0;
-var b = 0;
-var n = 0;
-var x = 0;
-var y = 0;
+    function createTable(tableData) {
+  var table = document.createElement('table');
+  var tableBody = document.createElement('tbody');
 
-function myFunction(a){
+  tableData.forEach(function(rowData) {
+    var row = document.createElement('tr');
+    rowData.forEach(function(cellData) {
+      var cell = document.createElement('td');
+      if (Math.random()>0.35){
+        cell.setAttribute('class', 'white');
+      }
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
 
-if (a == 50){
-    document.getElementById("nr1").innerHTML = "*";
-    document.getElementById("nr2").innerHTML = "*";
-    document.getElementById("nr3").innerHTML = "*";
-    document.getElementById("nr4").innerHTML = "";
-    x = 0;
-    v = 0;
-	b = 0;
-	n = 0;
-	x = 0;
-	y = 0;
+    tableBody.appendChild(row);
+  });
+
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+  var button = document.createElement('button');
+  button.innerHTML = 'kijk na';
+  button.setAttribute('onclick', 'reveal()');
+  document.body.appendChild(button);
 }
 
-var t = x + a;
-if (15 < t) {
+  function reveal(){
+    for (var x=0; x<document.getElementsByClassName('white').length; x++){
+      document.getElementsByClassName('white')[x].style.color = 'black';
+    }
+  }
 
-y = "nr" + x;
-document.getElementById(y).innerHTML = "*";
-x--;
+    var board = [];
+    var board2 = [];
+    var subboard = [];
+    function create(){
+      var teller = 0;
+        for (var x = 0; x<9;x++){
+          board[x]=[];
+          for (var y=0; y<9; y++){
+            board[x][y]=0;
+          }
+        }
 
-}else if (10 > a) {
+        for (var x = 0; x<9;x++){
+          board2[x]=[];
+          for (var y=0; y<9; y++){
+            board2[x][y]=0;
+          }
+        }
 
-x++;
+        for (var x = 0; x<3;x++){
+          subboard[x]=[];
+          for (var y=0; y<3; y++){
+            subboard[x][y]=[];
+            for (var z=0; z<9; z++){
+              subboard[x][y][z]=z+1;
+            }
+          }
+        }
 
-y = "nr" + x;
-document.getElementById(y).innerHTML = a;
+        loop1:
+        for (var x = 0; x<9;x++){
+          for (var y=0; y<9; y++){
+            var controle=choosefrom(Math.floor(x/3),Math.floor(y/3), board[x].concat(board2[y]));
+            board[x][y]=controle;
+            board2[y][x]=controle;
+            if (!controle){
+              setTimeout(function(){create()}, 0);
+              break loop1;
+            }else{
+              teller++;
+            }
+          }
+        }
+        if (teller ==81){
+          controll();
+        }
+      }
+      create();
 
-if (x == 1) {
-v = a;
-}
-if (x == 2) {
-b = a;
-}
-if (x == 3) {
-n = a;
-}
-
-if (v == 9) {
-if (b == 4) {
-if (n == 5) {
-
-document.getElementById("nogniet").innerHTML = "";
-document.getElementById("gelukt").innerHTML = "klik hier";
-
-}}}
-    
-if (v == 8) {
-if (b == 7) {
-if (n == 2) {
-
-document.getElementById("nogniet").innerHTML = "";
-document.getElementById("gelukt").innerHTML = "klik hier";
-document.getElementById("gelukt").href = "https://lucasdeman.github.io/puzzel.html";
-
-}}}
-
-if (x > 3) {
-    document.getElementById("nr1").innerHTML = "*";
-    document.getElementById("nr2").innerHTML = "*";
-    document.getElementById("nr3").innerHTML = "*";
-    document.getElementById("nr4").innerHTML = "";
-    x = 0;
-    v = 0;
-	b = 0;
-	n = 0;
-	x = 0;
-	y = 0;
-
-}
-}
-}
+      function controll(){
+        for (var x = 0; x<9;x++){
+          var tot =0;
+          for (var y=0; y<9; y++){
+            tot+=board2[x][y];
+          }
+          if (tot!=45){
+            console.log('vold niet');
+            break;
+          }
+        }
+        console.log('voldoet');
+        createTable(board);
+      }
 
 
+      function choosefrom(x, y, exc){
+        var ans = 0;
+        var begin = Math.floor(Math.random()*subboard[x][y].length);
+        var tel = 0;
+        while (isin(ans, exc)==true&&tel<subboard[x][y].length){
+          var spot = begin+tel;
+          if (spot>=subboard[x][y].length){
+            spot-=subboard[x][y].length;
+          }
+          ans = subboard[x][y][spot];
+          tel++;
+        }
+        if (isin(ans,exc)){
+          ans=false;
+        }
+        subboard[x][y].splice(spot,1)
+        return ans;
+      }
 
-</script>
-
-</body>
-</html> 
+      function isin(is, ins){
+        var ans = false;
+        loop0:
+        for (var q=0; q<ins.length; q++){
+          if (ins[q]==is){
+            ans = true;
+            break loop0;
+          }
+        }
+        return ans
+      }
+    </script>
+  </body>
+</html>
