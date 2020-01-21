@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <body>
+    <style>
+    td, tr {
+      border: 1px solid black;
+      color: black;
+    }
+    table{
+      width: 450px;
+      height: 450px;
+      text-align: center;
+    }
+    .white{
+      color: white;
+    }
+    </style>
+
+
+    <script>
+
+    for (var x=0; x<2; x++){
+      var div = document.createElement('div');
+      div.style.width='450px';
+      div.style.height='4px';
+      div.style.position='absolute';
+      div.style.top=5+150*(x+1)+'px';
+      div.style.background='red';
+      document.body.appendChild(div);
+    }
+    for (var x=0; x<2; x++){
+      div = document.createElement('div');
+      div.style.height='450px';
+      div.style.width='4px';
+      div.style.position='absolute';
+      div.style.left=5+150*(x+1)+'px';
+      div.style.background='red';
+      document.body.appendChild(div);
+    }
+
+    function createTable(tableData) {
+  var table = document.createElement('table');
+  var tableBody = document.createElement('tbody');
+
+  tableData.forEach(function(rowData) {
+    var row = document.createElement('tr');
+    rowData.forEach(function(cellData) {
+      var cell = document.createElement('td');
+      if (Math.random()>0.35){
+        cell.setAttribute('class', 'white');
+      }
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
+
+    tableBody.appendChild(row);
+  });
+
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+  var button = document.createElement('button');
+  button.innerHTML = 'kijk na';
+  button.setAttribute('onclick', 'reveal()');
+  document.body.appendChild(button);
+}
+
+  function reveal(){
+    for (var x=0; x<document.getElementsByClassName('white').length; x++){
+      document.getElementsByClassName('white')[x].style.color = 'black';
+    }
+  }
+
+    var board = [];
+    var board2 = [];
+    var subboard = [];
+    function create(){
+      var teller = 0;
+        for (var x = 0; x<9;x++){
+          board[x]=[];
+          for (var y=0; y<9; y++){
+            board[x][y]=0;
+          }
+        }
+
+        for (var x = 0; x<9;x++){
+          board2[x]=[];
+          for (var y=0; y<9; y++){
+            board2[x][y]=0;
+          }
+        }
+
+        for (var x = 0; x<3;x++){
+          subboard[x]=[];
+          for (var y=0; y<3; y++){
+            subboard[x][y]=[];
+            for (var z=0; z<9; z++){
+              subboard[x][y][z]=z+1;
+            }
+          }
+        }
+
+        loop1:
+        for (var x = 0; x<9;x++){
+          for (var y=0; y<9; y++){
+            var controle=choosefrom(Math.floor(x/3),Math.floor(y/3), board[x].concat(board2[y]));
+            board[x][y]=controle;
+            board2[y][x]=controle;
+            if (!controle){
+              setTimeout(function(){create()}, 0);
+              break loop1;
+            }else{
+              teller++;
+            }
+          }
+        }
+        if (teller ==81){
+          controll();
+        }
+      }
+      create();
+
+      function controll(){
+        for (var x = 0; x<9;x++){
+          var tot =0;
+          for (var y=0; y<9; y++){
+            tot+=board2[x][y];
+          }
+          if (tot!=45){
+            console.log('vold niet');
+            break;
+          }
+        }
+        console.log('voldoet');
+        createTable(board);
+      }
+
+
+      function choosefrom(x, y, exc){
+        var ans = 0;
+        var begin = Math.floor(Math.random()*subboard[x][y].length);
+        var tel = 0;
+        while (isin(ans, exc)==true&&tel<subboard[x][y].length){
+          var spot = begin+tel;
+          if (spot>=subboard[x][y].length){
+            spot-=subboard[x][y].length;
+          }
+          ans = subboard[x][y][spot];
+          tel++;
+        }
+        if (isin(ans,exc)){
+          ans=false;
+        }
+        subboard[x][y].splice(spot,1)
+        return ans;
+      }
+
+      function isin(is, ins){
+        var ans = false;
+        loop0:
+        for (var q=0; q<ins.length; q++){
+          if (ins[q]==is){
+            ans = true;
+            break loop0;
+          }
+        }
+        return ans
+      }
+    </script>
+  </body>
+</html>
