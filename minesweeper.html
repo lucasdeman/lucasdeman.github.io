@@ -1,3 +1,4 @@
+
 <html>
 <style>
     .knop{
@@ -272,11 +273,12 @@ type hier de groote:<br>
 			if(veld[px][py][0] == 0){
           document.getElementById("b"+px+"-"+py).innerHTML = "<button class='geklikt'>.</button>";
         }else if(veld[px][py][0] > 49){
-          setTimeout(dood, 1000);
+          setTimeout(dood, 500);
           document.getElementById("b"+px+"-"+py).innerHTML = "<button class='geklikt'>bomb</button>";
         }else{
           document.getElementById("b"+px+"-"+py).innerHTML = "<button class='geklikt'>"+veld[px][py][0]+"</button>";
           }
+          setTimeout(controle, 500);
         }
 
         function dood(){
@@ -284,8 +286,28 @@ type hier de groote:<br>
           location.reload();
         }
 
+        function controle(){
+          var score = 0;
+          for (x=0; x<veld[0].length; x++){
+            for (y=0; y<veld[0].length; y++){
+              var elm = document.getElementById('b'+x+'-'+y).children[0].className;
+              if (veld[x][y][0] > 40){
+                if ("knop"==elm){
+                  score++;
+                }
+              }else{
+                if ("geklikt"==elm){
+                  score++;
+                }
+              }
+            }
+          }
+          if (score==veld[0].length*veld[0].length){
+            alert('you won!');
+          }
+        }
+
   </script>
 
 </body>
 </html>
-
