@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div style='width:940px; height:940px; background-color: grey;'></div>
+<script>
+var x = 0;
+var y = 0;
+var xblok;
+var yblok;
+var deltax = 1;
+var deltay = 0;
+var aantalblokken = 2;
+var eriseennieuwblokje = false;
+
+var div2 = document.createElement("div");
+div2.id = 'blok';
+div2.style.position = 'absolute';
+div2.style.width = '50px';
+div2.style.height = '50px';
+div2.style.background = 'green';
+document.body.appendChild(div2);
+spawn();
+
+for (i = 0; i < aantalblokken; i++)
+{
+  var div = document.createElement("div");
+  div.id = i;
+  div.style.position = 'absolute';
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.top = '10px';
+  div.style.left = (i * 55 + 10) + 'px';
+  div.style.background = 'rgb(255, 125, 0)';
+  document.body.appendChild(div);
+}
+
+function timer()
+{
+  controle();
+  if (x == xblok && y == yblok)
+  {
+    eriseennieuwblokje = false;
+    aantalblokken++;
+    nieuwblokje(aantalblokken);
+  }
+  for (i = aantalblokken - 1; i > 0; i--)
+  {
+    document.getElementById(i).style.top = document.getElementById(i - 1).style.top;
+    document.getElementById(i).style.left = document.getElementById(i - 1).style.left;
+  }
+  x += deltax;
+  y += deltay;
+  document.getElementById(0).style.top = (y * 55 + 10) + 'px';
+  document.getElementById(0).style.left = (x * 55 + 10) + 'px';
+  if (y>16||x>16||x<0||y<0){
+    alert('lost');
+    location.reload();
+  }
+
+spawn();
+setTimeout(timer, 200);
+}
+
+function controle(){
+  for (var x=0; x<aantalblokken; x++){
+    var top1 = document.getElementById(x).style.top;
+    var left1 = document.getElementById(x).style.left;
+    for (var y=x+1; y<aantalblokken; y++){
+      var top2 = document.getElementById(y).style.top;
+      var left2 = document.getElementById(y).style.left;
+      if (top1==top2 && left1==left2){
+        alert('lost');
+        location.reload();
+      }
+    }
+  }
+}
+
+function spawn()
+{
+  if (eriseennieuwblokje == false)
+  {
+    eriseennieuwblokje = true;
+    xblok = Math.round(Math.random(1, 12) * 10, 0);
+    yblok = Math.round(Math.random(1, 12) * 10, 0);
+    div2.style.top = (yblok * 55 + 10) + 'px';
+    div2.style.left = (xblok * 55 + 10) + 'px';
+  }
+}
+
+function nieuwblokje(q)
+{
+  var div = document.createElement("div");
+  div.id = q - 1;
+  div.style.position = 'absolute';
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.background = 'rgb(255, 125, 0)';
+  document.body.appendChild(div);
+}
+
+document.addEventListener("keydown", keyPressed, false);
+function keyPressed(e)
+{
+var keyCode = e.keyCode;
+
+if (keyCode == 37){ deltax = -1; deltay = 0;}
+if (keyCode == 38){ deltay = -1; deltax = 0;}
+if (keyCode == 39){ deltax = 1; deltay = 0;}
+if (keyCode == 40){ deltay = 1; deltax = 0;}
+}
+timer();
+</script>
+
+</body>
+</html>
