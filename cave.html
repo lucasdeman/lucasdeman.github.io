@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="player" style="position:absolute;border-radius:50%;display:inline-block;background-color:#20242A;z-Index:6"></div>
+<p id="output" style="position:absolute;left:0px;top:0px;font-size:30px;z-Index:10">meter: 0</p>
+<script>
+var xStep = 20;
+var f = 0.5;
+var r = 3.7;
+var divSize = 30;
+var pt1 = f;
+var pt2 = nextGen(f);
+var xt = 0;
+var yt = 0.5;
+var Fres;
+var Vy = 0;
+var snelheid = 0;
+var plaats = 0;
+var dt = 0.05;
+var meter = 0;
+var q = 5;
+document.getElementById("player").style.left = divSize + "px";
+document.getElementById("player").style.top = 3 * divSize + "px";
+document.getElementById("player").style.width = divSize + "px";
+document.getElementById("player").style.height = divSize + "px";
+
+function nextGen(f){
+  return r * f * (1 - f);
+}
+
+for (var y = -3; y < 24; y++){
+  for (var x = 0; x < 25; x++){
+    var div = document.createElement("div");
+    div.style.width = divSize + "px";
+    div.style.height = divSize + "px";
+    div.style.position = "absolute";
+    div.style.left = x * divSize + "px";
+    div.style.top = (y + 3) * divSize + "px";
+    div.id = x + "," + y;
+    div.style.backgroundColor = 'rgba(255,255,255,0)';
+    if (y < 0 || y > 20) { div.style.backgroundColor = "black"; }
+    document.body.appendChild(div);
+  }
+}
+
+function colorDivs(y){
+  for (var i = -3; i < 24; i++){
+    var color = '#4B5262';
+    if (Math.abs(y - i) == q) { color = '#20242A'; } else if (Math.abs(y - i) < q) { color = 'rgba(255,255,255,0)'; }
+    document.getElementById("24," + (i)).style.backgroundColor = color;
+  }
+}
+
+document.addEventListener("keydown", keyPressed, false);
+function keyPressed(e){
+  var keyCode = e.keyCode;
+  if (keyCode == 32){
+    snelheid -= 1;
+  }
+}
+
+var interval = setInterval(function(){
+  for (var x = 0; x < 24; x++){
+    for (var y = -3; y < 24; y++){
+      document.getElementById(x + "," + (y)).style.backgroundColor = document.getElementById((x + 1) + "," + (y)).style.backgroundColor;
+    }
+  }
+  Fres = 1.1 * (pt1 - yt) + (pt2 - yt);
+  Vy += Fres * 0.1;
+  yt += Vy * 0.1;
+  colorDivs(Math.round((1 - yt) * 20 + 1));
+  xt++;
+  meter++;
+  document.getElementById("output").innerHTML = "meter: " + meter;
+  if (meter == 500) { q--; }
+  if (meter == 100) { q--; document.body.style.backgroundImage = "url(https://media.giphy.com/media/B3hcUhLX3BFHa/giphy-downsized-large.gif)"; }
+  if (xt == xStep){
+    xt = 0;
+    pt1 = pt2;
+    pt2 = nextGen(pt2);
+    Fres = 0;
+    Vy = 0;
+  }
+}, 100);
+
+var interval2 = setInterval(function(){
+  snelheid += 2 * dt;
+  plaats += snelheid * dt;
+  document.getElementById("player").style.top = (3 + plaats * 21) * divSize + "px";
+  if (document.getElementById("1," + Math.round(plaats * 21)).style.backgroundColor != 'rgba(255, 255, 255, 0)'){
+    document.getElementById("1," + Math.round(plaats * 21)).style.backgroundColor = "red";
+    clearInterval(interval);
+    clearInterval(interval2);
+  }
+}, 50);
+
+</script>
+</body>
+</html>
