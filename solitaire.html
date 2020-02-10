@@ -1,0 +1,318 @@
+<html>
+<style>
+.card{
+  width: 100px;
+  height: 175px;
+  background-color: grey;
+  border-radius: 25px;
+  position: absolute;
+  border-style: solid;
+  border-color: black;
+  border-width: 5px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  font-size: 50px;
+  color: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+</style>
+<body onmousemove="beweeg(event)">
+
+  <div class='card' onclick='draw()' style='left: 20px; top: 200px; background-color: lightblue;'></div>
+  <div class='card' style='left: 437px; top: 10px; background-color: orange;'></div>
+  <div class='card' style='left: 562px; top: 10px; background-color: orange;'></div>
+  <div class='card' style='left: 687px; top: 10px; background-color: orange;'></div>
+  <div class='card' style='left: 812px; top: 10px; background-color: orange;'></div>
+
+  <script>
+  var plek = -1;
+  var kleuren = ['harten', 'ruiten', 'klaveren', 'schoppen'];
+  var getallen = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'B', 'V', 'H'];
+  var eindstapel = [[0, 0], [0, 0], [0, 0], [0, 0]];
+    var kaarten = [];
+    for (var x=0; x<4; x++){
+      for (var y=0; y<13; y++){
+        kaarten[x*13+y] = [kleuren[x], getallen[y]];
+      }
+    }
+    var stapel = schudden();
+    var lines = [];
+    for (var x=0; x<7; x++){
+      lines[x] = [];
+      for (var y=0; y<x+1; y++){
+        lines[x][y] = stapel.splice(0, 1)[0];
+      }
+    }
+
+    function draw(){
+      plek++;
+      if (plek >= stapel.length){
+        plek=0;
+        for (var x=0; x<stapel.length; x++){
+          document.body.removeChild(document.getElementById(stapel[x][0]+'-'+stapel[x][1]));
+        }
+      }
+      var div = document.createElement('div');
+      div.className = 'card';
+      div.id = stapel[plek][0]+'-'+stapel[plek][1];
+      div.style.left = '20px';
+      div.style.top = '400px';
+      div.setAttribute('onmousedown', "sleep(['"+stapel[plek][0]+"','"+stapel[plek][1]+"'], event)", false);
+      div.setAttribute('onmouseup', 'lietlos()', false);
+      div.innerHTML = stapel[plek][1];
+      div.style.backgroundColor = 'grey';
+      div.style.backgroundImage = 'url('+foto[stapel[plek][0]]+')';
+      document.body.appendChild(div);
+    }
+
+    var pos = [];
+    function findinlijst(a){
+      for (var x=0; x<7; x++){
+        for (var y=0; y<lines[x].length; y++){
+          if (lines[x][y][0]==a[0]&&lines[x][y][1]==a[1]){
+            pos[0]=x;
+            pos[1]=y;
+            return true;
+            break;
+          }
+        }
+      }
+      return false;
+    }
+
+    var posob = [];
+    var posmo = [];
+    var moveid = [];
+    var str = [];
+    var moving = false;
+    function sleep(a, e){
+      if (document.getElementById(a[0]+'-'+a[1]).style.backgroundColor != 'lightblue'&&e.clientY>200){
+        if (!isNaN(a[1])){
+          a[1]=a[1]*1
+        }
+        str = [];
+
+        if (findinlijst(a)){
+          for (var x=0; x<lines[pos[0]].length-pos[1]; x++){
+            moveid[x] = lines[pos[0]][pos[1]+x][0]+'-'+lines[pos[0]][pos[1]+x][1];
+            str[x] = [lines[pos[0]][pos[1]+x][0], lines[pos[0]][pos[1]+x][1]];
+          }
+        }else{
+          moveid[0] = a[0]+'-'+a[1];
+          str[0] = [a[0], a[1]];
+        }
+        for (var x=0; x<moveid.length; x++){
+          document.getElementById(moveid[x]).style.zIndex = 20+x;
+        }
+        posob[0] = document.getElementById(moveid[0]).style.left.slice(0,-2)*1;
+        posob[1] = document.getElementById(moveid[0]).style.top.slice(0,-2)*1;
+        posmo[0] = e.clientX;
+        posmo[1] = e.clientY;
+
+        moving = true;
+      }else{
+        moveid = [];
+      }
+    }
+
+    var poseind = [];
+    function beweeg(e){
+      if (moving){
+        var xx = e.clientX + (posob[0]-posmo[0]);
+        var yy = e.clientY + (posob[1]-posmo[1]);
+        for (var x=0; x<moveid.length; x++){
+          document.getElementById(moveid[x]).style.left = xx+'px';
+          document.getElementById(moveid[x]).style.top = yy+x*40+'px';
+        }
+        poseind[0] = xx;
+        poseind[1] = yy;
+      }
+    }
+
+    function lietlos(){
+      for (var x=0; x<moveid.length; x++){
+        document.getElementById(moveid[x]).style.zIndex = x;
+      }
+      moving = false;
+      var overrule = false;
+      var kan = false;
+      var line = 7;
+      if (poseind[0] > 220 && poseind[0] < 350 && poseind[1]>200){
+        line = 0;
+      }else if (poseind[0] > 345 && poseind[0] < 475 && poseind[1]>200){
+        line = 1;
+      }else if (poseind[0] > 470 && poseind[0] < 600 && poseind[1]>200){
+        line = 2;
+      }else if (poseind[0] > 595 && poseind[0] < 725 && poseind[1]>200){
+        line = 3;
+      }else if (poseind[0] > 720 && poseind[0] < 850 && poseind[1]>200){
+        line = 4;
+      }else if (poseind[0] > 845 && poseind[0] < 975 && poseind[1]>200){
+        line = 5;
+      }else if (poseind[0] > 970 && poseind[0] < 1100 && poseind[1]>200){
+        line = 6;
+      }
+      if (poseind[1]<200 && str.length == 1){
+        var line2 = 4;
+        var kan2 = false;
+        if (poseind[0]>412 && poseind[0]<537){
+          line2 = 0;
+        }else if (poseind[0]>547 && poseind[0]<662){
+          line2 = 1;
+        }else if (poseind[0]>672 && poseind[0]<787){
+          line2 = 2;
+        }else if (poseind[0]>797 && poseind[0]<912){
+          line2 = 3;
+        }
+        var nummer2;
+        if (line2 != 4){
+        for (var x=12; x>-1; x--){
+          if (eindstapel[line2][1] == getallen[x]){
+            nummer2 = getallen[x+1];
+          }
+        }
+        if (eindstapel[line2][1]==0){
+          nummer2='A';
+          eindstapel[line2][0]=str[0][0];
+        }
+      //  console.log(line2+'-'+str[0][1]+', '+nummer2+'-'+eindstapel[line2][0]+', '+str[0][0]);
+
+        if (str[0][1]==nummer2 && eindstapel[line2][0]==str[0][0]){
+          overrule = true;
+          eindstapel[line2][0]=str[0][0];
+          eindstapel[line2][1]=str[0][1];
+          removedoubles(str, 9);
+          document.getElementById(moveid[0]).style.left = 437+line2*125+'px';
+          document.getElementById(moveid[0]).style.top = '10px';
+          document.getElementById(moveid[0]).style.backgroundColor = '#808080';
+        }
+      }
+    }
+
+        if (!overrule && line!=7){
+        var nummer;
+        if (typeof lines[line][lines[line].length-1]=='undefined'){
+          nummer = 'H';
+          kan=true;
+        }else if (!isNaN(lines[line][lines[line].length-1][1])){
+          nummer = lines[line][lines[line].length-1][1] - 1;
+        }else{
+          for (var x=9; x<13; x++){
+            if (lines[line][lines[line].length-1][1] == getallen[x]){
+              nummer = getallen[x-1];
+            }
+          }
+          if (lines[line][lines[line].length-1][1] == 2){
+            nummer = 'A';
+          }
+        }
+
+      if (line!=7){
+        if (nummer == str[0][1] && !kan){
+          if (lines[line][lines[line].length-1][0] == 'harten' && str[0][0] == 'schoppen'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'harten' && str[0][0] == 'klaveren'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'ruiten' && str[0][0] == 'schoppen'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'ruiten' && str[0][0] == 'klaveren'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'schoppen' && str[0][0] == 'ruiten'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'schoppen' && str[0][0] == 'harten'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'klaveren' && str[0][0] == 'ruiten'){
+            kan = true;
+          }else if (lines[line][lines[line].length-1][0] == 'klaveren' && str[0][0] == 'harten'){
+            kan = true;
+          }
+        }
+      }
+    }
+
+      if (kan){
+        for (var x=0; x<moveid.length; x++){
+          document.getElementById(moveid[x]).style.left = line*125+250+'px';
+          document.getElementById(moveid[x]).style.top = lines[line].length * 40 +x*40+ 200 +'px';
+          document.getElementById(moveid[x]).style.zIndex = lines[line].length+x;
+        }
+        for (var x=0; x<str.length; x++){
+          lines[line].push(str[x]);
+        }
+        removedoubles(str, line);
+      }else if (!overrule){
+        for (var x=0; x<moveid.length; x++){
+          document.getElementById(moveid[x]).style.left = posob[0]+'px';
+          document.getElementById(moveid[x]).style.top = posob[1]+x*40+'px';
+        }
+      }
+      moveid = [];
+    }
+
+    function removedoubles(str, line){
+      for (var z=0; z<str.length;z++){
+        for (var x=0; x<7; x++){
+          for (var y=0; y<lines[x].length; y++){
+            if (x!=line&&str[z][0]==lines[x][y][0]&&str[z][1]==lines[x][y][1]){
+              lines[x].splice(y, 1);
+              if (y>0){
+                var idins = lines[x][y-1][0]+'-'+lines[x][y-1][1];
+                document.getElementById(idins).innerHTML = lines[x][y-1][1];
+                document.getElementById(idins).style.backgroundColor = 'grey';
+                document.getElementById(idins).style.backgroundImage = 'url('+foto[lines[x][y-1][0]]+')';
+              }
+            }
+          }
+        }
+      }
+      for (var x=0; x<stapel.length; x++){
+        if (str[0][0]==stapel[x][0]&&str[0][1]==stapel[x][1]){
+          stapel.splice(x, 1);
+        }
+      }
+    }
+
+    foto = {
+      ruiten: 'https://lh3.googleusercontent.com/proxy/OVTuMhgg9ecZ7qTAyDrjLS-Cntl_f_DDQ759cfA2omlOYAcE4ENKoPvxYLjYwm0rc5JGAcSr7dDmBxoonsYZQVAutSALpRmNBw',
+      klaveren: 'https://lh3.googleusercontent.com/proxy/SaRVowxLL1JoIMvsgbNa2lDN5vWKCMPq0xNYIWRT86arUh3Y-32wqZqahJjx-aQpBwYcADWvct0kEDReAQy9L6lGyUYA8Q',
+      schoppen: 'https://lh3.googleusercontent.com/proxy/0WYBazk1sM6395gNvQ6gFzncHuLvSKpyg26gEx-zRG3eKogXtLPlPggzUPgV-dCgdfEmptIX4B9ZlLXor4FOHaLkAuhms2M',
+      harten: 'https://cdn.pixabay.com/photo/2012/04/13/20/38/hearts-33564_960_720.png'
+    }
+    function makefield(){
+      for (var x=0; x<7; x++){
+        for (var y=0; y<x+1; y++){
+          var div = document.createElement('div');
+          div.className = 'card';
+          div.id = lines[x][y][0]+'-'+lines[x][y][1];
+          div.style.left = x * 125 + 250 + 'px';
+          div.style.top = y * 40 + 200 + 'px';
+          div.setAttribute('onmousedown', "sleep(['"+lines[x][y][0]+"','"+lines[x][y][1]+"'], event)", false);
+          div.setAttribute('onmouseup', 'lietlos()', false);
+          if (y==x){
+            div.innerHTML = lines[x][y][1];
+            div.style.backgroundImage = "url("+foto[lines[x][y][0]]+")";
+          }else{
+            div.style.backgroundColor = 'lightblue';
+          }
+          document.body.appendChild(div);
+        }
+      }
+    }
+    makefield();
+
+    function schudden(){
+      var geschud = [];
+      var arr = [...kaarten];
+      for (var x=0; x<52; x++){
+        geschud[x] = arr.splice(Math.floor(Math.random()*arr.length), 1)[0];
+      }
+      return geschud;
+    }
+  </script>
+</body>
+</html>
