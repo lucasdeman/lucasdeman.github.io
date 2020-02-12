@@ -23,7 +23,6 @@
 }
 </style>
 <body onmousemove="beweeg(event)">
-  <p id='delete'></p>
 
   <div class='card' onclick='draw()' style='left: 20px; top: 200px; background-color: lightblue;'></div>
   <div class='card' style='left: 437px; top: 10px; background-color: orange;'></div>
@@ -50,17 +49,24 @@
         lines[x][y] = stapel.splice(0, 1)[0];
       }
     }
-
+    for (var x=0; x<4; x++){
+      for (var y=0; y<13; y++){
+        var p = document.createElement('p');
+        p.id = 'd'+kleuren[x]+'-'+getallen[y];
+        document.body.appendChild(p);
+      }
+    }
     function draw(){
 
       if (plek >= stapel.length){
         plek=0;
         for (var x=0; x<stapel.length; x++){
-          document.getElementById('delete').innerHTML = '';
+          document.getElementById('d'+stapel[x][0]+'-'+stapel[x][1]).innerHTML = '';
         }
       }else{
       var div = document.createElement('div');
       div.className = 'card';
+      div.style.zIndex = plek;
       div.id = stapel[plek][0]+'-'+stapel[plek][1];
       div.style.left = '20px';
       div.style.top = '400px';
@@ -69,7 +75,7 @@
       div.innerHTML = stapel[plek][1];
       div.style.backgroundColor = 'grey';
       div.style.backgroundImage = 'url('+foto[stapel[plek][0]]+')';
-      document.getElementById('delete').appendChild(div);
+      document.getElementById('d'+stapel[plek][0]+'-'+stapel[plek][1]).appendChild(div);
       plek++;
       }
     }
