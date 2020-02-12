@@ -1,3 +1,4 @@
+
 <html>
 <style>
 .card{
@@ -22,6 +23,7 @@
 }
 </style>
 <body onmousemove="beweeg(event)">
+  <p id='delete'></p>
 
   <div class='card' onclick='draw()' style='left: 20px; top: 200px; background-color: lightblue;'></div>
   <div class='card' style='left: 437px; top: 10px; background-color: orange;'></div>
@@ -30,7 +32,7 @@
   <div class='card' style='left: 812px; top: 10px; background-color: orange;'></div>
 
   <script>
-  var plek = -1;
+  var plek = 0;
   var kleuren = ['harten', 'ruiten', 'klaveren', 'schoppen'];
   var getallen = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'B', 'V', 'H'];
   var eindstapel = [[0, 0], [0, 0], [0, 0], [0, 0]];
@@ -50,14 +52,13 @@
     }
 
     function draw(){
-      plek++;
+
       if (plek >= stapel.length){
         plek=0;
         for (var x=0; x<stapel.length; x++){
-          var element = document.getElementById(stapel[x][0]+'-'+stapel[x][1]);
-          element.parentNode.removeChild(element);
+          document.getElementById('delete').innerHTML = '';
         }
-      }
+      }else{
       var div = document.createElement('div');
       div.className = 'card';
       div.id = stapel[plek][0]+'-'+stapel[plek][1];
@@ -68,7 +69,9 @@
       div.innerHTML = stapel[plek][1];
       div.style.backgroundColor = 'grey';
       div.style.backgroundImage = 'url('+foto[stapel[plek][0]]+')';
-      document.body.appendChild(div);
+      document.getElementById('delete').appendChild(div);
+      plek++;
+      }
     }
 
     var pos = [];
@@ -136,6 +139,7 @@
     }
 
     function lietlos(){
+      var indexteller = 1;
       for (var x=0; x<moveid.length; x++){
         document.getElementById(moveid[x]).style.zIndex = x;
       }
@@ -188,8 +192,10 @@
           eindstapel[line2][0]=str[0][0];
           eindstapel[line2][1]=str[0][1];
           removedoubles(str, 9);
+          indexteller++;
           document.getElementById(moveid[0]).style.left = 437+line2*125+'px';
           document.getElementById(moveid[0]).style.top = '10px';
+          document.getElementById(moveid[0]).style.zIndex = indexteller;
           document.getElementById(moveid[0]).style.backgroundColor = '#808080';
         }
       }
@@ -198,8 +204,10 @@
         if (!overrule && line!=7){
         var nummer;
         if (typeof lines[line][lines[line].length-1]=='undefined'){
-          nummer = 'H';
-          kan=true;
+          if (str[0][1]=='H'){
+            kan=true;
+            nummer = 'H';
+          }
         }else if (!isNaN(lines[line][lines[line].length-1][1])){
           nummer = lines[line][lines[line].length-1][1] - 1;
         }else{
@@ -280,7 +288,7 @@
 
     foto = {
       ruiten: 'https://lh3.googleusercontent.com/proxy/OVTuMhgg9ecZ7qTAyDrjLS-Cntl_f_DDQ759cfA2omlOYAcE4ENKoPvxYLjYwm0rc5JGAcSr7dDmBxoonsYZQVAutSALpRmNBw',
-      klaveren: 'https://lh3.googleusercontent.com/proxy/SaRVowxLL1JoIMvsgbNa2lDN5vWKCMPq0xNYIWRT86arUh3Y-32wqZqahJjx-aQpBwYcADWvct0kEDReAQy9L6lGyUYA8Q',
+      klaveren: 'https://lh3.googleusercgitontent.com/proxy/SaRVowxLL1JoIMvsgbNa2lDN5vWKCMPq0xNYIWRT86arUh3Y-32wqZqahJjx-aQpBwYcADWvct0kEDReAQy9L6lGyUYA8Q',
       schoppen: 'https://lh3.googleusercontent.com/proxy/0WYBazk1sM6395gNvQ6gFzncHuLvSKpyg26gEx-zRG3eKogXtLPlPggzUPgV-dCgdfEmptIX4B9ZlLXor4FOHaLkAuhms2M',
       harten: 'https://cdn.pixabay.com/photo/2012/04/13/20/38/hearts-33564_960_720.png'
     }
