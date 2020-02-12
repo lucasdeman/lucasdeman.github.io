@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -17,12 +18,12 @@ var Fres;
 var Vy = 0;
 var snelheid = 0;
 var plaats = 0;
-var dt = 0.05;
+var dt = 0.025;
 var meter = 0;
 var q = 5;
-document.getElementById("player").style.left = divSize + "px";
+document.getElementById("player").style.left =  0.5 * divSize + "px";
 document.getElementById("player").style.top = 3 * divSize + "px";
-document.getElementById("player").style.width = divSize + "px";
+document.getElementById("player").style.width = 2 * divSize + "px";
 document.getElementById("player").style.height = divSize + "px";
 
 function nextGen(f){
@@ -43,7 +44,6 @@ for (var y = -3; y < 24; y++){
     document.body.appendChild(div);
   }
 }
-
 function colorDivs(y){
   for (var i = -3; i < 24; i++){
     var color = '#4B5262';
@@ -56,7 +56,7 @@ document.addEventListener("keydown", keyPressed, false);
 function keyPressed(e){
   var keyCode = e.keyCode;
   if (keyCode == 32){
-    snelheid -= 1;
+    snelheid = -0.8;
   }
 }
 
@@ -87,14 +87,14 @@ var interval = setInterval(function(){
 var interval2 = setInterval(function(){
   snelheid += 2 * dt;
   plaats += snelheid * dt;
+  document.getElementById("player").style.transform = "rotate(" + 2.5 * Math.atan((2*snelheid)/(divSize)) + "rad)";
   document.getElementById("player").style.top = (3 + plaats * 21) * divSize + "px";
   if (document.getElementById("1," + Math.round(plaats * 21)).style.backgroundColor != 'rgba(255, 255, 255, 0)'){
     document.getElementById("1," + Math.round(plaats * 21)).style.backgroundColor = "red";
     clearInterval(interval);
     clearInterval(interval2);
   }
-}, 50);
-
+}, 25);
 </script>
 </body>
 </html>
