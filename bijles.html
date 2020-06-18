@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<style>
+.button{
+    width:80px;
+    height:30px;
+    top:10px;
+    text-align: center;
+    font-size: 20px;
+    position: absolute;
+}
+</style>
+  <canvas id="Canvas" width="500" height="200" style="position:absolute;left:10px;top:90px;border:2px solid black;z-index:1"></canvas>
+  <select id="sizes" class="button" style="left:10px">
+    <option value="1">size 1</option>
+    <option value="2">size 2</option>
+    <option value="3">size 3</option>
+    <option value="4">size 4</option>
+    <option value="5">size 5</option>
+    <option value="6">size 6</option>
+    <option value="7">size 7</option>
+    <option value="8">size 8</option>
+    <option value="9">size 9</option>
+  </select>
+  <select id="colors" class="button" style="left:100px">
+    <option value="blue" style="background-color: blue">blue</option>
+    <option value="red" style="background-color: red">red</option>
+    <option value="green" style="background-color: green">green</option>
+    <option value="yellow" style="background-color: yellow">yellow</option>
+    <option value="black" style="background-color: black;color:white">black</option>
+    <option value="white" style="background-color: white">white</option>
+  </select>
+  <button id="line" class="button" style="left:190px;width:140px" onclick="drawLine()">line OFF</button>
+  <button id="circle" class="button" style="left:340px;width:140px" onclick="drawCircle()">circle OFF</button>
+  <button onclick="Clear()" class="button" style="left:490px">Clear</button>
+  <input type="text" id="input" style="position:absolute;width:550px;height:30px;font-size:20px;top:50px;left:10px">
+<script>
+
+var lineBool = false;
+var circleBool = false;
+var mousePressed = false;
+var lastX = 0, lastY = 0;
+var lineStart = [0, 0];
+var circleStart = [0, 0];
+var deltaTime = 0.1;
+var canvas = document.getElementById('Canvas');
+var ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth - 20;
+canvas.height = window.innerHeight - 100;
+
+canvas.onmousedown = function (e) {
+  if (document.getElementById("input").value == "") {
+    mousePressed = true;
+    Draw(e.pageX - 10, e.pageY - 90, false);
+    if (lineBool) { lineStart = [e.pageX - 10, e.pageY - 90]; }
+    if (circleBool) { circleStart = [e.pageX - 10, e.pageY - 90]; }
+  } else {
+    ctx.font = (4 * document.getElementById("sizes").value + 10) +  "px Arial";
+    ctx.fillStyle = document.getElementById("colors").value;
+    ctx.fillText(document.getElementById("input").value, e.pageX - 10, e.pageY - 90);
+    document.getElementById("input").value = "";
+  }
+};
+canvas.onmousemove = function (e) {
+    if (mousePressed && !lineBool && !circleBool) {
+        Draw(e.pageX - 10, e.pageY - 90, true);
+    }
+};
+canvas.onmouseup = function (e) {
+  if (document.getElementById("input").value == "") {
+    mousePressed = false;
+    if (lineBool){
+      ctx.beginPath();
+      ctx.strokeStyle = document.getElementById("colors").value;
+      ctx.lineWidth = document.getElementById("sizes").value;
+      ctx.lineJoin = "round";
+      ctx.moveTo(lineStart[0], lineStart[1]);
+      ctx.lineTo(e.pageX - 10, e.pageY - 90);
+      ctx.closePath();
+      ctx.stroke();
+    }
+    if (circleBool) {
+      Circle(circleStart[0], circleStart[1], Math.sqrt(Math.pow(e.pageX - 10 - circleStart[0], 2) + Math.pow(e.pageY - 90 - circleStart[1], 2)));
+    }
+  }
+};
+canvas.onmouseleave = function (e) {
+    mousePressed = false;
+};
+
+function drawLine(){
+  lineBool = !lineBool;
+  document.getElementById("line").innerHTML = (lineBool)? "line ON" : "line OFF";
+}
+function drawCircle(){
+  circleBool = !circleBool;
+  document.getElementById("circle").innerHTML = (circleBool)? "circle ON" : "circle OFF";
+}
+function Draw(x, y, isDown) {
+  if (isDown) {
+    ctx.beginPath();
+    ctx.strokeStyle = document.getElementById("colors").value;
+    ctx.lineWidth = (document.getElementById("colors").value == "white")? 7 * document.getElementById("sizes").value : document.getElementById("sizes").value;
+    ctx.lineJoin = "round";
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  lastX = x; lastY = y;
+}
+function Circle(x, y, r){
+  ctx.beginPath();
+  ctx.lineWidth = document.getElementById("sizes").value;
+  ctx.strokeStyle = document.getElementById("colors").value;
+  ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+  ctx.closePath();
+  ctx.stroke();
+}
+function blend(){
+  var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  for (var x = 0; x < canvas.width; x++){
+    for (var y = 0; y < canvas.height; y++){
+      var gem = [0, 0, 0, 0];
+      for (var neighX = x - 1; neighX <= x + 1; neighX++){
+        for (var neighY = x - 1; neighY <= x + 1; neighY++){
+          if (neighX >= 0 && neighX < canvas.width && neighY >= 0 && neighY < canvas.height && (neighX != x || neighY != y)){
+            var kleur = getColor(neighX, neighY, imageData);
+            gem[0] += kleur[0] / 8;
+            gem[1] += kleur[1] / 8;
+            gem[2] += kleur[2] / 8;
+            gem[3] += kleur[3] / 8;
+          }
+        }
+      }
+      var i = y * (canvas.width * 4) + x * 4;
+      imageData.data[i] = gem[0];
+      imageData.data[i + 1] = gem[1];
+      imageData.data[i + 2] = gem[2];
+      imageData.data[i + 3] = gem[3];
+    }
+  }
+  ctx.putImageData(imageData, 0, 0)
+}
+function getColor(x, y, data2){
+  var i = y * (canvas.width * 4) + x * 4;
+  return [data2.data[i], data2.data[i + 1], data2.data[i + 2], data2.data[i + 3]];
+}
+function Clear(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+function knopdruk(e){
+  var key = String.fromCharCode(e.keyCode);
+  if (!isNaN(1*key)){
+    if (key == "0"){
+      document.getElementById("sizes").value = "9";
+      document.getElementById("colors").value = "white";
+    } else {
+      document.getElementById("sizes").value = key;
+      if (document.getElementById("colors").value == "white"){
+        document.getElementById("colors").value = "black";
+      }
+    }
+  }
+}
+
+document.addEventListener("keydown", knopdruk, false);
+
+</script>
+</body>
+</html>
