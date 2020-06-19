@@ -34,38 +34,55 @@
   </select>
   <button id="line" class="button" style="left:190px;width:140px" onclick="drawLine()">line OFF</button>
   <button id="circle" class="button" style="left:340px;width:140px" onclick="drawCircle()">circle OFF</button>
-  <button onclick="Clear()" class="button" style="left:490px">Clear</button>
-  <input type="text" id="input" style="position:absolute;width:550px;height:30px;font-size:20px;top:50px;left:10px">
+  <button id="select" onclick="SelectButton()" class="button" style="left:490px;width:140px">Select OFF</button>
+  <button onclick="Clear()" class="button" style="left:640px">Clear</button>
+  <input type="text" id="input" style="position:absolute;width:700px;height:30px;font-size:20px;top:50px;left:10px">
 <script>
-
+var Xoffset = 12;
+var Yoffset = 92;
 var lineBool = false;
 var circleBool = false;
+var selectBool = false;
 var mousePressed = false;
 var lastX = 0, lastY = 0;
 var lineStart = [0, 0];
 var circleStart = [0, 0];
+var selectStart = [0, 0];
 var deltaTime = 0.1;
 var canvas = document.getElementById('Canvas');
 var ctx = canvas.getContext("2d");
+var imageData = null;
 canvas.width = window.innerWidth - 20;
 canvas.height = window.innerHeight - 100;
+var pastImageDatas = [ctx.getImageData(0, 0, canvas.width, canvas.height), null, null, null, null, null, null, null];
 
 canvas.onmousedown = function (e) {
   if (document.getElementById("input").value == "") {
     mousePressed = true;
-    Draw(e.pageX - 10, e.pageY - 90, false);
-    if (lineBool) { lineStart = [e.pageX - 10, e.pageY - 90]; }
-    if (circleBool) { circleStart = [e.pageX - 10, e.pageY - 90]; }
+    Draw(e.pageX - Xoffset, e.pageY - Yoffset, false);
+    if (lineBool) { lineStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
+    if (circleBool) { circleStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
+    if (selectBool && imageData == null) { selectStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
+    if (selectBool && imageData != null){
+      selectBool = false;
+      document.getElementById("select").innerHTML = "select OFF";
+      ctx.putImageData(imageData, e.pageX - Xoffset, e.pageY - Yoffset);
+      imageData = null;
+    }
   } else {
+    ctx.beginPath();
     ctx.font = (4 * document.getElementById("sizes").value + 10) +  "px Arial";
     ctx.fillStyle = document.getElementById("colors").value;
-    ctx.fillText(document.getElementById("input").value, e.pageX - 10, e.pageY - 90);
+    ctx.fillText(document.getElementById("input").value, e.pageX - Xoffset, e.pageY - Yoffset);
+    ctx.closePath();
+    ctx.stroke();
     document.getElementById("input").value = "";
+    save();
   }
 };
 canvas.onmousemove = function (e) {
-    if (mousePressed && !lineBool && !circleBool) {
-        Draw(e.pageX - 10, e.pageY - 90, true);
+    if (mousePressed && !lineBool && !circleBool && !selectBool) {
+        Draw(e.pageX - Xoffset, e.pageY - Yoffset, true);
     }
 };
 canvas.onmouseup = function (e) {
@@ -77,13 +94,18 @@ canvas.onmouseup = function (e) {
       ctx.lineWidth = document.getElementById("sizes").value;
       ctx.lineJoin = "round";
       ctx.moveTo(lineStart[0], lineStart[1]);
-      ctx.lineTo(e.pageX - 10, e.pageY - 90);
+      ctx.lineTo(e.pageX - Xoffset, e.pageY - Yoffset);
       ctx.closePath();
       ctx.stroke();
     }
     if (circleBool) {
-      Circle(circleStart[0], circleStart[1], Math.sqrt(Math.pow(e.pageX - 10 - circleStart[0], 2) + Math.pow(e.pageY - 90 - circleStart[1], 2)));
+      Circle(circleStart[0], circleStart[1], Math.sqrt(Math.pow(e.pageX - Xoffset - circleStart[0], 2) + Math.pow(e.pageY - Yoffset - circleStart[1], 2)));
     }
+    if (selectBool && imageData == null){
+      imageData = ctx.getImageData(selectStart[0], selectStart[1], e.pageX - Xoffset - selectStart[0], e.pageY - Yoffset - selectStart[1]);
+      ctx.clearRect(selectStart[0], selectStart[1], e.pageX - Xoffset - selectStart[0], e.pageY - Yoffset - selectStart[1]);
+    }
+    save();
   }
 };
 canvas.onmouseleave = function (e) {
@@ -98,6 +120,17 @@ function drawCircle(){
   circleBool = !circleBool;
   document.getElementById("circle").innerHTML = (circleBool)? "circle ON" : "circle OFF";
 }
+function SelectButton(){
+  selectBool = !selectBool;
+  document.getElementById("select").innerHTML = (selectBool)? "select ON" : "select OFF";
+  if (selectBool){
+    lineBool = false;
+    document.getElementById("line").innerHTML = "line OFF";
+    circleBool = false;
+    document.getElementById("circle").innerHTML = "circle OFF";
+  }
+}
+
 function Draw(x, y, isDown) {
   if (isDown) {
     ctx.beginPath();
@@ -144,10 +177,6 @@ function blend(){
   }
   ctx.putImageData(imageData, 0, 0)
 }
-function getColor(x, y, data2){
-  var i = y * (canvas.width * 4) + x * 4;
-  return [data2.data[i], data2.data[i + 1], data2.data[i + 2], data2.data[i + 3]];
-}
 function Clear(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -163,6 +192,23 @@ function knopdruk(e){
         document.getElementById("colors").value = "black";
       }
     }
+  }
+  if (key == "Z"){ ctrlZ(); }
+}
+
+function save(){
+  for (var i = pastImageDatas.length - 2; i >= 0; i--){
+    pastImageDatas[i + 1] = pastImageDatas[i];
+  }
+  pastImageDatas[0] = ctx.getImageData(0, 0, canvas.width, canvas.height);
+}
+function ctrlZ(){
+  if (pastImageDatas[1] != null){
+    ctx.putImageData(pastImageDatas[1], 0, 0);
+    for (var i = 1; i < pastImageDatas.length; i++){
+      pastImageDatas[i - 1] = pastImageDatas[i];
+    }
+    pastImageDatas[pastImageDatas.length - 1] = null;
   }
 }
 
