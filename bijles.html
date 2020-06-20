@@ -36,8 +36,9 @@
   <button id="circle" class="button" style="left:340px;width:140px" onclick="drawCircle()">circle OFF</button>
   <button id="select" onclick="SelectButton()" class="button" style="left:490px;width:140px">Select OFF</button>
   <button onclick="Clear()" class="button" style="left:640px">Clear</button>
-  <input type="text" id="input" style="position:absolute;width:700px;height:30px;font-size:20px;top:50px;left:10px">
+  <input type="text" id="input" style="position:absolute;width:700px;height:30px;font-size:20px;top:50px;left:10px" onfocusin="focusFunction()" onfocusout="blurFunction()">
 <script>
+var focused = false;
 var Xoffset = 12;
 var Yoffset = 92;
 var lineBool = false;
@@ -63,6 +64,16 @@ canvas.onmousedown = function (e) {
     if (lineBool) { lineStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
     if (circleBool) { circleStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
     if (selectBool && imageData == null) { selectStart = [e.pageX - Xoffset, e.pageY - Yoffset]; }
+    if (!selectBool && !circleBool){
+      ctx.beginPath();
+      ctx.strokeStyle = document.getElementById("colors").value;
+      ctx.lineWidth = (document.getElementById("colors").value == "white")? 7 * document.getElementById("sizes").value : document.getElementById("sizes").value;
+      ctx.lineJoin = "round";
+      ctx.moveTo(e.pageX - Xoffset, e.pageY - Yoffset);
+      ctx.lineTo(e.pageX - Xoffset + 0.1, e.pageY - Yoffset + 0.1);
+      ctx.closePath();
+      ctx.stroke();
+    }
     if (selectBool && imageData != null){
       selectBool = false;
       document.getElementById("select").innerHTML = "select OFF";
@@ -77,7 +88,6 @@ canvas.onmousedown = function (e) {
     ctx.closePath();
     ctx.stroke();
     document.getElementById("input").value = "";
-    save();
   }
 };
 canvas.onmousemove = function (e) {
@@ -130,7 +140,6 @@ function SelectButton(){
     document.getElementById("circle").innerHTML = "circle OFF";
   }
 }
-
 function Draw(x, y, isDown) {
   if (isDown) {
     ctx.beginPath();
@@ -152,51 +161,27 @@ function Circle(x, y, r){
   ctx.closePath();
   ctx.stroke();
 }
-function blend(){
-  var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  for (var x = 0; x < canvas.width; x++){
-    for (var y = 0; y < canvas.height; y++){
-      var gem = [0, 0, 0, 0];
-      for (var neighX = x - 1; neighX <= x + 1; neighX++){
-        for (var neighY = x - 1; neighY <= x + 1; neighY++){
-          if (neighX >= 0 && neighX < canvas.width && neighY >= 0 && neighY < canvas.height && (neighX != x || neighY != y)){
-            var kleur = getColor(neighX, neighY, imageData);
-            gem[0] += kleur[0] / 8;
-            gem[1] += kleur[1] / 8;
-            gem[2] += kleur[2] / 8;
-            gem[3] += kleur[3] / 8;
-          }
-        }
-      }
-      var i = y * (canvas.width * 4) + x * 4;
-      imageData.data[i] = gem[0];
-      imageData.data[i + 1] = gem[1];
-      imageData.data[i + 2] = gem[2];
-      imageData.data[i + 3] = gem[3];
-    }
-  }
-  ctx.putImageData(imageData, 0, 0)
-}
 function Clear(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   save();
 }
 function knopdruk(e){
-  var key = String.fromCharCode(e.keyCode);
-  if (!isNaN(1*key)){
-    if (key == "0"){
-      document.getElementById("sizes").value = "9";
-      document.getElementById("colors").value = "white";
-    } else {
-      document.getElementById("sizes").value = key;
-      if (document.getElementById("colors").value == "white"){
-        document.getElementById("colors").value = "black";
+  if (!focused){
+    var key = String.fromCharCode(e.keyCode);
+    if (!isNaN(1*key)){
+      if (key == "0"){
+        document.getElementById("sizes").value = "9";
+        document.getElementById("colors").value = "white";
+      } else {
+        document.getElementById("sizes").value = key;
+        if (document.getElementById("colors").value == "white"){
+          document.getElementById("colors").value = "black";
+        }
       }
     }
+    if (key == "Z"){ ctrlZ(); }
   }
-  if (key == "Z"){ ctrlZ(); }
 }
-
 function save(){
   for (var i = pastImageDatas.length - 2; i >= 0; i--){
     pastImageDatas[i + 1] = pastImageDatas[i];
@@ -211,6 +196,12 @@ function ctrlZ(){
     }
     pastImageDatas[pastImageDatas.length - 1] = null;
   }
+}
+function focusFunction() {
+  focused = true;
+}
+function blurFunction() {
+  focused = false;
 }
 
 document.addEventListener("keydown", knopdruk, false);
