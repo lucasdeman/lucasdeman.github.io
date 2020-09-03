@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <canvas id="map" style="position:absolute;left:400px;top:8px;border:2px solid black;z-index:1" width="500" height="500"></canvas>
+  <textarea id="beginwaardes" placeholder="beginwaardes" rows="10" cols="50"></textarea><br>
+  <textarea id="herhaling" placeholder="herhaling" rows="22" cols="50"></textarea><br>
+  <input id="maxIterations" placeholder="iterations"></input>
+  <button onclick="start()">start</button>
+<script>
+var Xmin = -10, Xmax = 10, Ymin = -10, Ymax = 10, Imax;
+var c = document.getElementById("map");
+var ctx = c.getContext("2d");
+
+class Vector2 {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+  }
+  Multpl(x){
+    return new Vector2(this.x * x, this.y * x);
+  }
+  Add(v){
+    return new Vector2(this.x + v.x, this.y + v.y);
+  }
+  get magnitude(){
+    return Math.sqrt(this.x*this.x + this.y*this.y);
+  }
+  get normalized(){
+    return this.Multpl(1/this.magnitude);
+  }
+}
+
+function start(){
+  ctx.clearRect(0, 0, c.width, c.height);
+  Imax = document.getElementById("maxIterations").value;
+  if (Imax > 100000) { Imax = 100000; }
+  var beginwaardes = document.getElementById("beginwaardes").value.split("\n");
+  var herhaling = document.getElementById("herhaling").value.split("\n");
+  var script = document.createElement("script");
+  for (var i = 0; i < beginwaardes.length; i++){
+    if (beginwaardes[i] == "") { continue; }
+    if (beginwaardes[i].indexOf("map(") != -1){
+      script.innerHTML += beginwaardes[i] + ";";
+    } else {
+      script.innerHTML += "var " + beginwaardes[i] + ";";
+    }
+  }
+  script.innerHTML += "for(var i = 0; i < Imax; i++){";
+  for (var i = 0; i < herhaling.length; i++){
+    var str1 = herhaling[i][herhaling[i].length - 1];
+    if (str1 == "{" || str1 == "}"){
+      script.innerHTML += herhaling[i];
+    } else {
+      script.innerHTML += herhaling[i] + ";";
+    }
+  }
+  script.innerHTML += "}";
+  console.log(script.innerHTML);
+  document.body.appendChild(script);
+  Line(0, Ymin, 0, Ymax);
+  Line(Xmin, 0, Xmax, 0);
+  script.innerHTML = null;
+}
+
+function Pt_On(x, y, color){
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)) - 1, Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)) - 1, 3, 3);
+}
+
+function Line(x, y, x1, y1, color){
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.lineJoin = "round";
+  ctx.moveTo(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+  ctx.lineTo(Math.round((x1 - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((y1 - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+  ctx.closePath();
+  ctx.stroke();
+}
+
+function map(a, b, c, d){
+  Xmin = a;
+  Xmax = b;
+  Ymin = c;
+  Ymax = d;
+}
+
+</script>
+</body>
+</html>
