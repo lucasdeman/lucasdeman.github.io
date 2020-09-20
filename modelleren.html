@@ -5,28 +5,32 @@
   <textarea id="beginwaardes" placeholder="beginwaardes" rows="10" cols="50"></textarea><br>
   <textarea id="herhaling" placeholder="herhaling" rows="22" cols="50"></textarea><br>
   <input id="maxIterations" placeholder="iterations"></input>
-  <button onclick="start()">start</button>
+  <button onclick="start()">start</button><br>
+  <p id="p1"></p><p id="p2"></p>
 <script>
 var Xmin = -10, Xmax = 10, Ymin = -10, Ymax = 10, Imax;
 var c = document.getElementById("map");
 var ctx = c.getContext("2d");
 
-class Vector2 {
+class Vector {
   constructor(x, y){
     this.x = x;
     this.y = y;
   }
   Multpl(x){
-    return new Vector2(this.x * x, this.y * x);
+    return new Vector(this.x * x, this.y * x);
   }
   Add(v){
-    return new Vector2(this.x + v.x, this.y + v.y);
+    return new Vector(this.x + v.x, this.y + v.y);
   }
   get magnitude(){
     return Math.sqrt(this.x*this.x + this.y*this.y);
   }
   get normalized(){
     return this.Multpl(1/this.magnitude);
+  }
+  static get nul(){
+    return new Vector(0, 0);
   }
 }
 
@@ -55,19 +59,18 @@ function start(){
     }
   }
   script.innerHTML += "}";
-  console.log(script.innerHTML);
   document.body.appendChild(script);
-  Line(0, Ymin, 0, Ymax);
-  Line(Xmin, 0, Xmax, 0);
+  Disp_Axes();
   script.innerHTML = null;
 }
+start();
 
-function Pt_On(x, y, color){
+function Pt_On(x, y, color = "black"){
   ctx.fillStyle = color;
   ctx.fillRect(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)) - 1, Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)) - 1, 3, 3);
 }
 
-function Line(x, y, x1, y1, color){
+function Line(x, y, x1, y1, color = "black"){
   ctx.beginPath();
   ctx.strokeStyle = color;
   ctx.lineWidth = 1;
@@ -77,12 +80,54 @@ function Line(x, y, x1, y1, color){
   ctx.closePath();
   ctx.stroke();
 }
-
+function pxlToPnt(px, py){
+  return new Vector(px / (c.width - 1) * (Xmax - Xmin) + Xmin, py / (c.height - 1) * (Ymin - Ymax) + Ymax);
+}
 function map(a, b, c, d){
   Xmin = a;
   Xmax = b;
   Ymin = c;
   Ymax = d;
+}
+function Disp_Axes(){
+  Line(0, Ymin, 0, Ymax);
+  Line(Xmin, 0, Xmax, 0);
+  var r = Math.pow(10, Math.floor(Math.log10(Math.max(Ymax - Ymin, Xmax - Xmin))) - 1);
+  var begin = Math.floor(Math.min(Xmin, Ymin) / r) * r;
+  var eind = Math.ceil(Math.max(Xmax, Ymax) / r) * r;
+  var d = (Xmax - Xmin) / 80;
+  for (var i = begin; i <= eind; i += r){
+    Line(i, d, i, -d);
+    Line(d, i, -d, i);
+  }
+}
+
+var eerstePlek = Vector.nul;
+c.onmousedown = function (e) {
+  eerstePlek = pxlToPnt(e.pageX - 400, e.pageY - 8);
+};
+c.onmouseup = function(e) {
+  var vec = eerstePlek.Add(pxlToPnt(e.pageX - 400, e.pageY - 8).Multpl(-1));
+  Xmin += vec.x;
+  Xmax += vec.x;
+  Ymin += vec.y;
+  Ymax += vec.y;
+  eerstePlek = Vector.nul;
+  start();
+};
+c.onwheel = function (e) {
+  var x = pxlToPnt(e.pageX - 400, e.pageY - 8);
+  var factor = 1 + e.deltaY / 1000;
+  Xmin = x.x + factor * (Xmin - x.x);
+  Xmax = x.x + factor * (Xmax - x.x);
+  Ymin = x.y + factor * (Ymin - x.y);
+  Ymax = x.y + factor * (Ymax - x.y);
+  start();
+};
+c.onmousemove = function(e) {
+  var x = pxlToPnt(e.pageX - 400, e.pageY - 8);
+  document.getElementById("p1").innerHTML = x.x;
+  document.getElementById("p2").innerHTML = x.y;
 }
 
 </script>
