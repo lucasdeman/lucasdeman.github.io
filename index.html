@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
@@ -7,13 +8,13 @@
     padding: 0;
     background-position: center;
     width: 100%;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     position: absolute;
+    background-image: url('https://wallpaperaccess.com/full/398504.jpg');
   }
   .outerspel{
-    width: 20%;
-    height: 10%;
+    height: 5%;
     margin: 2%;
     width: 80%;
     border-radius: 10px;
@@ -37,53 +38,62 @@
 
 
 
-  <div id='underdiv' style="">
+  <div id='underdiv'>
       <a href="http://po-informatica.scienceontheweb.net/">
         <div class="outerspel" style='top: 1%;'>
           <h2>M'n broertjes site</h2>
       </div>
     </a>
     <a href="https://lucasdeman.github.io/schaken.html">
-      <div class="outerspel" style='top: 12%;'>
+      <div class="outerspel" style='top: 7%;'>
         <h2>Schaak</h2>
     </div>
   </a>
   <a href="https://lucasdeman.github.io/minesweeper">
-    <div class="outerspel" style='top: 23%;'>
+    <div class="outerspel" style='top: 13%;'>
       <h2>Minesweeper</h2>
   </div>
 </a>
 <a href="https://lucasdeman.github.io/solitaire.html">
-  <div class="outerspel" style='top: 34%;'>
+  <div class="outerspel" style='top: 19%;'>
     <h2>Solitaire</h2>
 </div>
 </a>
 <a href="https://lucasdeman.github.io/boterkaaseneieren">
-  <div class="outerspel" style='top: 45%;'>
+  <div class="outerspel" style='top: 25%;'>
     <h2>Boter kaas en eieren</h2>
 </div>
 </a>
 <a href="https://lucasdeman.github.io/snake.html">
-  <div class="outerspel" style='top: 56%;'>
+  <div class="outerspel" style='top: 31%;'>
     <h2>Snake</h2>
 </div>
 </a>
 <a href="https://lucasdeman.github.io/rubics.html">
-  <div class="outerspel" style='top: 67%;'>
+  <div class="outerspel" style='top: 37%;'>
     <h2>Actual Rubicscube</h2>
 </div>
 </a>
 <a href="https://lucasdeman.github.io/oud.html">
-  <div class="outerspel" style='top: 78%;'>
+  <div class="outerspel" style='top: 43%;'>
     <h2>Oude site</h2>
 </div>
 </a>
 <a href="https://lucasdeman.github.io/codinggame.html">
-  <div class="outerspel" style='top: 89%;'>
+  <div class="outerspel" style='top: 49%;'>
     <h2>Coding game</h2>
 </div>
 </a>
-
+<a href="https://lucasdeman.github.io/modelleren.html">
+  <div class="outerspel" style='top: 55%;'>
+    <h2>Modelleren</h2>
+</div>
+</a>
+<a href="https://lucasdeman.github.io/bijles.html">
+  <div class="outerspel" style='top: 61%;'>
+    <h2>Doodle</h2>
+</div>
+</a>
   </div>
 
 
@@ -98,10 +108,8 @@ var ctx = c.getContext("2d");
 var screendist = 0.2;
 
 var onderdiv = document.getElementById('underdiv');
-onderdiv.style.height = window.innerHeight + 'px';
+onderdiv.style.height = (window.innerHeight * 2) + 'px';
 onderdiv.style.top = window.innerHeight + 'px';
-//onderdiv.style.backgroundSize = 'cover';
-onderdiv.style.backgroundImage = "url('https://wallpaperaccess.com/full/398504.jpg')";
 
 class Color {
   constructor(r, g, b){
