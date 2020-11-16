@@ -1,0 +1,101 @@
+<html>
+  <body>
+    <canvas id='can' style='border: 1px solid #000000;'></canvas><br>
+    <input type='text' value="1" id='speed' placeholder="snelheid keer:"></input><button onclick='updatespeed()'>done</button>
+    <script>
+      var c = document.getElementById('can');
+      var gif = [];
+      var size = prompt("size in pixels", 600) * 1;
+      c.width = size;
+      c.height = size;
+      var ctx = c.getContext("2d");
+      var N = 100;
+      var zoom = 1.5;
+      var giflength = prompt("aantal fractels per ronde", 80) * 1;
+      var num = prompt("type een nummer tussen 0&1", 0.7885) * 1;
+      for (p=0; p<giflength; p++){
+        var pixels = ctx.getImageData(0, 0, size, size);
+        for (var x=0; x<pixels.data.length; x+=4){
+          var r = ((x/4)%(size) - size/2)/size*2*zoom;
+          var i = (Math.floor(x/2/size)-size/2)/size*zoom - 0.5*zoom;
+          var I = 0;
+          while (I < N && r * r + i * i <= 4)
+          {
+            var Rtemp = r * r - i * i;
+              i = 2 * r * i + num*e2theAi(p/giflength*2*Math.PI)[0];
+              r =  Rtemp + num*e2theAi(p/giflength*2*Math.PI)[1];
+              I++;
+          }
+          var color = [0, 0, 0];
+          if (N-I == 0){
+            color = [0, 0, 0];
+          }else{
+            color = [(N-I)/N*360, 100, (1/2+(N-I)/N/2)*100];
+          }
+          color = HSLToRGB(color[0], color[1], color[2]);
+
+          for (var q=0; q<3; q++){
+            pixels.data[x+q] = color[q];
+          }
+          pixels.data[x+3] = 255;
+        }
+        pixels.data[0] = 0;
+        gif.push(pixels);
+      }
+
+      var interval = setInterval(playGIF, 5000/(giflength)**0.98);
+      var n = 0;
+      function playGIF(){
+        ctx.putImageData(gif[n], 0, 0);
+        n++;
+        if (n==giflength){
+          n=0;
+        }
+      }
+
+
+      function e2theAi(a){
+        return [Math.cos(a), Math.sin(a)];
+      }
+
+      function HSLToRGB(h,s,l) {
+        // Must be fractions of 1
+        s /= 100;
+        l /= 100;
+
+        let c = (1 - Math.abs(2 * l - 1)) * s,
+            x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+            m = l - c/2,
+            r = 0,
+            g = 0,
+            b = 0;
+
+            if (0 <= h && h < 60) {
+        r = c; g = x; b = 0;
+      } else if (60 <= h && h < 120) {
+        r = x; g = c; b = 0;
+      } else if (120 <= h && h < 180) {
+        r = 0; g = c; b = x;
+      } else if (180 <= h && h < 240) {
+        r = 0; g = x; b = c;
+      } else if (240 <= h && h < 300) {
+        r = x; g = 0; b = c;
+      } else if (300 <= h && h < 360) {
+        r = c; g = 0; b = x;
+      }
+      r = Math.round((r + m) * 255);
+      g = Math.round((g + m) * 255);
+      b = Math.round((b + m) * 255);
+
+      return [r, g, b];
+    }
+
+    function updatespeed(){
+      var speed = document.getElementById('speed').value * 1;
+      clearInterval(interval);
+      interval = setInterval(playGIF, 5000/(giflength)**0.98 / speed);
+    }
+
+    </script>
+  </body>
+</html>
