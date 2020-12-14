@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -52,8 +53,8 @@ function getImagedata(){
       i++;
     }
   }
+  AIdata[AIdata.length] = randomGetal;
   allData[allData.length] = AIdata;
-  allData[allData.length] = randomGetal;
   document.getElementById("output").innerHTML = allData.length / 2;
 }
 function getColorIndices(x, y, width){
