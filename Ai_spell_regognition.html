@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <canvas id="Canvas" width="210" height="210" style="position:absolute;left:10px;top:30px;border:2px solid black"></canvas>
+  <img id="mainImage" style="position:absolute;left:10px;top:260px"></img>
+  <input id="input_file" type="file" style="position:absolute;left:10px;top:500px"></input>
+  <output id="output" style="position:absolute;left:500px;top:10px;font-size:30px">0</output>
+  <button onclick="downloadData(allData)">download</button>
+<script>
+var imageSrc = ["spell_energie", "spell_air", "spell_fire", "spell_telekineses", "spell_earth", "spell_water", "spell_shield", "spell_invalid"];
+var Xoffset = 12;
+var Yoffset = 32;
+var mousePressed = false;
+var canvas = document.getElementById('Canvas');
+var ctx = canvas.getContext("2d");
+var AIdata = [];
+var randomGetal = Math.round(Math.random() * 7);
+document.getElementById("mainImage").src = imageSrc[randomGetal] + ".png";
+var allData = [];
+var allDataIndex = 0;
+
+canvas.onmousedown = function (e) {
+    mousePressed = true;
+    Draw(e.pageX - Xoffset, e.pageY - Yoffset, false);
+};
+canvas.onmousemove = function (e) {
+    if (mousePressed) {
+        Draw(e.pageX - Xoffset, e.pageY - Yoffset, true);
+    }
+};
+canvas.onmouseup = function (e) {
+    mousePressed = false;
+    getImagedata();
+    Clear();
+};
+canvas.onmouseleave = function (e) {
+    mousePressed = false;
+};
+
+function getImagedata(){
+  var i = 0;
+  for (var y = 0; y < 21; y++){
+    for (var x = 0; x < 21; x++){
+      var imagedata = ctx.getImageData(10*x, 10*y, 10, 10).data;
+      var totall = 0;
+      for (var n = 0; n < imagedata.length; n++){
+        totall += imagedata[n];
+      }
+      var color = totall / 100;
+      document.getElementById(x + "," + y).style.backgroundColor = "rgba(" + color + "," + color + "," + color + ",1)"
+      AIdata[i] = Math.round(totall / 0.255) / 100000;
+      i++;
+    }
+  }
+  allData[allData.length] = AIdata;
+  allData[allData.length] = randomGetal;
+  document.getElementById("output").innerHTML = allData.length / 2;
+}
+function getColorIndices(x, y, width){
+  return red = y * (width * 4) + x * 4;
+}
+function Draw(x, y, isDown){
+  if (isDown) {
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 9;
+    ctx.lineJoin = "round";
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  lastX = x; lastY = y;
+}
+function Clear(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  randomGetal = Math.round(Math.random() * 7);
+  document.getElementById("mainImage").src = imageSrc[randomGetal] + ".png";
+}
+function knopdruk(e){
+  var key = String.fromCharCode(e.keyCode);
+}
+document.addEventListener("keydown", knopdruk, false);
+
+for (var x = 0; x < 21; x++){
+  for (var y = 0; y < 21; y++){
+    var div = document.createElement("div");
+    div.style.width = "10px";
+    div.style.height = "10px";
+    div.style.position = "absolute";
+    div.style.left = 230 + x * 10 + "px";
+    div.style.top = 32 + y * 10 + "px";
+    div.id = x + "," + y;
+    div.style.backgroundColor = "rgba(0,0,0,1)";
+    document.body.appendChild(div);
+  }
+}
+
+function downloadAI(weights, biases) {
+  var element = document.createElement('a');
+  var weightsStr = "var weight = [[[" + weights[0].join("],[") + "]],[[" + weights[1].join("],[") + "]],[[" + weights[2].join("],[") + "]]];";
+  element.setAttribute('href', 'data:text/javascript;charset=utf-8,' + weightsStr + "var bias = [[" + biases.join("],[") + "]];");
+  element.setAttribute('download', "AI.txt");
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+function downloadData(array2){
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/javascript;charset=utf-8,' + "var data = [[" + array2.join("],[") + "]];");
+  element.setAttribute('download', "AI.txt");
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+function readSingleFile(e) {
+  var file = e.target.files[0];
+  if (!file) {
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var contents = e.target.result;
+    // Display file content
+    displayContents(contents);
+  };
+  reader.readAsText(file);
+}
+
+function displayContents(contents) {
+  var script = document.createElement("script");
+  script.innerHTML = contents;
+  document.body.appendChild(script);
+}
+
+document.getElementById("input_file").addEventListener('change', readSingleFile, false);
+
+</script>
+</body>
+</html>
