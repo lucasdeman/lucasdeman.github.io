@@ -55,8 +55,9 @@ function getImagedata(){
       i++;
     }
   }
-  AIdata[AIdata.length] = randomGetal;
-  allData[allData.length] = AIdata;
+  tussen = [...AIdata];
+  tussen[tussen.length] = randomGetal;
+  allData[allData.length] = [...tussen];
   document.getElementById("output").innerHTML = allData.length;
 }
 function backspace(){
