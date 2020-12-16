@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 <body>
@@ -7,6 +8,7 @@
   <input id="input_file" type="file" style="position:absolute;left:10px;top:500px"></input>
   <output id="output" style="position:absolute;left:500px;top:10px;font-size:30px">0</output>
   <button onclick="downloadData(allData)">download</button>
+  <button onclick='backspace()'>backspace</button>
 <script>
 var imageSrc = ["spell_energie", "spell_air", "spell_fire", "spell_telekineses", "spell_earth", "spell_water", "spell_shield", "spell_invalid"];
 var Xoffset = 12;
@@ -55,8 +57,13 @@ function getImagedata(){
   }
   AIdata[AIdata.length] = randomGetal;
   allData[allData.length] = AIdata;
-  document.getElementById("output").innerHTML = allData.length / 2;
+  document.getElementById("output").innerHTML = allData.length;
 }
+function backspace(){
+  allData = allData.splice(0, allData.length - 1);
+  document.getElementById("output").innerHTML = allData.length;
+}
+
 function getColorIndices(x, y, width){
   return red = y * (width * 4) + x * 4;
 }
