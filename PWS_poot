@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <canvas id="map" style="position:absolute;left:0px;top:0px;z-index:1"></canvas>
+<script>
+var c = document.getElementById("map");
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+var Xmin = -c.width/c.height, Xmax = c.width/c.height, Ymin = -1, Ymax = 1;
+var ctx = c.getContext("2d");
+var screendist = 1;
+
+class Vector2 {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+  }
+  Multpl(x){
+    return new Vector2(this.x * x, this.y * x);
+  }
+  Add(v){
+    return new Vector2(this.x + v.x, this.y + v.y);
+  }
+  get magnitude(){
+    return Math.sqrt(this.x*this.x + this.y*this.y);
+  }
+  get normalized(){
+    return this.Multpl(1/this.magnitude);
+  }
+}
+class Vector3 {
+  constructor(x, y, z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  Add(v){
+    return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
+  }
+  Sub(v){
+    return new Vector3(this.x - v.x, this.y - v.y, this.z - v.z);
+  }
+  Multpl(x){
+    return new Vector3(this.x * x, this.y * x, this.z * x);
+  }
+  Dot(v){
+    return this.x*v.x+this.y*v.y+this.z*v.z;
+  }
+  Crs(v){
+    return new Vector3(this.y*v.z-this.z*v.y, this.z*v.x-this.x*v.z, this.x*v.y-this.y*v.x);
+  }
+  Bounce(n){
+    return this.Add(n.Multpl(-2*n.Dot(this)));
+  }
+  Rot(q){
+    return q.Prod(this.quat).Prod(q.conj).v;
+  }
+  Dist(v){
+    return Math.hypot(this.x - v.x, this.y - v.y, this.z - v.z);
+  }
+  get magnitude(){
+    return Math.hypot(this.x, this.y, this.z);
+  }
+  get normalized(){
+    return this.Multpl(1/this.magnitude);
+  }
+  get quat(){
+    return new Quaternion(0, this);
+  }
+  static get zero(){
+    return new Vector3(0, 0, 0);
+  }
+}
+class Quaternion {
+  constructor(a, v){
+    this.a = a;
+    this.v = v;
+  }
+  Add(q){
+    return new Quaternion(this.a + q.a, this.v.Add(q.v));
+  }
+  Prod(q){
+    return new Quaternion(this.a*q.a-this.v.x*q.v.x-this.v.y*q.v.y-this.v.z*q.v.z, new Vector3(this.a*q.v.x+this.v.x*q.a+this.v.y*q.v.z-this.v.z*q.v.y, this.a*q.v.y+this.v.y*q.a-this.v.x*q.v.z+this.v.z*q.v.x, this.a*q.v.z+this.v.z*q.a+this.v.x*q.v.y-this.v.y*q.v.x));
+  }
+  get conj(){
+    return new Quaternion(this.a, this.v.Multpl(-1));
+  }
+  get magnitude(){
+    return Math.hypot(this.a, this.v.x, this.v.y, this.v.z);
+  }
+  static Rot(feta, vector){
+    return new Quaternion(Math.cos(feta / 2), vector.normalized.Multpl(Math.sin(feta / 2)));
+  }
+}
+class Sphere {
+  constructor(v, r, color = "red"){
+    this.v = v;
+    this.r = r;
+    this.color = color;
+  }
+  Dist(v){
+    return v.Sub(this.v).magnitude - this.r;
+  }
+  rayCast(x, v){
+    var n = this.v.Sub(x);
+    var discr = Math.pow(this.r, 2) - Math.pow(n.magnitude, 2) + Math.pow(n.Dot(v), 2);
+    if (discr >= 0){
+      var r = n.Dot(v) - Math.sqrt(discr);
+      if (r > 0.01) { return [x.Add(v.Multpl(r)), r, x.Add(v.Multpl(r)).Sub(this.v).normalized]; }
+    }
+    return null;
+  }
+  draw(){
+    for (var angle = 0; angle < 2; angle += 0.1){
+      Pt_On3D(new Vector3(this.v.x + this.r * Math.cos(angle * Math.PI), this.v.y + this.r * Math.sin(angle * Math.PI), this.v.z), this.color.toString);
+    }
+    circle(Vector3ToVector2(this.v), screendist * this.r / Math.sqrt(cameraPos.Sub(this.v).magnitude**2 - (this.r**2)), this.color.toString);
+  }
+}
+class Plane {
+  constructor(n, x, color){
+    this.n = n.normalized;
+    this.x = x;
+    this.color = color;
+    var vx = new Vector3(0, 0, -1).Crs(this.n);
+    if (vx.magnitude == 0){
+      vx = new Vector3(1, 0, 0);
+    } else {
+      vx = vx.normalized;
+    }
+    this.m = new Matrix(vx, vx.Crs(this.n), this.n);
+  }
+  Dist(v){
+    return this.n.Dot(v.Sub(this.x));
+  }
+  rayCast(x, v){
+    var d = v.Dot(this.n);
+    if (d != 0){
+      var r = -this.n.Dot(x.Sub(this.x)) / d;
+      var plek = this.m.inverse.MultMatrix(x.Add(v.Multpl(r)));
+      if (r > 0.01) { return [x.Add(v.Multpl(r)), r, this.n]; }
+    }
+    return null;
+  }
+  draw(){
+    for (var n = -10; n <= 10; n++){
+      Line3D(this.m.MultMatrix(new Vector3(2*n, -20, 0)).Add(this.x), this.m.MultMatrix(new Vector3(2*n, 20, 0)).Add(this.x), this.color);
+      Line3D(this.m.MultMatrix(new Vector3(-20, 2*n, 0)).Add(this.x), this.m.MultMatrix(new Vector3(20, 2*n, 0)).Add(this.x), this.color);
+    }
+  }
+}
+class Matrix {
+  constructor(v1, v2, v3){
+    this.v1 = v1;
+    this.v2 = v2;
+    this.v3 = v3;
+  }
+  MultMatrix(v){
+    return this.v1.Multpl(v.x).Add(this.v2.Multpl(v.y)).Add(this.v3.Multpl(v.z));
+  }
+  Mult(m){
+    return new Matrix(m.MultMatrix(this.v1), m.MultMatrix(this.v2), m.MultMatrix(this.v3));
+  }
+  Multpl(x){
+    return new Matrix(this.v1.Multpl(x), this.v2.Multpl(x), this.v3.Multpl(x));
+  }
+  draw(begin = Vector3.zero){
+    Line3D(begin, this.v1.Add(begin), "red");
+    Line3D(begin, this.v2.Add(begin), "green");
+    Line3D(begin, this.v3.Add(begin), "blue");
+  }
+  get inverse(){
+    var a = this.v1.x, b = this.v2.x, c = this.v3.x, d = this.v1.y, e = this.v2.y, f = this.v3.y, g = this.v1.z, h = this.v2.z, k = this.v3.z, det = this.det;
+    return new Matrix(new Vector3(e*k-f*h,-d*k+f*g,d*h-e*g).Multpl(1 / det),new Vector3(-b*k+c*h,a*k-c*g,-a*h+b*g).Multpl(1 / det),new Vector3(b*f-c*e,-a*f+c*d,a*e-b*d).Multpl(1 / det));
+  }
+  get transpose(){
+    return new Matrix(new Vector3(this.v1.x, this.v2.x, this.v3.x), new Vector3(this.v1.y, this.v2.y, this.v3.y), new Vector3(this.v1.z, this.v2.z, this.v3.z));
+  }
+  get det(){
+    var a = this.v1.x, b = this.v2.x, c = this.v3.x, d = this.v1.y, e = this.v2.y, f = this.v3.y, g = this.v1.z, h = this.v2.z, k = this.v3.z;
+    return a*(e*k-f*h)-b*(d*k-f*g)+c*(d*h-e*g);
+  }
+  static Quat(q){
+    return new Matrix(new Vector3(1,0,0).Rot(q), new Vector3(0,1,0).Rot(q), new Vector3(0,0,1).Rot(q));
+  }
+  Rot(q){
+    return new Matrix(this.v1.Rot(q), this.v2.Rot(q), this.v3.Rot(q));
+  }
+  static get identity(){
+    return new Matrix(new Vector3(1,0,0), new Vector3(0,1,0), new Vector3(0,0,1));
+  }
+}
+class Poot {
+  constructor(angles0){
+    this.angles0 = angles0;
+    this.angles = [0, 0, 0];
+    this.Tangles = [0, 0, 0];
+    this.p0 = robotPos.Add(new Vector3(6.35*Math.cos(angles0[0]), 6.35*Math.sin(angles0[0]), 0));
+    this.idealSpot = new Vector3(16.12*Math.cos(angles0[0]), 16.12*Math.sin(angles0[0]), 0);
+  }
+
+  setTarget(target){
+    this.Tangles = approachTarget(this.angles[0], this.angles[1], this.angles[2], this.p0, this.angles0[0], this.angles0[1], this.angles0[2], target);
+    this.angles = this.Tangles;
+    if (this.angles[0] > 0.5*Math.PI) { this.angles[0] = 0.5*Math.PI; }
+    if (this.angles[0] < -0.5*Math.PI) { this.angles[0] = -0.5*Math.PI; }
+    if (this.angles[1] > Math.PI) { this.angles[1] = Math.PI; }
+    if (this.angles[1] < 0) { this.angles[1] = 0; }
+    if (this.angles[2] > Math.PI) { this.angles[2] = Math.PI; }
+    if (this.angles[2] < 0) { this.angles[2] = 0; }
+  }
+
+  draw(color = "black"){
+    var p = getP(this.angles[0], this.angles[1], this.angles[2], this.p0, this.angles0[0], this.angles0[1], this.angles0[2]);
+    Line3D(p[0], p[1], color);
+    Line3D(p[1], p[2], color);
+    Line3D(p[2], p[3], color);
+    Pt_On3D(this.idealSpot, "red");
+  }
+}
+
+var cameraPos = new Vector3(2, 2, 2).Multpl(10);
+var l = [4.8, 4.2, 8.4];
+var cameraMatrix;
+var robotPos = new Vector3(0, 0, 5);
+var groundPlane = new Plane(new Vector3(0, 0, 1), Vector3.zero, "green");
+
+var poten = [null, null, null, null];
+var targets = [null, null, null, null];
+for (var i = 0; i < 4; i++){
+  poten[i] = new Poot([0.5*Math.PI*i, 0.25*Math.PI, -0.75*Math.PI]);
+  targets[i] = new Vector3(14.12*Math.cos(0.5*Math.PI*i), 14.12*Math.sin(0.5*Math.PI*i), 0);
+  poten[i].setTarget(targets[i]);
+}
+
+var alp = Math.random() * 2 * Math.PI;
+var dir = new Vector3(Math.cos(alp), Math.sin(alp), 0);
+
+var tijd = 0;
+var pootDoetMee = [true, true, true, true];
+function start(){
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  cilinder(6.35, 1.35, robotPos);
+  groundPlane.draw();
+  Line3D(Vector3.zero, dir.Multpl(8), "red");
+  for (var i = 0; i < 4; i++){
+    poten[i].draw();
+    targets[i] = targets[i].Add(dir.Multpl(-0.2));
+    poten[i].setTarget(targets[i]);
+  }
+  if (tijd == 5){
+    tijd = 0;
+    var zwaartepunten = [targets[1].Add(targets[2]).Add(targets[3]).magnitude, targets[0].Add(targets[2]).Add(targets[3]).magnitude, targets[1].Add(targets[0]).Add(targets[3]).magnitude, targets[1].Add(targets[2]).Add(targets[0]).magnitude];
+    var kleinsteIndex = -1;
+    var kleinsteWaarde = Infinity;
+    for (var i = 0; i < 4; i++){
+      if (zwaartepunten[i] < kleinsteWaarde && pootDoetMee[i]){
+        kleinsteIndex = i;
+        kleinsteWaarde = zwaartepunten[i];
+      }
+    }
+    pootDoetMee[kleinsteIndex] = false;
+    if (!pootDoetMee[0] && !pootDoetMee[1] && !pootDoetMee[2] && !pootDoetMee[3]){
+      pootDoetMee = [true, true, true, true];
+    }
+    targets[kleinsteIndex] = poten[kleinsteIndex].idealSpot.Add(dir.Multpl(2));
+    poten[kleinsteIndex].setTarget(targets[kleinsteIndex]);
+  }
+  groundPlane.x = groundPlane.x.Add(dir.Multpl(-0.2));
+  if (groundPlane.x.x > 2) { groundPlane.x.x -= 2; }
+  if (groundPlane.x.x < -2) { groundPlane.x.x += 2; }
+  if (groundPlane.x.y > 2) { groundPlane.x.y -= 2; }
+  if (groundPlane.x.y < -2) { groundPlane.x.y += 2; }
+  tijd++;
+}
+
+function getP(alpha, beta, gamma, x, alpha0, beta0, gamma0){
+  var p = [x, null, null, null];
+  p[1] = p[0].Add(new Vector3(Math.cos(alpha0+alpha), Math.sin(alpha0+alpha), 0).Multpl(l[0]));
+  p[2] = p[1].Add(new Vector3(Math.cos(alpha0+alpha)*Math.cos(beta0+beta), Math.sin(alpha0+alpha)*Math.cos(beta0+beta), Math.sin(beta0+beta)).Multpl(l[1]));
+  p[3] = p[2].Add(new Vector3(Math.cos(alpha0+alpha)*Math.cos(beta0+beta)*Math.cos(gamma0+gamma)-Math.cos(alpha0+alpha)*Math.sin(beta0+beta)*Math.sin(gamma0+gamma), Math.sin(alpha0+alpha)*Math.cos(beta0+beta)*Math.cos(gamma0+gamma)-Math.sin(alpha0+alpha)*Math.sin(beta0+beta)*Math.sin(gamma0+gamma), Math.sin(beta0+beta)*Math.cos(gamma0+gamma)+Math.cos(beta0+beta)*Math.sin(gamma0+gamma)).Multpl(l[2]));
+  return p;
+}
+function approachTarget(alpha, beta, gamma, x, alpha0, beta0, gamma0, target){
+  var i;
+  var cost = 1;
+  for (i = 0; i < 100 && cost > 0.0001; i++){
+    var dpxda = -l[0]*Math.sin(alpha0+alpha)-l[1]*Math.sin(alpha0+alpha)*Math.cos(beta0+beta)-l[2]*Math.sin(alpha0+alpha)*Math.cos(beta0+beta)*Math.cos(gamma0+gamma)+l[2]*Math.sin(alpha0+alpha)*Math.sin(beta0+beta)*Math.sin(gamma0+gamma);
+    var dpyda = l[0]*Math.cos(alpha0+alpha)+l[1]*Math.cos(alpha0+alpha)*Math.cos(beta0+beta)+l[2]*Math.cos(alpha0+alpha)*Math.cos(beta0+beta)*Math.cos(gamma0+gamma)-l[2]*Math.cos(alpha0+alpha)*Math.sin(beta0+beta)*Math.sin(gamma0+gamma);
+    var dpxdb = -l[1]*Math.cos(alpha0+alpha)*Math.sin(beta0+beta)-l[2]*Math.cos(alpha0+alpha)*Math.sin(beta0+beta)*Math.cos(gamma0+gamma)-l[2]*Math.cos(alpha0+alpha)*Math.cos(beta0+beta)*Math.sin(gamma0+gamma);
+    var dpydb = -l[1]*Math.sin(alpha0+alpha)*Math.sin(beta0+beta)-l[2]*Math.sin(alpha0+alpha)*Math.sin(beta0+beta)*Math.cos(gamma0+gamma)-l[2]*Math.sin(alpha0+alpha)*Math.cos(beta0+beta)*Math.sin(gamma0+gamma);
+    var dpzdb = l[1]*Math.cos(beta0+beta)+l[2]*Math.cos(beta0+beta)*Math.cos(gamma0+gamma)-l[2]*Math.sin(beta0+beta)*Math.sin(gamma0+gamma);
+    var dpxdg = -l[2]*Math.cos(alpha0+alpha)*Math.cos(beta0+beta)*Math.sin(gamma0+gamma)-l[2]*Math.cos(alpha0+alpha)*Math.sin(beta0+beta)*Math.cos(gamma0+gamma);
+    var dpydg = -l[2]*Math.sin(alpha0+alpha)*Math.cos(beta0+beta)*Math.sin(gamma0+gamma)-l[2]*Math.sin(alpha0+alpha)*Math.sin(beta0+beta)*Math.cos(gamma0+gamma);
+    var dpzdg = -l[2]*Math.sin(beta0+beta)*Math.sin(gamma0+gamma)+l[2]*Math.cos(beta0+beta)*Math.cos(gamma0+gamma);
+    var p = new Vector3(dpyda + x.x, -dpxda + x.y, -dpxdb/Math.cos(alpha0+alpha) + x.z);
+    var dcda = (p.x - target.x)*dpxda + (p.y - target.y)*dpyda;
+    var dcdb = (p.x - target.x)*dpxdb + (p.y - target.y)*dpydb + (p.z - target.z)*dpzdb;
+    var dcdg = (p.x - target.x)*dpxdg + (p.y - target.y)*dpydg + (p.z - target.z)*dpzdg;
+    cost = (p.x - target.x)**2 + (p.y - target.y)**2 + (p.z - target.z)**2;
+    alpha -= 0.01 * dcda;
+    beta -= 0.01 * dcdb;
+    gamma -= 0.01 * dcdg;
+  }
+  return [alpha, beta, gamma];
+}
+function Pt_On3D(v, color = "black"){
+  var vect = cameraMatrix.MultMatrix(v.Sub(cameraPos));
+  Pt_On(vect.x * screendist/vect.z, vect.y * screendist/vect.z, color);
+}
+function Pt_On(x, y, color = "black"){
+  ctx.fillStyle = color;
+  ctx.fillRect(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)) - 1, Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)) - 1, 3, 3);
+}
+
+function Line3D(v1, v2, color = "black"){
+  var vect1 = cameraMatrix.MultMatrix(v1.Sub(cameraPos));
+  var vect2 = cameraMatrix.MultMatrix(v2.Sub(cameraPos));
+  Line(vect1.x * screendist/vect1.z, vect1.y * screendist/vect1.z, vect2.x * screendist/vect2.z, vect2.y * screendist/vect2.z, color);
+}
+function Line(x, y, x1, y1, color){
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.lineJoin = "round";
+  ctx.moveTo(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+  ctx.lineTo(Math.round((x1 - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((y1 - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+  ctx.closePath();
+  ctx.stroke();
+}
+function circle(m, r, color = "black"){
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.arc(Math.round((m.x - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((m.y - Ymax)/(Ymin - Ymax)*(c.height - 1)), r / (Xmax - Xmin) * c.width, 0, 2 * Math.PI);
+  ctx.stroke();
+}
+function cilinder(r, h, x, color="black"){
+  for (var an = 0; an < 2; an += 0.1){
+    Line3D(new Vector3(x.x + r*Math.cos(an*Math.PI), x.y + r*Math.sin(an*Math.PI), x.z + h), new Vector3(x.x + r*Math.cos((an+0.1)*Math.PI), x.y + r*Math.sin((an+0.1)*Math.PI), x.z + h));
+    Line3D(new Vector3(x.x + r*Math.cos(an*Math.PI), x.y + r*Math.sin(an*Math.PI), x.z - h), new Vector3(x.x + r*Math.cos((an+0.1)*Math.PI), x.y + r*Math.sin((an+0.1)*Math.PI), x.z - h));
+    Line3D(new Vector3(x.x + r*Math.cos(an*Math.PI), x.y + r*Math.sin(an*Math.PI), x.z + h), new Vector3(x.x + r*Math.cos(an*Math.PI), x.y + r*Math.sin(an*Math.PI), x.z - h));
+  }
+}
+
+function lookAt(v = Vector3.zero, up = new Vector3(0, 0, 1)){
+  var z = v.Sub(cameraPos).normalized;
+  var x = z.Crs(up).normalized;
+  var y = x.Crs(z).normalized;
+  cameraMatrix = new Matrix(x, y, z).inverse;
+}
+lookAt();
+function map(a, b, c, d){
+  Xmin = a;
+  Xmax = b;
+  Ymin = c;
+  Ymax = d;
+}
+
+function Vector2FromPxl(x, y){
+  var Cx = x/(c.width-1)*(Xmax - Xmin)+Xmin;
+  var Cy = y/(c.height-1)*(Ymin - Ymax)+Ymax;
+  return new Vector2(Cx, Cy);
+}
+function Vector2ToPxl(x, y){
+  return new Vector2(Math.round((x - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((y - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+}
+function Vector3ToPxl(v){
+  var vect = cameraMatrix.MultMatrix(v.Sub(cameraPos));
+  if (vect.z < 0) { return null; }
+  return new Vector2(Math.round((vect.x * screendist / vect.z - Xmin)/(Xmax - Xmin)*(c.width - 1)), Math.round((vect.y * screendist / vect.z - Ymax)/(Ymin - Ymax)*(c.height - 1)));
+}
+function Vector3ToVector2(v){
+  var vect = cameraMatrix.MultMatrix(v.Sub(cameraPos));
+  return new Vector2(vect.x * screendist/vect.z, vect.y * screendist/vect.z);
+}
+function RayFromPxl(x, y){
+  var Cx = x/(c.width-1)*(Xmax - Xmin)+Xmin;
+  var Cy = y/(c.height-1)*(Ymin - Ymax)+Ymax;
+  return cameraMatrix.inverse.MultMatrix(new Vector3(Cx, Cy, screendist)).normalized;
+}
+
+var firstplace = null;
+c.onmousedown = function (e) {
+  var hit = new Sphere(Vector3.zero, 25).rayCast(cameraPos, RayFromPxl(e.pageX, e.pageY));
+  if (hit != null){
+    firstplace = cameraMatrix.MultMatrix(hit[0].normalized);
+  }
+}
+c.onmousemove = function (e) {
+  var hit = new Sphere(Vector3.zero, 25).rayCast(cameraPos, RayFromPxl(e.pageX, e.pageY));
+  if (firstplace != null){
+    if (hit != null){
+      var newlocation = hit[0].normalized;
+      firstplace = cameraMatrix.inverse.MultMatrix(firstplace);
+      if (newlocation.Crs(firstplace).magnitude > 0){
+        cameraPos = cameraPos.Rot(Quaternion.Rot(newlocation.Sub(firstplace).magnitude*6, newlocation.Crs(firstplace).normalized));
+      }
+      firstplace = cameraMatrix.MultMatrix(newlocation);
+      lookAt();
+    } else {
+      firstplace = null;
+    }
+  }
+}
+c.onmouseup = function (e) {
+  firstplace = null;
+}
+
+window.setInterval(function () { start(); }, 50);
+
+</script>
+</body>
+</html>
